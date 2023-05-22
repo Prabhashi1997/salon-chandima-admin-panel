@@ -7,6 +7,8 @@ import { TypographyComponent } from '../../typography/typography.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UserEditComponent } from 'app/pages/user-edit/user-edit.component';
 import { AdminProfileComponent } from 'app/pages/admin-profile/admin-profile.component';
+import { ServiceProfileComponent } from 'app/pages/service-profile/service-profile.component';
+
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -58,6 +60,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'user-edit',  component: UserEditComponent },
     { path: 'admin-profile',  component: AdminProfileComponent },
+    { path: 'service-profile',  component: ServiceProfileComponent },
+
 
 
 ];

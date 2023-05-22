@@ -16,6 +16,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {UserEditComponent } from 'app/pages/user-edit/user-edit.component';
 import {AdminProfileComponent } from 'app/pages/admin-profile/admin-profile.component';
+import {ServiceProfileComponent } from 'app/pages/service-profile/service-profile.component';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import {AdminProfileComponent } from 'app/pages/admin-profile/admin-profile.comp
     NotificationsComponent,
     UserEditComponent,
     AdminProfileComponent,
+    ServiceProfileComponent,
   ]
 })
 
