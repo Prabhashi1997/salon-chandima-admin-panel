@@ -15,8 +15,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {UserEditComponent } from 'app/pages/user-edit/user-edit.component';
-import {AdminProfileComponent } from 'app/pages/admin-profile/admin-profile.component';
-import {ServiceProfileComponent } from 'app/pages/service-profile/service-profile.component';
+import { AdminEditComponent } from 'app/pages/admin-edit/admin-edit.component';
+import { ServiceEditComponent } from 'app/pages/service-edit/service-edit.component';
+import { CustomerEditComponent } from 'app/pages/customer-edit/customer-edit.component';
+
 
 @NgModule({
   imports: [
@@ -38,8 +40,9 @@ import {ServiceProfileComponent } from 'app/pages/service-profile/service-profil
     TypographyComponent,
     NotificationsComponent,
     UserEditComponent,
-    AdminProfileComponent,
-    ServiceProfileComponent,
+    AdminEditComponent,
+    ServiceEditComponent,
+    CustomerEditComponent,
   ]
 })
 

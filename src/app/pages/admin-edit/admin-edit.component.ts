@@ -3,11 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-admin-profile',
-  templateUrl: './admin-profile.component.html',
-  styleUrls: ['./admin-profile.component.scss']
+  selector: 'app-admin-edit',
+  templateUrl: './admin-edit.component.html',
+  styleUrls: ['./admin-edit.component.scss']
 })
-export class AdminProfileComponent implements OnInit {
+export class AdminEditComponent implements OnInit {
 
   adminForm;
   isLoading = false;

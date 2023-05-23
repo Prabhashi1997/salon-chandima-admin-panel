@@ -3,11 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-service-profile',
-  templateUrl: './service-profile.component.html',
-  styleUrls: ['./service-profile.component.scss']
+  selector: 'app-service-edit',
+  templateUrl: './service-edit.component.html',
+  styleUrls: ['./service-edit.component.scss']
 })
-export class ServiceProfileComponent implements OnInit {
+export class ServiceEditComponent implements OnInit {
 
   serviceForm;
   isLoading = false;

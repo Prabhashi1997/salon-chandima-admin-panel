@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ServiceProfileComponent } from './service-profile.component';
+import { ServiceProfileComponent } from './service-edit.component';
 
 describe('ServiceProfileComponent', () => {
   let component: ServiceProfileComponent;

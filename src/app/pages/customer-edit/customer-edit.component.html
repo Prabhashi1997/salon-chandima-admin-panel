@@ -4,15 +4,15 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title">Employee Profile</h4>
+                        <h4 class="card-title">Customer Profile</h4>
                         <p class="card-category">Complete your profile</p>
                     </div>
                     <div class="card-body">
-                        <form (ngSubmit)="submit()" [formGroup]="userForm" *ngIf="isLoading">
+                        <form (ngSubmit)="submit()" [formGroup]="customerForm" *ngIf="isLoading">
                             <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput  placeholder="First Name" type="text" [(ngModel)]="user.firstName" id="firstName" formControlName="firstName">
+                                    <input matInput  placeholder="First Name" type="text" [(ngModel)]="customer.firstName" id="firstName" formControlName="firstName">
                                   </mat-form-field>
                                   <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
                                     <div *ngIf="firstName?.errors?.['required']">
@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Last Name" type="text" [(ngModel)]="user.lastName" id="lastName" formControlName="lastName">
+                                    <input matInput placeholder="Last Name" type="text" [(ngModel)]="customer.lastName" id="lastName" formControlName="lastName">
                                   </mat-form-field>
                                   <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
                                     <div *ngIf="lastName?.errors?.['required']">
@@ -34,7 +34,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="NIC Number" type="text" [(ngModel)]="user.nicNumber" id="nicNumber" formControlName="nicNumber">
+                                    <input matInput placeholder="NIC Number" type="text" [(ngModel)]="customer.nicNumber" id="nicNumber" formControlName="nicNumber">
                                   </mat-form-field>
                                   <div *ngIf="nicNumber?.invalid && (nicNumber?.dirty || nicNumber?.touched)">
                                     <div *ngIf="nicNumber?.errors?.['required']">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                      <input matInput placeholder="Age" type="text" [(ngModel)]="user.age" id="age" formControlName="age">
+                                      <input matInput placeholder="Age" type="number" [(ngModel)]="customer.age" id="age" formControlName="age">
                                     </mat-form-field>
                                     <div *ngIf="age?.invalid && (age?.dirty || age?.touched)">
                                         <div *ngIf="age?.errors?.['required']">
@@ -56,7 +56,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                 <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Adress" type="text" [(ngModel)]="user.address" id="address" formControlName="address">
+                                    <input matInput placeholder="Adress" type="text" [(ngModel)]="customer.address" id="address" formControlName="address">
                                 </mat-form-field>
                                 <div *ngIf="address?.invalid && (address?.dirty || address?.touched)">
                                     <div *ngIf="address?.errors?.['required']">
@@ -68,7 +68,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Contact Number" type="text" [(ngModel)]="user.contactNumber" id="contactNumber" formControlName="contactNumber">
+                                    <input matInput placeholder="Contact Number" type="tel" [(ngModel)]="customer.contactNumber" id="contactNumber" formControlName="contactNumber">
                                   </mat-form-field>
                                   <div *ngIf="contactNumber?.invalid && (contactNumber?.dirty || contactNumber?.touched)">
                                     <div *ngIf="contactNumber?.errors?.['required']">
@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Email Address" type="text" [(ngModel)]="user.emailAddress" id="emailAddress" formControlName="emailAddress">
+                                    <input matInput placeholder="Email Address" type="email" [(ngModel)]="customer.emailAddress" id="emailAddress" formControlName="emailAddress">
                                   </mat-form-field>
                                   <div *ngIf="emailAddress?.invalid && (emailAddress?.dirty || emailAddress?.touched)">
                                     <div *ngIf="emailAddress?.errors?.['required']">
@@ -90,7 +90,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Gender" type="text" [(ngModel)]="user.gender" id="gender" formControlName="gender">
+                                    <input matInput placeholder="Gender" type="text" [(ngModel)]="customer.gender" id="gender" formControlName="gender">
                                   </mat-form-field>
                                   <div *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)">
                                     <div *ngIf="gender?.errors?.['required']">
@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Civil Status" type="text" [(ngModel)]="user.civilStatus" id="civilStatus" formControlName="civilStatus">
+                                    <input matInput placeholder="Civil Status" type="text" [(ngModel)]="customer.civilStatus" id="civilStatus" formControlName="civilStatus">
                                   </mat-form-field>
                                   <div *ngIf="civilStatus?.invalid && (civilStatus?.dirty || civilStatus?.touched)">
                                     <div *ngIf="civilStatus?.errors?.['required']">
