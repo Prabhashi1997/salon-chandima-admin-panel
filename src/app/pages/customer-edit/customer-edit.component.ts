@@ -35,7 +35,7 @@ export class CustomerEditComponent implements OnInit {
       age: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       contactNumber: new FormControl('', [Validators.required]),
-      emailAddress: new FormControl('', [Validators.required]),
+      emailAddress: new FormControl('', [Validators.required, Validators.email]),
       gender: new FormControl('', [Validators.required]),
       civilStatus: new FormControl('', [Validators.required]),
     });
@@ -79,6 +79,7 @@ export class CustomerEditComponent implements OnInit {
   }
 
   submit(){
+    this.customerForm.markAllAsTouched();
     console.log("Form submitted")
   }
 

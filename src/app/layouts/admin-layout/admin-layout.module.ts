@@ -18,21 +18,28 @@ import {UserEditComponent } from 'app/pages/user-edit/user-edit.component';
 import { AdminEditComponent } from 'app/pages/admin-edit/admin-edit.component';
 import { ServiceEditComponent } from 'app/pages/service-edit/service-edit.component';
 import { CustomerEditComponent } from 'app/pages/customer-edit/customer-edit.component';
-
+import {MatRadioModule} from "@angular/material/radio";
+import { LoginComponent } from 'app/pages/login/login.component';
+import {MatCardModule} from '@angular/material/card';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { RegisterComponent } from 'app/pages/register/register.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(AdminLayoutRoutes),
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatRippleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatTooltipModule,
+        MatRadioModule,
+        MatCardModule,
+        MatToolbarModule,
+    ],
   declarations: [
     DashboardComponent,
     UserProfileComponent,
@@ -43,6 +50,8 @@ import { CustomerEditComponent } from 'app/pages/customer-edit/customer-edit.com
     AdminEditComponent,
     ServiceEditComponent,
     CustomerEditComponent,
+    LoginComponent,
+    RegisterComponent,
   ]
 })
 

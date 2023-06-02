@@ -14,7 +14,7 @@
                                   <mat-form-field class="example-full-width">
                                     <input matInput  placeholder="First Name" type="text" [(ngModel)]="customer.firstName" id="firstName" formControlName="firstName">
                                   </mat-form-field>
-                                  <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
+                                  <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="error-validation">
                                     <div *ngIf="firstName?.errors?.['required']">
                                         First name is required.
                                     </div>                           
@@ -24,7 +24,7 @@
                                   <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Last Name" type="text" [(ngModel)]="customer.lastName" id="lastName" formControlName="lastName">
                                   </mat-form-field>
-                                  <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+                                  <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="error-validation">
                                     <div *ngIf="lastName?.errors?.['required']">
                                         Last name is required.
                                     </div>                           
@@ -36,7 +36,7 @@
                                   <mat-form-field class="example-full-width">
                                     <input matInput placeholder="NIC Number" type="text" [(ngModel)]="customer.nicNumber" id="nicNumber" formControlName="nicNumber">
                                   </mat-form-field>
-                                  <div *ngIf="nicNumber?.invalid && (nicNumber?.dirty || nicNumber?.touched)">
+                                  <div *ngIf="nicNumber?.invalid && (nicNumber?.dirty || nicNumber?.touched)" class="error-validation">
                                     <div *ngIf="nicNumber?.errors?.['required']">
                                         NIC number is required.
                                     </div>                           
@@ -46,7 +46,7 @@
                                     <mat-form-field class="example-full-width">
                                       <input matInput placeholder="Age" type="number" [(ngModel)]="customer.age" id="age" formControlName="age">
                                     </mat-form-field>
-                                    <div *ngIf="age?.invalid && (age?.dirty || age?.touched)">
+                                    <div *ngIf="age?.invalid && (age?.dirty || age?.touched)" class="error-validation">
                                         <div *ngIf="age?.errors?.['required']">
                                             Age is required.
                                         </div>
@@ -58,9 +58,9 @@
                                 <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Adress" type="text" [(ngModel)]="customer.address" id="address" formControlName="address">
                                 </mat-form-field>
-                                <div *ngIf="address?.invalid && (address?.dirty || address?.touched)">
+                                <div *ngIf="address?.invalid && (address?.dirty || address?.touched)" class="error-validation">
                                     <div *ngIf="address?.errors?.['required']">
-                                        Adress is required.
+                                        Address is required.
                                     </div>
                                 </div>
                                 </div>
@@ -68,9 +68,10 @@
                             <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Contact Number" type="tel" [(ngModel)]="customer.contactNumber" id="contactNumber" formControlName="contactNumber">
+                                    <input matInput #message maxlength="10" placeholder="Contact Number" type="tel" [(ngModel)]="customer.contactNumber" id="contactNumber" formControlName="contactNumber">
+                                    <mat-hint align="end">{{message.value.length}} / 10</mat-hint>
                                   </mat-form-field>
-                                  <div *ngIf="contactNumber?.invalid && (contactNumber?.dirty || contactNumber?.touched)">
+                                  <div *ngIf="contactNumber?.invalid && (contactNumber?.dirty || contactNumber?.touched)" class="error-validation">
                                     <div *ngIf="contactNumber?.errors?.['required']">
                                         Contact Number is required.
                                     </div>
@@ -80,19 +81,26 @@
                                   <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Email Address" type="email" [(ngModel)]="customer.emailAddress" id="emailAddress" formControlName="emailAddress">
                                   </mat-form-field>
-                                  <div *ngIf="emailAddress?.invalid && (emailAddress?.dirty || emailAddress?.touched)">
+                                  <div *ngIf="emailAddress?.invalid && (emailAddress?.dirty || emailAddress?.touched)" class="error-validation">
                                     <div *ngIf="emailAddress?.errors?.['required']">
                                         Email Address is required.
+                                    </div>
+                                    <div *ngIf="emailAddress?.errors?.['email']">
+                                      Email Address is not valid.
                                     </div>
                                 </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Gender" type="text" [(ngModel)]="customer.gender" id="gender" formControlName="gender">
-                                  </mat-form-field>
-                                  <div *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)">
+                                  <div style="display: flex;flex-direction: column;">
+                                    <mat-label>Gender</mat-label>
+                                        <mat-radio-group [(ngModel)]="customer.gender" aria-label="Gender" formControlName="gender">
+                                            <mat-radio-button value="male" style="padding-right: 10px">male</mat-radio-button>
+                                            <mat-radio-button value="female">female</mat-radio-button>
+                                        </mat-radio-group>
+                                  </div>
+                                  <div *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)" class="error-validation">
                                     <div *ngIf="gender?.errors?.['required']">
                                         Gender is required.
                                     </div>
@@ -102,7 +110,7 @@
                                   <mat-form-field class="example-full-width">
                                     <input matInput placeholder="Civil Status" type="text" [(ngModel)]="customer.civilStatus" id="civilStatus" formControlName="civilStatus">
                                   </mat-form-field>
-                                  <div *ngIf="civilStatus?.invalid && (civilStatus?.dirty || civilStatus?.touched)">
+                                  <div *ngIf="civilStatus?.invalid && (civilStatus?.dirty || civilStatus?.touched)" class="error-validation">
                                     <div *ngIf="civilStatus?.errors?.['required']">
                                         Civil Status is required.
                                     </div>

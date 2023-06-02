@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+interface Service {
+  id: string;
+  value: string;
+}
 
 @Component({
   selector: 'app-service-edit',
@@ -8,6 +12,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./service-edit.component.scss']
 })
 export class ServiceEditComponent implements OnInit {
+
+  hide = true;
 
   serviceForm;
   isLoading = false;
@@ -19,6 +25,15 @@ export class ServiceEditComponent implements OnInit {
     duration: '',
     description: '',
   }
+
+  services: Service[] = [
+    {id: '0', value: 'Hair Care'},
+    {id: '1', value: 'Skin Care'},
+    {id: '2', value: 'Hair Cuts'},
+    {id: '3', value: 'Bridal'},
+    {id: '4', value: 'Nail Care'},
+    {id: '5', value: 'Other'},
+  ];
 
   constructor() { }
 

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'app-admin-edit',
   templateUrl: './admin-edit.component.html',
   styleUrls: ['./admin-edit.component.scss']
 })
+
 export class AdminEditComponent implements OnInit {
 
   adminForm;
@@ -17,6 +17,7 @@ export class AdminEditComponent implements OnInit {
     lastName: '',
     nicNumber: '',
     age: '',
+    dateOfBirth: '',
     address: '',
     contactNumber: '',
     emailAddress:'',
@@ -25,7 +26,7 @@ export class AdminEditComponent implements OnInit {
   }
 
 
-  constructor() { 
+  constructor() {
 
   }
 
@@ -35,9 +36,10 @@ export class AdminEditComponent implements OnInit {
       lastName: new FormControl('', [Validators.required]),
       nicNumber: new FormControl('', [Validators.required]),
       age: new FormControl('', [Validators.required]),
+      dateOfBirth: new FormControl('', [Validators.required]),
       address: new FormControl('', [Validators.required]),
       contactNumber: new FormControl('', [Validators.required]),
-      emailAddress: new FormControl('', [Validators.required]),
+      emailAddress: new FormControl('', [Validators.required, Validators.email]),
       gender: new FormControl('', [Validators.required]),
       civilStatus: new FormControl('', [Validators.required]),
     });
@@ -58,6 +60,10 @@ export class AdminEditComponent implements OnInit {
 
   get age() {
     return this.adminForm?.get('age')
+  }
+
+  get dateOfBirth() {
+    return this.adminForm?.get('dateOfBirth')
   }
 
   get address() {
@@ -81,6 +87,7 @@ export class AdminEditComponent implements OnInit {
   }
 
   submit(){
+    this.adminForm.markAllAsTouched();
     console.log("Form submitted")
   }
 
