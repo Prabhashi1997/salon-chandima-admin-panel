@@ -1,0 +1,119 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+.background {
+    background-image: url("../../../assets/img/login2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container{
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 0 15px;
+}
+
+header{
+    color: #ffffff;
+    font-family:cursive;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 50px 0;
+    font-weight: bold;
+}
+
+.input-field{
+    display: flex;
+    flex-direction: column;
+}
+
+.input{
+    height: 45px;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 30px;
+    color: #fff;
+    padding: 0 0 0 25px;
+    background: rgba(255,255,255,0.3);
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.error-validation{
+    color: red;
+    margin-top: -15px;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+::-webkit-input-placeholder{
+    color: #ffffff;
+}
+
+.submit{
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    height: 45px;
+    width: 100%;
+    outline: none;
+    background: rgb(208, 234, 249, 0.5);
+    cursor: pointer;
+    transition: .3s;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.reset{
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    height: 45px;
+    width: 100%;
+    outline: none;
+    background: rgba(245, 165, 165, 0.5);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.submit:hover{
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.5);
+}
+
+.reset:hover{
+    box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.5);
+}
+
+.bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: small;
+    color: #ffffff;
+    margin-top: 10px;
+}
+
+.checkbox{
+    border: none;
+    outline: none;
+    margin-right: 5px;
+}
+
+label a{
+    color: #ffffff;
+    text-decoration: none;
+}

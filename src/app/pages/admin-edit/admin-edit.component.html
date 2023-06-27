@@ -1,9 +1,9 @@
-<div class="main-content">
+<!-- <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-danger">
+                    <div class="card-header">
                         <h4 class="card-title">Admin Profile</h4>
                         <p class="card-category">Complete your profile</p>
                     </div>
@@ -12,12 +12,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput  placeholder="First Name" type="text" [(ngModel)]="admin.firstName" id="firstName" formControlName="firstName">
+                                    <mat-label>First Name</mat-label>
+                                    <input matInput type="text" [(ngModel)]="admin.firstName" id="firstName" formControlName="firstName">
                                   </mat-form-field>
                                   <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="error-validation">
                                     <div *ngIf="firstName?.errors?.['required']">
                                         First name is required.
-                                    </div>
+                                    </div>                           
                                   </div>
                                 </div>
                                 <div class="col-md-6">
@@ -27,7 +28,7 @@
                                   <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="error-validation">
                                     <div *ngIf="lastName?.errors?.['required']">
                                         Last name is required.
-                                    </div>
+                                    </div>                           
                                   </div>
                                 </div>
                             </div>
@@ -39,7 +40,7 @@
                                   <div *ngIf="nicNumber?.invalid && (nicNumber?.dirty || nicNumber?.touched)" class="error-validation">
                                     <div *ngIf="nicNumber?.errors?.['required']">
                                         NIC number is required.
-                                    </div>
+                                    </div>                           
                                   </div>
                                 </div>
                                 <div class="col-md-6">
@@ -72,7 +73,7 @@
                                 </mat-form-field>
                                 <div *ngIf="address?.invalid && (address?.dirty || address?.touched)" class="error-validation">
                                     <div *ngIf="address?.errors?.['required']">
-                                        Adress is required.
+                                        Address is required.
                                     </div>
                                 </div>
                                 </div>
@@ -91,7 +92,7 @@
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Email Address" type="text" [(ngModel)]="admin.emailAddress" id="emailAddress" formControlName="emailAddress">
+                                    <input matInput placeholder="Email Address" type="email" [(ngModel)]="admin.emailAddress" id="emailAddress" formControlName="emailAddress">
                                   </mat-form-field>
                                   <div *ngIf="emailAddress?.invalid && (emailAddress?.dirty || emailAddress?.touched)" class="error-validation">
                                     <div *ngIf="emailAddress?.errors?.['required']">
@@ -100,18 +101,18 @@
                                     <div *ngIf="emailAddress?.errors?.['email']">
                                       Email Address is not valid.
                                     </div>
-                                  </div>
+                                </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div style="display: flex;flex-direction: column;">
-                                        <mat-label>Gender</mat-label>
+                                  <div style="display: flex;flex-direction: column;">
+                                    <mat-label>Gender</mat-label>
                                         <mat-radio-group [(ngModel)]="admin.gender" aria-label="Gender" formControlName="gender">
                                             <mat-radio-button value="male" style="padding-right: 10px">male</mat-radio-button>
                                             <mat-radio-button value="female">female</mat-radio-button>
                                         </mat-radio-group>
-                                    </div>
+                                  </div>
                                   <div *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)" class="error-validation">
                                     <div *ngIf="gender?.errors?.['required']">
                                         Gender is required.
@@ -138,4 +139,34 @@
             </div>
         </div>
     </div>
-  </div>
+  </div> -->
+
+  <mat-card>
+    <mat-card-content>
+      <mat-card-header>Admin Profile</mat-card-header>
+      <form (ngSubmit)="submit()" [formGroup]="adminForm" *ngIf="isLoading"></form>
+          <mat-form-field class="mat-50">
+            <mat-label>First Name</mat-label>
+            <input matInput type="text" [(ngModel)]="admin.firstName" id="firstName" formControlName="firstName">
+          </mat-form-field>
+          <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="error-validation">
+            <div *ngIf="firstName?.errors?.['required']">
+                First name is required.
+            </div>                           
+          </div>
+
+          <mat-form-field class="mat-50">
+            <mat-label>Last Name</mat-label>
+            <input matInput type="text" [(ngModel)]="admin.lastName" id="lastName" formControlName="lastName">
+          </mat-form-field>
+          <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="error-validation">
+            <div *ngIf="lastName?.errors?.['required']">
+                Last name is required.
+            </div>                           
+          </div>
+
+    </mat-card-content>
+    <mat-card-footer>
+
+    </mat-card-footer>
+  </mat-card>

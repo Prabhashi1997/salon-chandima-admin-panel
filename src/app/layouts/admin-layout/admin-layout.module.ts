@@ -23,6 +23,10 @@ import { LoginComponent } from 'app/pages/login/login.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { RegisterComponent } from 'app/pages/register/register.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
     imports: [
@@ -39,7 +43,12 @@ import { RegisterComponent } from 'app/pages/register/register.component';
         MatRadioModule,
         MatCardModule,
         MatToolbarModule,
+        MatAutocompleteModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCheckboxModule,
     ],
+
   declarations: [
     DashboardComponent,
     UserProfileComponent,
