@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {UserService} from "../../service/user.service";
+import {TokenService} from "../../service/token.service";
+import {Router} from "@angular/router";
+import {AuthService} from "../../service/auth.service";
+import {CommonService} from "../../service/common.service";
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -10,13 +16,20 @@ export class LoginComponent implements OnInit {
 
   loginForm;
   isLoading = false;
+  loginSub;
 
   login = {
-    username: '',
+    email: '',
     password: '',
   }
 
-  constructor() { }
+  constructor(
+      private userService: UserService,
+      private tokenService: TokenService,
+      private router: Router,
+      private authService: AuthService,
+      private service: CommonService
+  ) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -36,7 +49,60 @@ export class LoginComponent implements OnInit {
 
   submit(){
     this.loginForm.markAllAsTouched();
-    console.log("Form submitted")
+    if (!this.loginForm.invalid) {
+      this.loginSub = this.userService.login(this.login).subscribe(
+          data => {
+            console.log(data);
+            if (data['success'] === true && data['msg'] === 'sign in'){
+
+              this.handleResponse(data['data']);
+
+            } else if (data['success'] === false ) {
+              Swal.fire(
+                  'Login Error!',
+                  data['msg']+'!',
+                  'error'
+              );
+
+            } else {
+              Swal.fire(
+                  'Login Error!',
+                  'connection error!',
+                  'error'
+              );
+            }
+          },
+          error => {
+            console.log(error);
+            Swal.fire(
+                'Login Error!',
+                error.error.msg,
+                'error'
+            );
+            this.handleError(error)
+          }
+      );
+    }
+  }
+  handleError(error){
+    console.log(error)
+  }
+
+  handleResponse(data) {
+    this.tokenService.handle(data.userToken);
+    this.authService.changeAuthStatus(true);
+    const name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
+    const image = this.tokenService.getImg();
+    this.service.changeData({ image: image, name: name })
+    if (this.tokenService.isUserAdmin()) {
+      this.router.navigate(['/admin/dashboard']);
+    } else if (this.tokenService.isUserEmploy()) {
+      this.router.navigate(['/employ/dashboard']);
+    } else if (this.tokenService.isUserCustomer()) {
+      this.router.navigate(['/customer/dashboard']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
 }

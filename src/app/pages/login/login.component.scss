@@ -3,7 +3,7 @@
 }
 
 .background {
-    background-image: url("../../../assets/img/login2.jpg");
+    background-image: url("../../../assets/img/login3.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -27,7 +27,6 @@
 
 header{
     color: #ffffff;
-    font-family:cursive;
     font-size: 50px;
     display: flex;
     justify-content: center;
@@ -76,6 +75,7 @@ header{
     transition: .3s;
     margin-bottom: 10px;
     margin-top: 10px;
+    color: #ffffff;
 }
 
 .reset{
@@ -88,6 +88,7 @@ header{
     background: rgba(245, 165, 165, 0.5);
     cursor: pointer;
     transition: .3s;
+    color: #ffffff;
 }
 
 .submit:hover{
@@ -114,6 +115,6 @@ header{
 }
 
 label a{
-    color: #ffffff;
+    color: blue;
     text-decoration: none;
 }

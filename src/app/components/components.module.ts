@@ -4,7 +4,9 @@ import { RouterModule } from '@angular/router';
 
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { EmploySidebarComponent } from './employ-sidebar/employ-sidebar.component';
+import {CustomerSidebarComponent} from "./customer-sidebar/customer-sidebar.component";
+import {AdminSidebarComponent} from "./admin-sidebar/admin-sidebar.component";
 
 @NgModule({
   imports: [
@@ -14,12 +16,16 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    EmploySidebarComponent,
+    CustomerSidebarComponent,
+    AdminSidebarComponent,
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    EmploySidebarComponent,
+    CustomerSidebarComponent,
+    AdminSidebarComponent,
   ]
 })
 export class ComponentsModule { }

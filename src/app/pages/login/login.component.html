@@ -2,16 +2,16 @@
     <div class="box">
         <div class="container">
             <div class="top-header">
-                <span>Have an account?</span>
+                <span style="color: white;">Have an account?</span>
                 <header>Login</header>
             </div>
             <form (ngSubmit)="submit()" [formGroup]="loginForm" *ngIf="isLoading">
                 <div class="input-field">
-                    <input placeholder="Username" type="text" class="input" [(ngModel)]="login.username" id="username" formControlName="username">
+                    <input placeholder="Username" type="text" class="input" [(ngModel)]="login.email" id="username" formControlName="username">
                     <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="error-validation">
                         <div *ngIf="username?.errors?.['required']">
                             Username is required.
-                        </div>                           
+                        </div>
                     </div>
                 </div>
                 <div class="input-field">
@@ -19,7 +19,7 @@
                     <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error-validation">
                         <div *ngIf="password?.errors?.['required']">
                             Password is required.
-                        </div>                           
+                        </div>
                     </div>
                 </div>
                 <div class="input-field">
@@ -35,7 +35,7 @@
                     </div>
                     <div class="right">
                         <label><a href="#">Forgot password?</a></label>
-                    </div>    
+                    </div>
                 </div>
             </form>
         </div>
