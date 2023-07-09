@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AdminService } from 'app/service/admin.service';
 
 @Component({
   selector: 'app-admin-edit',
@@ -26,9 +27,9 @@ export class AdminEditComponent implements OnInit {
   }
 
 
-  constructor() {
-
-  }
+  constructor(
+    private adminService: AdminService
+  ) {}
 
   ngOnInit(): void {
     this.adminForm = new FormGroup({
@@ -88,6 +89,9 @@ export class AdminEditComponent implements OnInit {
 
   submit(){
     this.adminForm.markAllAsTouched();
+    if(!this.adminForm.invalid){
+      this.adminService.addAdmin(this.admin).subscribe(data=> {}, error=> {})
+    }
     console.log("Form submitted")
   }
 

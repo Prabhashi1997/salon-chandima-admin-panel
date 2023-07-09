@@ -38,7 +38,7 @@ export class TokenService {
       const payload = this.payload(token);
 
       if (payload) {
-        if (Date.now() >= payload.exp * 1000 || Object.values(this.iss).indexOf(payload.iss) === -1 ) {
+        if (Date.now() >= payload.exp * 1000 ) {
           Swal.fire(
             'Time Out!',
             'Please login again!',

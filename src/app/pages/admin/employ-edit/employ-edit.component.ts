@@ -24,7 +24,6 @@ export class EmployEditComponent implements OnInit {
   }
 
   constructor() {
-
   }
 
   ngOnInit(): void {

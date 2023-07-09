@@ -53,16 +53,9 @@ export class LoginComponent implements OnInit {
       this.loginSub = this.userService.login(this.login).subscribe(
           data => {
             console.log(data);
-            if (data['success'] === true && data['msg'] === 'sign in'){
+            if (!!data['token']){
 
-              this.handleResponse(data['data']);
-
-            } else if (data['success'] === false ) {
-              Swal.fire(
-                  'Login Error!',
-                  data['msg']+'!',
-                  'error'
-              );
+              this.handleResponse(data['token']);
 
             } else {
               Swal.fire(
@@ -89,7 +82,7 @@ export class LoginComponent implements OnInit {
   }
 
   handleResponse(data) {
-    this.tokenService.handle(data.userToken);
+    this.tokenService.handle(data);
     this.authService.changeAuthStatus(true);
     const name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
     const image = this.tokenService.getImg();
