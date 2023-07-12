@@ -83,9 +83,12 @@ export class LoginComponent implements OnInit {
 
   handleResponse(data) {
     this.tokenService.handle(data);
+    console.log(data);
     this.authService.changeAuthStatus(true);
     const name = this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName();
     const image = this.tokenService.getImg();
+
+    console.log(name);
     this.service.changeData({ image: image, name: name })
     if (this.tokenService.isUserAdmin()) {
       this.router.navigate(['/admin/dashboard']);

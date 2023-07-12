@@ -1,35 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {environment} from 'environments/environment';
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
-const baseUrl = 'http://127.0.0.1:3000/salon';
+export interface User {
+  firstName: string;
+  lastName: string;
+  address: string;
+  age: string;
+  gender: string;
+  dob: Date;
+  contactNumber: string;
+  doj: string;
+  emailAddress: string;
+  nicNumber: string;
+}
+
+export interface EmployCreationParams {
+  name: string;
+  image?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class EmployApiService {
-  baseUrl2 = `${environment.BASE_URL}/NeedToDeliver/`
-  baseUrl = 'http://127.0.0.1:3000/salon';
+  baseUrl2 = `${environment.BASE_URL}employ`
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
   constructor(private http: HttpClient) { }
 
-  // Create
-  createSalon(data): Observable<any> {
-    const url = `${this.baseUrl}/create`;
-    return this.http.post(url, data);
-    }
-
-
-
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
-    let errorMessage = '';
+    let errorMessage: string;
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
       errorMessage = error.error.message;
@@ -41,64 +46,39 @@ export class EmployApiService {
     return throwError(errorMessage);
   }
 
-
-  // Get all salons
-  getSalons() {
-    return this.http.get(`${this.baseUrl}`);
+  add(postData: any): Observable<{ message: string, body?: any }> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}`;
+    const data = this.http.post(url,postData,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ message: string, body?: any }>;
   }
 
-  // Get a salon by email
-  getSalonByEmail(email): Observable<any> {
-    const url = `${this.baseUrl}/getSalon/${email}`;
-    return this.http.get(url, { headers: this.headers })
+  edit(postData: any, id: string): Observable<{ message: string, body?: any }> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/${id}`;
+    const data = this.http.patch(url,postData,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ message: string, body?: any }>;
   }
 
-  // Get a salon
-  getSalon(id): Observable<any> {
-    const url = `${this.baseUrl}/read/${id}`;
-    return this.http.get(url, {headers: this.headers}).pipe(
-      map((res: Response) => {
-        return res || {}
-      }),
-      catchError(this.errorMgmt)
-    )
+  getEmploy(id: string): Observable<{ data: User }> { 
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/${id}`;
+    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ data: User }>;
   }
 
-  // Update salons
-  updateSalon(id, data): Observable<any> {
-    const url = `${this.baseUrl}/update/${id}`;
-    return this.http.post(url, data, { headers: this.headers }).pipe(
-      catchError(this.errorMgmt)
-    )
+  getEmploys(): Observable<{ data: User[], total: number}> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}`;
+    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ data: User[], total: number }>;
   }
 
-  // Delete salon
-  deleteSalon(id): Observable<any> {
-    const url = `${this.baseUrl}/delete/${id}`;
-    return this.http.delete(url, { headers: this.headers }).pipe(
-      catchError(this.errorMgmt)
-    )
+  disableEmploy(id: string): Observable<{ message: string, body?: any }> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/${id}/disable`;
+    const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ message: string, body?: any }>;
   }
-
-  // cahnge location
-  changeLocation(data) {
-    const url = `${this.baseUrl}/changeLocation`;
-    return this.http.post(url, data,{ headers: this.headers });
-  }
-
-  updateWigCount(id:string,wigcount){
-    return this.http
-      .get(`${this.baseUrl2}/updateWigCount/${id}/${wigcount}`)
-      .pipe(catchError(this.errorMgmt));
-  }
-
-  addNeedToDeliver(
-    DbNeedToDeliver:any,
-    email: string): Observable<any> {
-      return this.http
-        .put(`${this.baseUrl2}/add/${email}`, DbNeedToDeliver)
-        .pipe(catchError(this.errorMgmt));
-    }
-
 
 }

@@ -1,8 +1,20 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { TokenService } from './token.service';
-import { data } from 'jquery';
+import { Observable, throwError } from 'rxjs';
+
+export interface Admin {
+  address: string;
+  age: string;
+  gender: string;
+  contactNumber: string;
+  doj: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  nic: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -13,27 +25,73 @@ export class AdminService {
 
   constructor(private http: HttpClient, private token: TokenService) { }
 
-  //Get Admin
-  getAdmin(data:any) {
-    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
-    return this.http.get(this.baseUrl, data)
-  }
+    // Error handling
+    errorMgmt(error: HttpErrorResponse) {
+      let errorMessage: string;
+      if (error.error instanceof ErrorEvent) {
+        // Get client-side error
+        errorMessage = error.error.message;
+      } else {
+        // Get server-side error
+        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      }
+      console.log(errorMessage);
+      return throwError(errorMessage);
+    }
 
-  //Add Admin
-  addAdmin(data:any) {
-    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
-    return this.http.post(this.baseUrl, data, {headers: this.headers})
-  }
+    add(admin: any, id:any){
+      const token = localStorage.getItem('token');
+      const url = `${this.baseUrl}`;
+      const data = this.http.post(url,admin,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ message: string, body?: any }>;
+    }
+ 
+    edit(admin: any, id: any) {
+      const token = localStorage.getItem('token');
+      const url = `${this.baseUrl}/${id}`;
+      const data = this.http.patch(url,admin,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ message: string, body?: any }>;
+    }
 
-  //Edit Admin
-  editAdmin(data:any) {
-    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
-    return this.http.patch(this.baseUrl, data, {headers: this.headers})
-  }
+    getAdmin(id: string): Observable<{ data: Admin }> {
+      const token = localStorage.getItem('token');
+      const url = `${this.baseUrl}/${id}`;
+      const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ data: Admin }>;
+    }
 
-  //Delete Admin
-  deleteAdmin(data:any) {
-    const header = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', 'Bearer ' + this.token.gettoken().split('JWT')[1])
-    return this.http.delete(this.baseUrl, data)
-  }
+    // getAdmin(id: string): Observable<{ data: Admin }> {
+    //   const token = localStorage.getItem('token');
+    //   const url = `${this.baseUrl}/${id}`;
+    //   const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    //   return data as Observable<{ data: Admin }>;
+    // }
+
+    getAdmins(admin: any, id: any) {
+      const token = localStorage.getItem('token');
+      const url = `${this.baseUrl}/${id}`;
+      const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ message: string, body?: any }>;
+    }
+
+    // getAdmins(): Observable<{ data: Admin[], total: number}> {
+    //   const token = localStorage.getItem('token');
+    //   const url = `${this.baseUrl}`;
+    //   const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    //   return data as Observable<{ data: Admin[], total: number }>;
+    // }
+
+    deleteAdmin(admin: any, id: any) {
+      const token = localStorage.getItem('token');
+      const url = `${this.baseUrl}/${id}`;
+      const data = this.http.patch(url,admin,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ message: string, body?: any }>;
+    }
+  
+    // disableAdmin(id: string): Observable<{ message: string, body?: any }> {
+    //   const token = localStorage.getItem('token');
+    //   const url = `${this.baseUrl}/${id}/disable`;
+    //   const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
+    //   return data as Observable<{ message: string, body?: any }>;
+    // }
 }

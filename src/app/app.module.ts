@@ -29,6 +29,8 @@ import {NotificationService} from "./service/notification.service";
 import {PaymentService} from "./service/payment.service";
 import {SharedService} from "./service/shared.service";
 import {ViewCalendarService} from "./service/viewcalendar.service";
+import { EmploysComponent } from './pages/admin/employs/employs.component';
+import { AdminsComponent } from './pages/admin/admins/admins.component';
 
 @NgModule({
   imports: [
@@ -50,6 +52,8 @@ import {ViewCalendarService} from "./service/viewcalendar.service";
       LoginComponent,
       RegisterComponent,
       HomeComponent,
+      EmploysComponent,
+      AdminsComponent,
   ],
   providers: [
       // provideAnimations(), // required animations providers

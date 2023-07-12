@@ -47,7 +47,7 @@ export class TokenService {
           this.remove()
           return false;
         }
-        return (Date.now() <= payload.exp * 1000 && Object.values(this.iss).indexOf(payload.iss) > -1) ? true : false;
+        return (Date.now() <= payload.exp * 1000) ? true : false;
       }
     }
     return false;
@@ -70,7 +70,7 @@ export class TokenService {
   registeredIn() {
     return this.isValid();
   }
-  
+
   public getEmail() {
     return this.payload(this.gettoken()).email;
   }
@@ -107,5 +107,10 @@ export class TokenService {
   }
   public isUserCustomer(): boolean {
     return !!this.payload(this.gettoken()).role.find((n) => n === 'customer');
+  }
+
+  logOut() {
+    this.remove();
+    this.router.navigateByUrl('/')
   }
 }

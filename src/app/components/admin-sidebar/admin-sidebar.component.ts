@@ -7,13 +7,13 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
-export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'Admin',  icon:'person', class: '' },
-    { path: '/table-list', title: 'Employee',  icon:'person', class: '' },
-    { path: '/typography', title: 'Customer',  icon:'person', class: '' },
-    { path: '/user-profile', title: 'Service',  icon:'interests', class: '' },
-    { path: '/user-profile', title: 'Appointment',  icon:'calendar_month', class: '' },
+export const ROUTES1: RouteInfo[] = [
+    { path: '/admin/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/admin/admins', title: 'Admin',  icon:'person', class: '' },
+    { path: '/admin/employees', title: 'Employee',  icon:'person', class: '' },
+    { path: '/admin/customers', title: 'Customer',  icon:'person', class: '' },
+    { path: '/admin/services', title: 'Service',  icon:'interests', class: '' },
+    { path: '/admin/appointments', title: 'Appointment',  icon:'calendar_month', class: '' },
     { path: '/user-profile', title: 'Payment',  icon:'payments', class: '' },
     { path: '/user-profile', title: 'Reviews',  icon:'reviews', class: '' },
     { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
@@ -32,7 +32,7 @@ export class AdminSidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.menuItems = ROUTES1.filter(menuItem => menuItem);
   }
   isMobileMenu() {
       if ($(window).width() > 991) {

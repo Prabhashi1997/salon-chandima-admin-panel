@@ -143,6 +143,7 @@ button:focus {
 .custom-nav {
   padding: 5px 0px;
   z-index: 999;
+  color: black;
 }
 
 .custom-nav .container-fluid {
@@ -362,7 +363,7 @@ button:focus {
 .contact_btn .btn,
 .theme-btn {
   transition: all ease 1s;
-  background-image: linear-gradient(to right, transparent, transparent, #bf1aed, #bf1aed);
+  background-image: linear-gradient(to right,#8e0cbd,#36064f,#c543df,#c473e6);
   background-size: 300%;
   background-position: 0 0;
 }

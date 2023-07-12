@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from 'app/service/admin.service';
+import { data, param } from 'jquery';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-edit',
@@ -11,7 +14,9 @@ import { AdminService } from 'app/service/admin.service';
 export class AdminEditComponent implements OnInit {
 
   adminForm;
-  isLoading = false;
+  isLoading = true;
+  edit = false;
+  id;
 
   admin = {
     firstName: '',
@@ -26,25 +31,67 @@ export class AdminEditComponent implements OnInit {
     civilStatus: '',
   }
 
-
   constructor(
-    private adminService: AdminService
+    private adminService: AdminService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
-    this.adminForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      nicNumber: new FormControl('', [Validators.required]),
-      age: new FormControl('', [Validators.required]),
-      dateOfBirth: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
-      contactNumber: new FormControl('', [Validators.required]),
-      emailAddress: new FormControl('', [Validators.required, Validators.email]),
-      gender: new FormControl('', [Validators.required]),
-      civilStatus: new FormControl('', [Validators.required]),
-    });
     this.isLoading = true;
+    Swal.fire({
+      title: 'Processing!',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then(() => {
+    });
+    this.route.params.subscribe(params =>{
+      this.edit = !!params.id;
+      if(!!params.id) {
+        this.id = params.id;
+        this.adminService.getAdmin(this.id).subscribe((data) => {
+          this.admin = data.data;
+          this.adminForm = new FormGroup({
+            firstName: new FormControl('', [Validators.required]),
+            lastName: new FormControl('', [Validators.required]),
+            nicNumber: new FormControl('', [Validators.required]),
+            age: new FormControl('', [Validators.required]),
+            dateOfBirth: new FormControl('', [Validators.required]),
+            address: new FormControl('', [Validators.required]),
+            contactNumber: new FormControl('', [Validators.required]),
+            emailAddress: new FormControl('', [Validators.required, Validators.email]),
+            gender: new FormControl('', [Validators.required]),
+            civilStatus: new FormControl('', [Validators.required]),
+          });
+          this.isLoading = false;
+          Swal.close();
+        },async error => {
+          console.log(error)
+          await Swal.fire(
+              'Error!',
+              'Your process has been cancelled.',
+              'error'
+          );
+        })
+      } else {
+        this.adminForm = new FormGroup({
+          firstName: new FormControl('', [Validators.required]),
+          lastName: new FormControl('', [Validators.required]),
+          nicNumber: new FormControl('', [Validators.required]),
+          age: new FormControl('', [Validators.required]),
+          dateOfBirth: new FormControl('', [Validators.required]),
+          address: new FormControl('', [Validators.required]),
+          contactNumber: new FormControl('', [Validators.required]),
+          emailAddress: new FormControl('', [Validators.required, Validators.email]),
+          gender: new FormControl('', [Validators.required]),
+          civilStatus: new FormControl('', [Validators.required]),
+        });
+        this.isLoading = false;
+        Swal.close();
+      }
+    });
   }
 
   get firstName() {
@@ -90,7 +137,54 @@ export class AdminEditComponent implements OnInit {
   submit(){
     this.adminForm.markAllAsTouched();
     if(!this.adminForm.invalid){
+      if(this.edit) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `Do You want edit this customer?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#4250ce',
+          cancelButtonColor: '#dc3545',
+          confirmButtonText: `Yes, edit it`,
+        }).then(async (result) => {
+          if(result.isConfirmed) {
+            Swal.fire({
+              title: 'Processing!',
+              didOpen: () => {
+                Swal.showLoading();
+              },
+              allowOutsideClick: () => !Swal.isLoading()
+            }).then(() =>{
+            });
+            // @ts-ignore
+            delete this.admin.doj
+            this.adminService.
+            edit(this.admin, this.id).subscribe(
+                async data => {
+                  await Swal.fire({
+                    title: 'Success!',
+                    text: `You have successfully edited.`,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  });
+                  this.router.navigateByUrl('/admin/admins');
+
+                }, async error => {
+                  console.log(error)
+                  await Swal.fire(
+                      'Error!',
+                      'Your process has been cancelled.',
+                      'error'
+                  );
+
+                }
+            )
+          }
+        })
+      }
+
       this.adminService.addAdmin(this.admin).subscribe(data=> {}, error=> {})
+
     }
     console.log("Form submitted")
   }

@@ -46,7 +46,7 @@ const routes: Routes =[
       path: '',
       loadChildren: () => import('./layouts/customer-layout/customer-layout.module').then(m => m.CustomerLayoutModule)
     }],
-    // canActivate: [AfterGuards,CustomerGuards],
+    canActivate: [AfterGuards,CustomerGuards],
   },
   {
     path: 'employ',
