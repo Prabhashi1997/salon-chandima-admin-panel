@@ -52,8 +52,6 @@ import { AdminsComponent } from './pages/admin/admins/admins.component';
       LoginComponent,
       RegisterComponent,
       HomeComponent,
-      EmploysComponent,
-      AdminsComponent,
   ],
   providers: [
       // provideAnimations(), // required animations providers

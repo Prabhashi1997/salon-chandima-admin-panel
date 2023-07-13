@@ -5,15 +5,21 @@ import { TokenService } from './token.service';
 import { Observable, throwError } from 'rxjs';
 
 export interface Admin {
-  address: string;
-  age: string;
-  gender: string;
-  contactNumber: string;
-  doj: string;
-  email: string;
+  id?: string;
   firstName: string;
   lastName: string;
-  nic: string;
+  designation?: any;
+  email: string;
+  image?: string;
+  doj?: string;
+  roles?: string[];
+  nic?: string;
+  contactNumber?: string;
+}
+
+export interface AdminCreationParams {
+  name: string;
+  image?: string;
 }
 
 @Injectable({
@@ -39,10 +45,10 @@ export class AdminService {
       return throwError(errorMessage);
     }
 
-    add(admin: any, id:any){
+    add(postData: any): Observable<{ message: string, body?: any }> {
       const token = localStorage.getItem('token');
       const url = `${this.baseUrl}`;
-      const data = this.http.post(url,admin,{headers: { Authorization: `Bearer ${token}` },});
+      const data = this.http.post(url,postData,{headers: { Authorization: `Bearer ${token}` },});
       return data as Observable<{ message: string, body?: any }>;
     }
  
@@ -53,6 +59,7 @@ export class AdminService {
       return data as Observable<{ message: string, body?: any }>;
     }
 
+
     getAdmin(id: string): Observable<{ data: Admin }> {
       const token = localStorage.getItem('token');
       const url = `${this.baseUrl}/${id}`;
@@ -60,26 +67,13 @@ export class AdminService {
       return data as Observable<{ data: Admin }>;
     }
 
-    // getAdmin(id: string): Observable<{ data: Admin }> {
-    //   const token = localStorage.getItem('token');
-    //   const url = `${this.baseUrl}/${id}`;
-    //   const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-    //   return data as Observable<{ data: Admin }>;
-    // }
 
-    getAdmins(admin: any, id: any) {
+    getAdmins(): Observable<{ data: Admin[], total: number}> {
       const token = localStorage.getItem('token');
-      const url = `${this.baseUrl}/${id}`;
+      const url = `${this.baseUrl}`;
       const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-      return data as Observable<{ message: string, body?: any }>;
+      return data as Observable<{ data: Admin[], total: number }>;
     }
-
-    // getAdmins(): Observable<{ data: Admin[], total: number}> {
-    //   const token = localStorage.getItem('token');
-    //   const url = `${this.baseUrl}`;
-    //   const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-    //   return data as Observable<{ data: Admin[], total: number }>;
-    // }
 
     deleteAdmin(admin: any, id: any) {
       const token = localStorage.getItem('token');

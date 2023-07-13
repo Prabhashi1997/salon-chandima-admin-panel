@@ -26,7 +26,7 @@ export interface EmployCreationParams {
 })
 
 export class EmployApiService {
-  baseUrl2 = `${environment.BASE_URL}employ`
+  baseUrl2 = `${environment.BASE_URL}employee`
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 

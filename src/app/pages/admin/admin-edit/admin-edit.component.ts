@@ -18,17 +18,12 @@ export class AdminEditComponent implements OnInit {
   edit = false;
   id;
 
-  admin = {
+  admin:any = {
     firstName: '',
     lastName: '',
-    nicNumber: '',
-    age: '',
-    dateOfBirth: '',
-    address: '',
+    nic: '',
     contactNumber: '',
-    emailAddress:'',
-    gender: '',
-    civilStatus: '',
+    email:'',
   }
 
   constructor(
@@ -56,14 +51,9 @@ export class AdminEditComponent implements OnInit {
           this.adminForm = new FormGroup({
             firstName: new FormControl('', [Validators.required]),
             lastName: new FormControl('', [Validators.required]),
-            nicNumber: new FormControl('', [Validators.required]),
-            age: new FormControl('', [Validators.required]),
-            dateOfBirth: new FormControl('', [Validators.required]),
-            address: new FormControl('', [Validators.required]),
+            nic: new FormControl('', [Validators.required]),
             contactNumber: new FormControl('', [Validators.required]),
-            emailAddress: new FormControl('', [Validators.required, Validators.email]),
-            gender: new FormControl('', [Validators.required]),
-            civilStatus: new FormControl('', [Validators.required]),
+            email: new FormControl('', [Validators.required, Validators.email]),
           });
           this.isLoading = false;
           Swal.close();
@@ -79,14 +69,9 @@ export class AdminEditComponent implements OnInit {
         this.adminForm = new FormGroup({
           firstName: new FormControl('', [Validators.required]),
           lastName: new FormControl('', [Validators.required]),
-          nicNumber: new FormControl('', [Validators.required]),
-          age: new FormControl('', [Validators.required]),
-          dateOfBirth: new FormControl('', [Validators.required]),
-          address: new FormControl('', [Validators.required]),
+          nic: new FormControl('', [Validators.required]),
           contactNumber: new FormControl('', [Validators.required]),
-          emailAddress: new FormControl('', [Validators.required, Validators.email]),
-          gender: new FormControl('', [Validators.required]),
-          civilStatus: new FormControl('', [Validators.required]),
+          email: new FormControl('', [Validators.required, Validators.email]),
         });
         this.isLoading = false;
         Swal.close();
@@ -182,9 +167,6 @@ export class AdminEditComponent implements OnInit {
           }
         })
       }
-
-      this.adminService.addAdmin(this.admin).subscribe(data=> {}, error=> {})
-
     }
     console.log("Form submitted")
   }

@@ -21,6 +21,9 @@ import {AdminEditComponent} from "../../pages/admin/admin-edit/admin-edit.compon
 import {UserProfileComponent} from "../../pages/admin/user-profile/user-profile.component";
 import {EmployEditComponent} from "../../pages/admin/employ-edit/employ-edit.component";
 import {AdminEmployModule} from "../admin-employ.module";
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { AdminsComponent } from 'app/pages/admin/admins/admins.component';
+import { EmploysComponent } from 'app/pages/admin/employs/employs.component';
 
 @NgModule({
     imports: [
@@ -42,11 +45,14 @@ import {AdminEmployModule} from "../admin-employ.module";
         MatNativeDateModule,
         MatCheckboxModule,
         AdminEmployModule,
+        MatPaginatorModule,
     ],
 
   declarations: [
       DashboardComponent,
       UserProfileComponent,
+      AdminsComponent,
+      EmploysComponent,
       AdminEditComponent,
       EmployEditComponent,
   ]
