@@ -124,7 +124,6 @@ export class CustomerEditComponent implements OnInit {
     this.customerForm.markAllAsTouched();
     if(!this.customerForm.invalid) {
       if(this.edit) {
-
         Swal.fire({
           title: 'Are you sure?',
           text: `Do You want edit this customer?`,

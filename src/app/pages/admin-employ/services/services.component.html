@@ -11,7 +11,7 @@
       <div class="col">
         <div class="card shadow">
           <div class="card-header bg-transparent">
-            <h3 class="mb-0">Admins</h3>
+            <h3 class="mb-0">Services</h3>
           </div>
           <div class="card-body">
             <div class="row">
@@ -26,12 +26,12 @@
                   <input *ngIf="!filter.select" matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue" (ngModelChange)="filterChange(filter,$event)">
                 </mat-form-field>
                 &nbsp;
-
+  
                 <button class="btn btn-sm btn-warning" style="font-size: large" (click)="resetFilters()">Reset</button>
                 <button class="btn btn-sm btn-info" style="font-size: large" (click)="add()">Add</button>
               </div>
               <div class="table-responsive">
-                <table class="table align-items-center table-flush" *ngIf="admins; let item" mat-table matSort [dataSource]="dataSource" style="width: 99% !important;">
+                <table class="table align-items-center table-flush" *ngIf="services; let item" mat-table matSort [dataSource]="dataSource" style="width: 99% !important;">
                   <!-- Position Column -->
                   <ng-container matColumnDef="num">
                     <mat-header-cell  *matHeaderCellDef  style="max-width: 50px !important;"> # </mat-header-cell>
@@ -39,10 +39,10 @@
                       {{ i + 1 }}
                     </mat-cell>
                   </ng-container>
-
-
+  
+  
                   <ng-container matColumnDef="fullName">
-                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Admin Name </mat-header-cell>
+                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Service Name </mat-header-cell>
                     <mat-cell  *matCellDef="let element">
                       <div class="media align-items-center">
                               <span class="avatar avatar-sm rounded-circle">
@@ -55,16 +55,12 @@
                       </div>
                     </mat-cell>
                   </ng-container>
-
+  
                   <ng-container matColumnDef="email">
-                    <mat-header-cell  *matHeaderCellDef mat-sort-header>  Email </mat-header-cell>
-                    <mat-cell  *matCellDef="let element"> {{element.email}} </mat-cell>
+                    <mat-header-cell  *matHeaderCellDef mat-sort-header>  Amount </mat-header-cell>
+                    <mat-cell  *matCellDef="let element"> {{element.price}} </mat-cell>
                   </ng-container>
 
-                  <ng-container matColumnDef="mobile">
-                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Mobile </mat-header-cell>
-                    <mat-cell  *matCellDef="let element"> {{element.contactNumber}} </mat-cell>
-                  </ng-container>
                   <ng-container matColumnDef="disable">
                     <mat-header-cell  *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                     <mat-cell  *matCellDef="let element">
@@ -72,13 +68,13 @@
                       <button mat-raised-button class="btn btn-danger mr-2"  (click)="delete(element.id)">Delete</button>
                     </mat-cell>
                   </ng-container>
-
+  
                   <!--                  <ng-container matColumnDef="date">-->
                   <!--                    <mat-header-cell  *matHeaderCellDef> Transaction Date </mat-header-cell>-->
                   <!--                    <mat-cell  *matCellDef="let element"> {{element.createdAt}} </mat-cell>-->
                   <!--                  </ng-container>-->
-
-
+  
+  
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <mat-row *matRowDef="let row; columns: displayedColumns;" matRipple class="element-row" style="cursor: pointer"
                   >
@@ -97,4 +93,5 @@
       <app-view-ad [id]="postId"></app-view-ad>
     </div>
   </div> -->
-
+  
+  

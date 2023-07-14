@@ -164,7 +164,46 @@ export class CustomersComponent implements OnInit, AfterViewInit {
   }
 
   delete(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do You want delete this customer?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#4250ce',
+      confirmButtonText: `Yes, delete it`,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Processing!',
+          didOpen: () => {
+            Swal.showLoading();
+          },
+          allowOutsideClick: () => !Swal.isLoading()
+        }).then(() => {
+        });
+        this.customerService.delete(id).subscribe(
+            async data => {
+              await Swal.fire({
+                title: 'Success!',
+                text: `You have successfully edited.`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              });
+              await this.getCustomers()
 
+            }, async error => {
+              console.log(error)
+              await Swal.fire(
+                  'Error!',
+                  'Your process has been cancelled.',
+                  'error'
+              );
+
+            }
+        )
+      }
+    });
   }
 
 

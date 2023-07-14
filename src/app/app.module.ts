@@ -29,8 +29,7 @@ import {NotificationService} from "./service/notification.service";
 import {PaymentService} from "./service/payment.service";
 import {SharedService} from "./service/shared.service";
 import {ViewCalendarService} from "./service/viewcalendar.service";
-import { EmploysComponent } from './pages/admin/employs/employs.component';
-import { AdminsComponent } from './pages/admin/admins/admins.component';
+import { ServiceApiService } from './service/service-api.service';
 
 @NgModule({
   imports: [
@@ -65,6 +64,7 @@ import { AdminsComponent } from './pages/admin/admins/admins.component';
       CustomerGuards,
       CustomerApiService,
       EmployApiService,
+      ServiceApiService,
       NotificationService,
       PaymentService,
       ViewCalendarService,

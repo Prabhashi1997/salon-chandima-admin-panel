@@ -86,11 +86,11 @@ getEmploys() {
   } );
 }
 add() {
-  this.router.navigateByUrl('/admin/create-employ')
+  this.router.navigateByUrl('/admin/create-employee')
 }
 
 update(id: string) {
-  this.router.navigateByUrl('/admin/edit-employ/'+id)
+  this.router.navigateByUrl('/admin/edit-employee/'+id)
 }
 
 // Called on Filter change

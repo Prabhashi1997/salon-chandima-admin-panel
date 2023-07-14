@@ -1,0 +1,40 @@
+.card{
+    margin-top: -40px;
+    min-height: 80vh;
+    margin-bottom: -50px;
+}
+
+.card-title{
+    text-align: left;
+    text-decoration: underline;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.submit{
+    background-color: rgb(45, 89, 246);
+    color: white;
+    float: right;
+    border-radius: 6px;
+    padding: 0 0 0 0;
+    margin-left: 4px;
+}
+
+.reset{
+    background-color: rgb(248, 167, 6);
+    color: white;
+    float: right;
+    border-radius: 6px;
+    padding: 0 0 0 0;
+}
+
+.card-body{
+    padding: 5%;
+    margin-top: -50px;
+}  
+
+.bottom{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}

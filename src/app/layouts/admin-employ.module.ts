@@ -11,16 +11,19 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatRadioModule} from "@angular/material/radio";
 import {CustomerEditComponent} from "../pages/admin-employ/customer-edit/customer-edit.component";
+import {ServicesComponent} from "../pages/admin-employ/services/services.component";
 
 @NgModule({
   declarations: [
-    ServiceEditComponent,
-    CustomersComponent,
+      ServiceEditComponent,
+      ServicesComponent,
+      CustomersComponent,
       CustomerEditComponent
   ],
   exports: [
-    ServiceEditComponent,
-    CustomersComponent,
+      ServicesComponent,
+      ServiceEditComponent,
+      CustomersComponent,
       CustomerEditComponent,
   ],
     imports: [
@@ -31,9 +34,9 @@ import {CustomerEditComponent} from "../pages/admin-employ/customer-edit/custome
         MatTableModule,
         RouterLink,
         MatInputModule,
-        MatPaginatorModule,
         MatSlideToggleModule,
-        MatRadioModule
+        MatRadioModule,
+        MatPaginatorModule
     ]
 })
 export class AdminEmployModule { }

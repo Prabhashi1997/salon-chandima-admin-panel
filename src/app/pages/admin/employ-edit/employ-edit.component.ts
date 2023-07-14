@@ -16,15 +16,23 @@ export class EmployEditComponent implements OnInit {
   edit= false;
   id;
 
-  user = {
+  user: any = {
     firstName: '',
     lastName: '',
-    nicNumber: '',
-    age: '',
-    address: '',
+    nic: '',
     contactNumber: '',
-    emailAddress:'',
+    email:'',
     gender: '',
+    designation: '',
+
+    // designation: qb.designation,
+    // gender: qb.gender,
+    // contactNumber: qb.user.contactNumber,
+    // doj: qb.user.doj,
+    // email: qb.user.email,
+    // firstName: qb.user.firstName,
+    // lastName: qb.user.lastName,
+    // nic: qb.user.nic,
   }
 
   constructor(
@@ -52,12 +60,11 @@ export class EmployEditComponent implements OnInit {
                 this.userForm = new FormGroup({
                   firstName: new FormControl('', [Validators.required]),
                   lastName: new FormControl('', [Validators.required]),
-                  nicNumber: new FormControl('', [Validators.required]),
-                  age: new FormControl('', [Validators.required]),
-                  address: new FormControl('', [Validators.required]),
+                  nic: new FormControl('', [Validators.required]),
                   contactNumber: new FormControl('', [Validators.required]),
-                  emailAddress: new FormControl('', [Validators.required, Validators.email]),
+                  email: new FormControl('', [Validators.required, Validators.email]),
                   gender: new FormControl('', [Validators.required]),
+                  designation: new FormControl('', [Validators.required]),
                 });
                 this.isLoading = false;
                 Swal.close();
@@ -73,12 +80,11 @@ export class EmployEditComponent implements OnInit {
               this.userForm = new FormGroup({
                 firstName: new FormControl('', [Validators.required]),
                 lastName: new FormControl('', [Validators.required]),
-                nicNumber: new FormControl('', [Validators.required]),
-                age: new FormControl('', [Validators.required]),
-                address: new FormControl('', [Validators.required]),
+                nic: new FormControl('', [Validators.required]),
                 contactNumber: new FormControl('', [Validators.required]),
-                emailAddress: new FormControl('', [Validators.required, Validators.email]),
+                email: new FormControl('', [Validators.required, Validators.email]),
                 gender: new FormControl('', [Validators.required]),
+                designation: new FormControl('', [Validators.required]),
               });
               this.isLoading = false;
               Swal.close();
@@ -95,15 +101,7 @@ export class EmployEditComponent implements OnInit {
   }
 
   get nicNumber() {
-    return this.userForm?.get('nicNumber')
-  }
-
-  get age() {
-    return this.userForm?.get('age')
-  }
-
-  get address() {
-    return this.userForm?.get('address')
+    return this.userForm?.get('nic')
   }
 
   get contactNumber() {
@@ -111,11 +109,15 @@ export class EmployEditComponent implements OnInit {
   }
 
   get emailAddress() {
-    return this.userForm?.get('emailAddress')
+    return this.userForm?.get('email')
   }
 
   get gender() {
     return this.userForm?.get('gender')
+  }
+
+  get designation() {
+    return this.userForm?.get('designation')
   }
 
   submit(){
@@ -142,7 +144,7 @@ export class EmployEditComponent implements OnInit {
             }).then(() => {
             });
             // @ts-ignore
-            delete this.employ.doj
+            delete this.user.doj
             this.employeeService.
             edit(this.user, this.id).subscribe(
                 async data => {
@@ -193,7 +195,7 @@ export class EmployEditComponent implements OnInit {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                   });
-                  // this.router.navigateByUrl('/employs');
+                  // this.router.navigateByUrl('/customers');
                   this.router.navigateByUrl('/admin/employs');
 
                 }, async error => {

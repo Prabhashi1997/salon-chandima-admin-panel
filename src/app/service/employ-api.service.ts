@@ -12,8 +12,8 @@ export interface User {
   dob: Date;
   contactNumber: string;
   doj: string;
-  emailAddress: string;
-  nicNumber: string;
+  email: string;
+  nic: string;
 }
 
 export interface EmployCreationParams {

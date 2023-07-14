@@ -18,7 +18,6 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {DashboardComponent} from "../../pages/employ/dashboard/dashboard.component";
 import {UserProfileComponent} from "../../pages/employ/user-profile/user-profile.component";
-import {AdminEmployModule} from "../admin-employ.module";
 
 @NgModule({
     imports: [
@@ -39,7 +38,6 @@ import {AdminEmployModule} from "../admin-employ.module";
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
-        AdminEmployModule,
     ],
 
   declarations: [

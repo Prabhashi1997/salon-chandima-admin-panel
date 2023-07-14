@@ -58,6 +58,13 @@ export class CustomerApiService {
     return data as Observable<{ message: string, body?: any }>;
   }
 
+  delete(id) {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/${id}`;
+    const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ message: string, body?: any }>;
+  }
+
   getCustomer(id: string): Observable<{ data: Customer }> {
     const token = localStorage.getItem('token');
     const url = `${this.baseUrl2}/${id}`;

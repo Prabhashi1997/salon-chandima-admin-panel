@@ -24,6 +24,8 @@ import {AdminEmployModule} from "../admin-employ.module";
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AdminsComponent } from 'app/pages/admin/admins/admins.component';
 import { EmploysComponent } from 'app/pages/admin/employs/employs.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
     imports: [
@@ -44,16 +46,17 @@ import { EmploysComponent } from 'app/pages/admin/employs/employs.component';
         MatDatepickerModule,
         MatNativeDateModule,
         MatCheckboxModule,
-        AdminEmployModule,
         MatPaginatorModule,
+        MatTableModule,
+        MatSlideToggleModule,
     ],
 
   declarations: [
       DashboardComponent,
       UserProfileComponent,
       AdminsComponent,
-      EmploysComponent,
       AdminEditComponent,
+      EmploysComponent,
       EmployEditComponent,
   ]
 })
