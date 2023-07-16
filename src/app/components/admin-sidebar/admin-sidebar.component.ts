@@ -14,8 +14,8 @@ export const ROUTES1: RouteInfo[] = [
     { path: '/admin/customers', title: 'Customer',  icon:'person', class: '' },
     { path: '/admin/services', title: 'Service',  icon:'interests', class: '' },
     { path: '/admin/appointments', title: 'Appointment',  icon:'calendar_month', class: '' },
-    { path: '/user-profile', title: 'Payment',  icon:'payments', class: '' },
-    { path: '/user-profile', title: 'Reviews',  icon:'reviews', class: '' },
+    { path: '/admin/payments', title: 'Payment',  icon:'payments', class: '' },
+    { path: '/reviews', title: 'Reviews',  icon:'reviews', class: '' },
     { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
     { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
 

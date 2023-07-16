@@ -31,59 +31,59 @@ export class ServicesComponent implements OnInit, AfterViewInit {
     select: boolean,
     modelValue?: any,
   }[] = [];
-  displayedColumns: string[] = ['num', 'fullName','amount','disable' ];
+  displayedColumns: string[] = ['num', 'name','price','disable' ];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private serviceService: ServiceApiService,
-    private router: Router
-) {
-  this.getServices();
-  this.filterSelectObj = [
-    {
-      name: 'Service Name',
-      columnProp: 'name',
-      options: [],
-      select: false,
-    }
-  ]
-}
+      private serviceService: ServiceApiService,
+      private router: Router
+  ) {
+    this.getServices();
+    this.filterSelectObj = [
+      {
+        name: 'Service Name',
+        columnProp: 'name',
+        options: [],
+        select: false,
+      }
+    ]
+  }
 
-ngOnInit() {
-  this.dataSource.sort = this.sort;
-  this.dataSource.paginator = this.paginator;
-  this.dataSource.filterPredicate = this.createFilter();
-}
+  ngOnInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.filterPredicate = this.createFilter();
+  }
 
-ngAfterViewInit(): void {
-  this.dataSource.sort = this.sort;
-  this.dataSource.paginator = this.paginator;
-  this.getServices();
-}
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.getServices();
+  }
 
-getServices() {
-  this.serviceService.getServices().subscribe((e) => {
-    this.services = e.data;
-    this.dataSource.data = this.services;
-    Swal.close();
-  },async (error) => {
-    await Swal.fire(
-      'Error!',
-      'Your process has been cancelled.',
-      'error'
-    );
-  } );
-}
-add() {
-  this.router.navigateByUrl('/admin/create-service')
-}
+  getServices() {
+    this.serviceService.getServices().subscribe((e) => {
+      this.services = e.services;
+      this.dataSource.data = this.services;
+      Swal.close();
+    },async (error) => {
+      await Swal.fire(
+        'Error!',
+        'Your process has been cancelled.',
+        'error'
+      );
+    } );
+  }
+  add() {
+    this.router.navigateByUrl('/admin/create-service')
+  }
 
-update(id: string) {
-  this.router.navigateByUrl('/admin/edit-service/'+id)
-}
+  update(id: string) {
+    this.router.navigateByUrl('/admin/edit-service/'+id)
+  }
 
   // Called on Filter change
   filterChange(filter:{ name: string, columnProp: string, options: any[] }, event: any) {
@@ -122,18 +122,19 @@ update(id: string) {
 
       let nameSearch = () => {
         let found = false;
-        let found1 = true;
+        // let found1 = true;
         if (isFilterSet) {
           for (const col in searchTerms) {
             searchTerms[col].trim().toLowerCase().split(' ').forEach((word: string) => {
               if (data[col].toString().toLowerCase().indexOf(word) != -1 && isFilterSet) {
                 found = true;
-              } else {
-                found1 = false;
-              }
+              } 
+              // else {
+              //   found1 = false;
+              // }
             });
           }
-          return found1
+          return found
         } else {
           return true;
         }
@@ -154,6 +155,45 @@ update(id: string) {
   }
 
   delete(id: string) {
-    this.router.navigateByUrl('/admin/delete-service/'+id)
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do You want delete this service?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#4250ce',
+      confirmButtonText: `Yes, delete it`,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Processing!',
+          didOpen: () => {
+            Swal.showLoading();
+          },
+          allowOutsideClick: () => !Swal.isLoading()
+        }).then(() => {
+        });
+        this.serviceService.delete(id).subscribe(
+            async data => {
+              await Swal.fire({
+                title: 'Success!',
+                text: `You have successfully deleted.`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              });
+              await this.getServices()
+
+            }, async error => {
+              console.log(error)
+              await Swal.fire(
+                  'Error!',
+                  'Your process has been cancelled.',
+                  'error'
+              );
+
+            }
+        )
+      }
+    });
   }
 }

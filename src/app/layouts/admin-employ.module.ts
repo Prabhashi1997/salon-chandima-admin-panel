@@ -12,19 +12,22 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatRadioModule} from "@angular/material/radio";
 import {CustomerEditComponent} from "../pages/admin-employ/customer-edit/customer-edit.component";
 import {ServicesComponent} from "../pages/admin-employ/services/services.component";
+import {PaymentsComponent} from "../pages/admin-employ/payments/payments.component";
 
 @NgModule({
   declarations: [
       ServiceEditComponent,
       ServicesComponent,
       CustomersComponent,
-      CustomerEditComponent
+      CustomerEditComponent,
+      PaymentsComponent,
   ],
   exports: [
       ServicesComponent,
       ServiceEditComponent,
       CustomersComponent,
       CustomerEditComponent,
+      PaymentsComponent,
   ],
     imports: [
         CommonModule,

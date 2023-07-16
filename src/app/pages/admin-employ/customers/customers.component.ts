@@ -115,7 +115,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     return uniqChk;
   }
 
-  // Custom filter method fot Angular Material Datatable
+  // Custom filter method for Angular Material Datatable
   createFilter() {
     let filterFunction = function (data: any, filter: string): boolean {
       let searchTerms = JSON.parse(filter);
@@ -186,7 +186,7 @@ export class CustomersComponent implements OnInit, AfterViewInit {
             async data => {
               await Swal.fire({
                 title: 'Success!',
-                text: `You have successfully edited.`,
+                text: `You have successfully deleted.`,
                 icon: 'success',
                 confirmButtonText: 'Ok'
               });

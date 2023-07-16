@@ -4,10 +4,10 @@ import { ServiceApiService } from 'app/service/service-api.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import Swal from "sweetalert2";
 
-interface Service {
-  id: string;
-  value: string;
-}
+// interface Service {
+//   id: string;
+//   value: string;
+// }
 
 @Component({
   selector: 'app-service-edit',
@@ -16,7 +16,7 @@ interface Service {
 })
 export class ServiceEditComponent implements OnInit {
 
-  hide = true;
+  // hide = true;
 
   serviceForm;
   isLoading = true;
@@ -24,11 +24,12 @@ export class ServiceEditComponent implements OnInit {
   id;
 
   service: any = {
-    serviceName: '',
-    category: '',
+    name: '',
+    // category: '',
     price: '',
     duration: '',
     description: '',
+    employeeName: '',
   }
 
   // services: Service[] = [
@@ -38,6 +39,7 @@ export class ServiceEditComponent implements OnInit {
   //   {id: '3', value: 'Waxing'},
   //   {id: '4', value: 'Bridal Dressing'},
   //   {id: '5', value: 'Normal Dressing'},
+  //   {id: '6', value: 'Other'},
   // ];
 
   constructor(
@@ -62,13 +64,15 @@ export class ServiceEditComponent implements OnInit {
           if(!!params.id) {
             this.id = params.id;
             this.serviceService.getService(this.id).subscribe((data) => {
+              console.log(data);
               this.service = data.data;
               this.serviceForm = new FormGroup({
-                serviceName: new FormControl('', [Validators.required]),
-                category: new FormControl('', [Validators.required]),
+                name: new FormControl('', [Validators.required]),
+                // category: new FormControl('', [Validators.required]),
                 price: new FormControl('', [Validators.required]),
                 duration: new FormControl('', [Validators.required]),
-                description: new FormControl('', [Validators.required]),
+                description: new FormControl(''),
+                employeeName: new FormControl(''),
               });
               this.isLoading = false;
               Swal.close();
@@ -82,11 +86,12 @@ export class ServiceEditComponent implements OnInit {
             })
           } else {
             this.serviceForm = new FormGroup({
-              serviceName: new FormControl('', [Validators.required]),
-              category: new FormControl('', [Validators.required]),
+              name: new FormControl('', [Validators.required]),
+              // category: new FormControl('', [Validators.required]),
               price: new FormControl('', [Validators.required]),
               duration: new FormControl('', [Validators.required]),
-              description: new FormControl('', [Validators.required]),
+              description: new FormControl(''),
+              employeeName: new FormControl(''),
             });
             this.isLoading = false;
             Swal.close();
@@ -95,12 +100,12 @@ export class ServiceEditComponent implements OnInit {
   }
 
   get serviceName() {
-    return this.serviceForm?.get('serviceName')
+    return this.serviceForm?.get('name')
   }
 
-  get category() {
-    return this.serviceForm?.get('category')
-  }
+  // get category() {
+  //   return this.serviceForm?.get('category')
+  // }
 
   get price() {
     return this.serviceForm?.get('price')
@@ -114,97 +119,103 @@ export class ServiceEditComponent implements OnInit {
     return this.serviceForm?.get('description')
   }
 
+  get employeeName() {
+    return this.serviceForm?.get('employeeName')
+  }
+
   submit(){
     this.serviceForm.markAllAsTouched();
-    if(!this.serviceForm.invalid) {
-      if(this.edit) {
+    console.log(this.service);
+    // if(!this.serviceForm.invalid) {
+    //   if(this.edit) {
 
-        Swal.fire({
-          title: 'Are you sure?',
-          text: `Do You want edit this service?`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#4250ce',
-          cancelButtonColor: '#dc3545',
-          confirmButtonText: `Yes, edit it`,
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: 'Processing!',
-              didOpen: () => {
-                Swal.showLoading();
-              },
-              allowOutsideClick: () => !Swal.isLoading()
-            }).then(() => {
-            });
-            // @ts-ignore
-            delete this.service.doj
-            this.serviceService.
-            edit(this.service, this.id).subscribe(
-                async data => {
-                  await Swal.fire({
-                    title: 'Success!',
-                    text: `You have successfully edited.`,
-                    icon: 'success',
-                    confirmButtonText: 'Ok'
-                  });
-                  this.router.navigateByUrl('/admin/services');
+    //     Swal.fire({
+    //       title: 'Are you sure?',
+    //       text: `Do You want edit this service?`,
+    //       icon: 'warning',
+    //       showCancelButton: true,
+    //       confirmButtonColor: '#4250ce',
+    //       cancelButtonColor: '#dc3545',
+    //       confirmButtonText: `Yes, edit it`,
+    //     }).then(async (result) => {
+    //       if (result.isConfirmed) {
+    //         Swal.fire({
+    //           title: 'Processing!',
+    //           didOpen: () => {
+    //             Swal.showLoading();
+    //           },
+    //           allowOutsideClick: () => !Swal.isLoading()
+    //         }).then(() => {
+    //         });
+    //         // @ts-ignore
+    //         delete this.service.doj;
+    //         console.log(this.service);
+    //         this.serviceService.
+    //         edit(this.service, this.id).subscribe(
+    //             async data => {
+    //               await Swal.fire({
+    //                 title: 'Success!',
+    //                 text: `You have successfully edited.`,
+    //                 icon: 'success',
+    //                 confirmButtonText: 'Ok'
+    //               });
+    //               this.router.navigateByUrl('/admin/services');
 
-                }, async error => {
-                  console.log(error)
-                  await Swal.fire(
-                      'Error!',
-                      'Your process has been cancelled.',
-                      'error'
-                  );
+    //             }, async error => {
+    //               console.log(error)
+    //               await Swal.fire(
+    //                   'Error!',
+    //                   'Your process has been cancelled.',
+    //                   'error'
+    //               );
 
-                }
-            )
-          }
-        });
-      } else {
-        Swal.fire({
-          title: 'Are you sure?',
-          text: `Do You want add this service?`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#4250ce',
-          cancelButtonColor: '#dc3545',
-          confirmButtonText: `Yes, add it`,
-        }).then(async (result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: 'Processing!',
-              didOpen: () => {
-                Swal.showLoading();
-              },
-              allowOutsideClick: () => !Swal.isLoading()
-            }).then(() => {
-            });
-            this.serviceService.add(this.service).subscribe(
-                async data => {
-                  await Swal.fire({
-                    title: 'Success!',
-                    text: `You have successfully added.`,
-                    icon: 'success',
-                    confirmButtonText: 'Ok'
-                  });
-                  this.router.navigateByUrl('/admin/services');
+    //             }
+    //         )
+    //       }
+    //     });
+    //   } else {
+    //     Swal.fire({
+    //       title: 'Are you sure?',
+    //       text: `Do You want add this service?`,
+    //       icon: 'warning',
+    //       showCancelButton: true,
+    //       confirmButtonColor: '#4250ce',
+    //       cancelButtonColor: '#dc3545',
+    //       confirmButtonText: `Yes, add it`,
+    //     }).then(async (result) => {
+    //       if (result.isConfirmed) {
+    //         Swal.fire({
+    //           title: 'Processing!',
+    //           didOpen: () => {
+    //             Swal.showLoading();
+    //           },
+    //           allowOutsideClick: () => !Swal.isLoading()
+    //         }).then(() => {
+    //         });
+    //         this.serviceService.add(this.service).subscribe(
+    //             async data => {
+    //               await Swal.fire({
+    //                 title: 'Success!',
+    //                 text: `You have successfully added.`,
+    //                 icon: 'success',
+    //                 confirmButtonText: 'Ok'
+    //               });
+    //               this.router.navigateByUrl('/admin/services');
 
-                }, async error => {
-                  console.log(error)
-                  await Swal.fire(
-                      'Error!',
-                      'Your process has been cancelled.',
-                      'error'
-                  );
+    //             }, async error => {
+    //               console.log(error)
+    //               await Swal.fire(
+    //                   'Error!',
+    //                   'Your process has been cancelled.',
+    //                   'error'
+    //               );
 
-                }
-            )
-          }
-        });
-      }
-    }
+    //             }
+    //         )
+    //       }
+    //     });
+    //   }
+    // }
     console.log("Form submitted")
   }
 

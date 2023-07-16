@@ -11,6 +11,8 @@ import {CustomerEditComponent} from "../../pages/admin-employ/customer-edit/cust
 import { AdminsComponent } from 'app/pages/admin/admins/admins.component';
 import { EmploysComponent } from 'app/pages/admin/employs/employs.component';
 import {ServicesComponent} from "../../pages/admin-employ/services/services.component";
+import {PaymentsComponent} from "../../pages/admin-employ/payments/payments.component";
+
 
 export const AdminLayoutRoutes: Routes = [
     { path: '', redirectTo: 'dashboard' },
@@ -27,5 +29,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'services',  component: ServicesComponent, canActivate: [AfterGuards], },
     { path: 'create-service',  component: ServiceEditComponent, canActivate: [AfterGuards], },
     { path: 'edit-service/:id', component: ServiceEditComponent, canActivate: [AfterGuards],  },
+    { path: 'payments',  component: PaymentsComponent, canActivate: [AfterGuards], },
     { path: 'profile',   component: UserProfileComponent, canActivate: [AfterGuards], },
 ];

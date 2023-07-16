@@ -6,11 +6,12 @@ import {environment} from 'environments/environment';
 export interface Service {
     id?: number;
     name: string;
-    description: string;
+    description?: string;
     image?: string;
     price: number;
-    duration?: number;
-    category?: string;
+    duration: number;
+    // category?: string;
+    employeeName?: string;
 }
 
 @Injectable({
@@ -57,16 +58,23 @@ export interface Service {
         return data as Observable<{ data: Service }>;
       }
     
-      getServices(): Observable<{ data: Service[], total: number}> {
+      getServices(): Observable<{ services: Service[], total: number}> {
         const token = localStorage.getItem('token');
         const url = `${this.baseUrl2}`;
         const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-        return data as Observable<{ data: Service[], total: number }>;
+        return data as Observable<{ services: Service[], total: number }>;
       }
     
       disableService(id: string): Observable<{ message: string, body?: any }> {
         const token = localStorage.getItem('token');
         const url = `${this.baseUrl2}/${id}/disable`;
+        const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
+        return data as Observable<{ message: string, body?: any }>;
+      }
+
+      delete(id){
+        const token = localStorage.getItem('token');
+        const url = `${this.baseUrl2}/${id}`;
         const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
         return data as Observable<{ message: string, body?: any }>;
       }
