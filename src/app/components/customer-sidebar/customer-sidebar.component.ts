@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/customer/appointment-details', title: 'Appointment',  icon:'calendar_month', class: '' },
     { path: '/customer/user-profile', title: 'Payment',  icon:'payments', class: '' },
     { path: '/customer/user-profile', title: 'Reviews',  icon:'reviews', class: '' },
-    { path: '/customer/user-profile', title: 'User Profile',  icon:'person', class: '' },
+    { path: '/customer/profile', title: 'User Profile',  icon:'person', class: '' },
 
 ];
 

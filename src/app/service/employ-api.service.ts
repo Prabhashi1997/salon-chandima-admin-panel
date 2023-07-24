@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import {environment} from 'environments/environment';
 
 export interface User {
+  id?: string;
   firstName: string;
   lastName: string;
   address: string;
@@ -60,18 +61,32 @@ export class EmployApiService {
     return data as Observable<{ message: string, body?: any }>;
   }
 
-  getEmploy(id: string): Observable<{ data: User }> { 
+  delete(id) {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/${id}`;
+    const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ message: string, body?: any }>;
+  }
+
+  getEmploy(id: string): Observable<{ data: User }> {
     const token = localStorage.getItem('token');
     const url = `${this.baseUrl2}/${id}`;
     const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
     return data as Observable<{ data: User }>;
   }
 
-  getEmploys(): Observable<{ data: User[], total: number}> {
+  getEmployeebyUserId(): Observable<{ data: User }> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/user`;
+    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ data: User }>;
+  }
+
+  getEmploys(): Observable<{ employees: User[], total: number}> {
     const token = localStorage.getItem('token');
     const url = `${this.baseUrl2}`;
     const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-    return data as Observable<{ data: User[], total: number }>;
+    return data as Observable<{ employees: User[], total: number }>;
   }
 
   disableEmploy(id: string): Observable<{ message: string, body?: any }> {

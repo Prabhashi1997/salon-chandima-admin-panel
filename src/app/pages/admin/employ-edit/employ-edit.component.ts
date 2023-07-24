@@ -24,15 +24,6 @@ export class EmployEditComponent implements OnInit {
     email:'',
     gender: '',
     designation: '',
-
-    // designation: qb.designation,
-    // gender: qb.gender,
-    // contactNumber: qb.user.contactNumber,
-    // doj: qb.user.doj,
-    // email: qb.user.email,
-    // firstName: qb.user.firstName,
-    // lastName: qb.user.lastName,
-    // nic: qb.user.nic,
   }
 
   constructor(
@@ -58,13 +49,13 @@ export class EmployEditComponent implements OnInit {
             this.employeeService.getEmploy(this.id).subscribe((data) => {
               this.user = data.data;
                 this.userForm = new FormGroup({
-                  firstName: new FormControl('', [Validators.required]),
-                  lastName: new FormControl('', [Validators.required]),
-                  nic: new FormControl('', [Validators.required]),
-                  contactNumber: new FormControl('', [Validators.required]),
-                  email: new FormControl('', [Validators.required, Validators.email]),
-                  gender: new FormControl('', [Validators.required]),
-                  designation: new FormControl('', [Validators.required]),
+                  firstName: new FormControl(this.user.firstName, [Validators.required]),
+                  lastName: new FormControl(this.user.lastName,[Validators.required]),
+                  nic: new FormControl({ value: this.user.nic, disabled: true }, [Validators.required]),
+                  contactNumber: new FormControl(this.user.contactNumber, [Validators.required]),
+                  email: new FormControl({ value: this.user.email, disabled: true }, [Validators.required, Validators.email]),
+                  gender: new FormControl(this.user.gender,[Validators.required]),
+                  designation: new FormControl(this.user.designation,[Validators.required]),
                 });
                 this.isLoading = false;
                 Swal.close();
@@ -88,8 +79,8 @@ export class EmployEditComponent implements OnInit {
               });
               this.isLoading = false;
               Swal.close();
-            } 
-          });    
+            }
+          });
   }
 
   get firstName() {
@@ -154,13 +145,12 @@ export class EmployEditComponent implements OnInit {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                   });
-                  this.router.navigateByUrl('/admin/employs');
+                  this.router.navigateByUrl('/admin/employees');
 
                 }, async error => {
-                  console.log(error)
                   await Swal.fire(
                       'Error!',
-                      'Your process has been cancelled.',
+                      error?.error?.message ?? 'Your process has been cancelled.',
                       'error'
                   );
 
@@ -196,13 +186,13 @@ export class EmployEditComponent implements OnInit {
                     confirmButtonText: 'Ok'
                   });
                   // this.router.navigateByUrl('/customers');
-                  this.router.navigateByUrl('/admin/employs');
+                  this.router.navigateByUrl('/admin/employees');
 
                 }, async error => {
                   console.log(error)
                   await Swal.fire(
                       'Error!',
-                      'Your process has been cancelled.',
+                      error?.error?.message ?? 'Your process has been cancelled.',
                       'error'
                   );
 

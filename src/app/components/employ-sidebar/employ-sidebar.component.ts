@@ -8,16 +8,12 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'Admin',  icon:'person', class: '' },
-    { path: '/table-list', title: 'Employee',  icon:'person', class: '' },
-    { path: '/typography', title: 'Customer',  icon:'person', class: '' },
-    { path: '/user-profile', title: 'Service',  icon:'interests', class: '' },
-    { path: '/user-profile', title: 'Appointment',  icon:'calendar_month', class: '' },
-    { path: '/user-profile', title: 'Payment',  icon:'payments', class: '' },
-    { path: '/user-profile', title: 'Reviews',  icon:'reviews', class: '' },
-    { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
+    { path: '/employee/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/employee/customers', title: 'Customer',  icon:'person', class: '' },
+    { path: '/employee/services', title: 'Service',  icon:'interests', class: '' },
+    { path: '/employee/appointments', title: 'Appointment',  icon:'calendar_month', class: '' },
+    { path: '/employee/payments', title: 'Payment',  icon:'payments', class: '' },
+    { path: '/employee/profile', title: 'User Profile',  icon:'person', class: '' },
 
 ];
 

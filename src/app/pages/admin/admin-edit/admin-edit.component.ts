@@ -43,7 +43,6 @@ export class AdminEditComponent implements OnInit {
     });
     this.route.params.subscribe(params =>{
       this.edit = !!params.id;
-      console.log(params)
       if(!!params.id) {
         this.id = params.id;
         this.adminService.getAdmin(this.id).subscribe((data) => {
@@ -53,7 +52,7 @@ export class AdminEditComponent implements OnInit {
             lastName: new FormControl(this.admin.lastName, [Validators.required]),
             nic: new FormControl({ value: this.admin.nic, disabled: true }, [Validators.required]),
             contactNumber: new FormControl(this.admin.contactNumber, [Validators.required]),
-            email: new FormControl(this.admin.email, [Validators.required, Validators.email]),
+            email: new FormControl({ value: this.admin.email, disabled: true }, [Validators.required, Validators.email]),
           });
           this.isLoading = false;
           Swal.close();
@@ -136,61 +135,62 @@ export class AdminEditComponent implements OnInit {
                   this.router.navigateByUrl('/admin/admins');
 
                 }, async error => {
-                  console.log(error)
                   await Swal.fire(
                       'Error!',
-                      'Your process has been cancelled.',
+                      error?.error?.message ?? 'Your process has been cancelled.',
                       'error'
                   );
 
                 }
             )
-          } else {
+          }
+        })
+      } else {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `Do You want add this admin?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#4250ce',
+          cancelButtonColor: '#dc3545',
+          confirmButtonText: `Yes, add it`,
+        }).then(async (result) => {
+          if(result.isConfirmed) {
             Swal.fire({
-              title: 'Are you sure?',
-              text: `Do You want add this admin?`,
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#4250ce',
-              cancelButtonColor: '#dc3545',
-              confirmButtonText: `Yes, add it`,
-            }).then(async (result) => {
-              if (result.isConfirmed) {
-                Swal.fire({
-                  title: 'Processing!',
-                  didOpen: () => {
-                    Swal.showLoading();
-                  },
-                  allowOutsideClick: () => !Swal.isLoading()
-                }).then(() => {
-                });
-                this.adminService.add(this.admin).subscribe(
-                    async data => {
-                      await Swal.fire({
-                        title: 'Success!',
-                        text: `You have successfully added.`,
-                        icon: 'success',
-                        confirmButtonText: 'Ok'
-                      });
-                      this.router.navigateByUrl('/admin/admins');
-    
-                    }, async error => {
-                      console.log(error)
-                      await Swal.fire(
-                          'Error!',
-                          'Your process has been cancelled.',
-                          'error'
-                      );
-    
-                    }
-                )
-              }
+              title: 'Processing!',
+              didOpen: () => {
+                Swal.showLoading();
+              },
+              allowOutsideClick: () => !Swal.isLoading()
+            }).then(() =>{
             });
+            // @ts-ignore
+            delete this.admin.doj
+            this.adminService.add(this.admin).subscribe(
+                async data => {
+                  await Swal.fire({
+                    title: 'Success!',
+                    text: `You have successfully added.`,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  });
+                  this.router.navigateByUrl('/admin/admins');
+
+                }, async error => {
+                  await Swal.fire(
+                      'Error!',
+                      error?.error?.message ?? 'Your process has been cancelled.',
+                      'error'
+                  );
+
+                }
+            )
           }
         })
       }
     }
-    console.log("Form submitted")
+    console.log("Form submitted", !this.adminForm.invalid)
   }
+
 
 }

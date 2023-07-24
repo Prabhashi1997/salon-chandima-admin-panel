@@ -12,6 +12,7 @@ import { AdminsComponent } from 'app/pages/admin/admins/admins.component';
 import { EmploysComponent } from 'app/pages/admin/employs/employs.component';
 import {ServicesComponent} from "../../pages/admin-employ/services/services.component";
 import {PaymentsComponent} from "../../pages/admin-employ/payments/payments.component";
+import { AppointmentEditComponent } from 'app/pages/admin-employ/appointment-edit/appointment-edit.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -31,4 +32,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'edit-service/:id', component: ServiceEditComponent, canActivate: [AfterGuards],  },
     { path: 'payments',  component: PaymentsComponent, canActivate: [AfterGuards], },
     { path: 'profile',   component: UserProfileComponent, canActivate: [AfterGuards], },
+    { path: 'create-appointment',  component: AppointmentEditComponent, canActivate: [AfterGuards], },
+    { path: 'edit-appointment/:id', component: AppointmentEditComponent, canActivate: [AfterGuards],  },
+    { path: 'appointments',  component: AppointmentEditComponent, canActivate: [AfterGuards], },
+
 ];

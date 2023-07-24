@@ -49,7 +49,7 @@ const routes: Routes =[
     canActivate: [AfterGuards,CustomerGuards],
   },
   {
-    path: 'employ',
+    path: 'employee',
     component: EmployLayoutComponent,
     children: [{
       path: '',

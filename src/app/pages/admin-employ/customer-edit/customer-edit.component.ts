@@ -52,14 +52,14 @@ export class CustomerEditComponent implements OnInit {
             this.customerService.getCustomer(this.id).subscribe((data) => {
               this.customer = data.data;
               this.customerForm = new FormGroup({
-                firstName: new FormControl(data.data.firstName, [Validators.required]),
-                lastName: new FormControl(data.data.lastName, [Validators.required]),
-                nic: new FormControl({ value: data.data.nic, disabled: true }, [Validators.required]),
-                age: new FormControl(data.data.age, [Validators.required]),
-                address: new FormControl(data.data.address, [Validators.required]),
-                contactNumber: new FormControl(data.data.contactNumber, [Validators.required]),
-                email: new FormControl({ value: data.data.email, disabled: true },[Validators.required, Validators.email]),
-                gender: new FormControl(data.data.gender,[Validators.required]),
+                firstName: new FormControl(this.customer.firstName, [Validators.required]),
+                lastName: new FormControl(this.customer.lastName, [Validators.required]),
+                nic: new FormControl({ value: this.customer.nic, disabled: true }, [Validators.required]),
+                age: new FormControl(this.customer.age, [Validators.required]),
+                address: new FormControl(this.customer.address, [Validators.required]),
+                contactNumber: new FormControl(this.customer.contactNumber, [Validators.required]),
+                email: new FormControl({ value: this.customer.email, disabled: true },[Validators.required, Validators.email]),
+                gender: new FormControl(this.customer.gender,[Validators.required]),
               });
               this.isLoading = false;
               Swal.close();
@@ -82,6 +82,7 @@ export class CustomerEditComponent implements OnInit {
               email: new FormControl('', [Validators.required, Validators.email]),
               gender: new FormControl('', [Validators.required]),
             });
+
             this.isLoading = false;
             Swal.close();
           }
@@ -159,7 +160,7 @@ export class CustomerEditComponent implements OnInit {
                   console.log(error)
                   await Swal.fire(
                       'Error!',
-                      'Your process has been cancelled.',
+                      error?.error?.message ?? 'Your process has been cancelled.',
                       'error'
                   );
 
@@ -201,7 +202,7 @@ export class CustomerEditComponent implements OnInit {
                   console.log(error)
                   await Swal.fire(
                       'Error!',
-                      'Your process has been cancelled.',
+                      error?.error?.message ?? 'Your process has been cancelled.',
                       'error'
                   );
 

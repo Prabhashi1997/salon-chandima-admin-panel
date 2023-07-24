@@ -6,6 +6,7 @@ import {MatSort} from "@angular/material/sort";
 import Swal from "sweetalert2";
 import { Payment, PaymentService } from 'app/service/payment.service';
 import { Router } from '@angular/router';
+import { TokenService } from 'app/service/token.service';
 
 @Component({
   selector: 'app-payments',
@@ -40,7 +41,8 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
 
     constructor(
       private paymentService: PaymentService,
-      private router: Router
+      private router: Router,
+      private token: TokenService,
     ) {
       this.getPayments();
       this.filterSelectObj = [
@@ -86,11 +88,20 @@ export class PaymentsComponent implements OnInit, AfterViewInit {
     } );
   }
   add() {
-    this.router.navigateByUrl('/admin/create-payment')
+    if(this.token.isUserAdmin) {
+      this.router.navigateByUrl('/admin/create-payment')
+    } else {
+      this.router.navigateByUrl('/employee/create-payment')
+    }
+    
   }
 
   update(id: string) {
-    this.router.navigateByUrl('/admin/edit-payment/'+id)
+    if(this.token.isUserAdmin) {
+      this.router.navigateByUrl('/admin/edit-payment/'+id)
+    } else {
+      this.router.navigateByUrl('/employee/edit-payment/'+id)
+    }
   }
 
   filterChange(filter:{ name: string, columnProp: string, options: any[] }, event: any) {

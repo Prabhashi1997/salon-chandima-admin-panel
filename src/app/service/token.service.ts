@@ -103,7 +103,7 @@ export class TokenService {
     return !!this.payload(this.gettoken()).role.find((n) => n === 'admin');
   }
   public isUserEmploy(): boolean {
-    return !!this.payload(this.gettoken()).role.find((n) => n === 'employ');
+    return !!this.payload(this.gettoken()).role.find((n) => n === 'employee');
   }
   public isUserCustomer(): boolean {
     return !!this.payload(this.gettoken()).role.find((n) => n === 'customer');

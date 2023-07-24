@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Service, ServiceApiService } from 'app/service/service-api.service';
 import Swal from 'sweetalert2';
 import {Router} from "@angular/router";
+import { TokenService } from 'app/service/token.service';
 
 @Component({
   selector: 'app-services',
@@ -39,7 +40,8 @@ export class ServicesComponent implements OnInit, AfterViewInit {
 
   constructor(
       private serviceService: ServiceApiService,
-      private router: Router
+      private router: Router,
+      private token: TokenService,
   ) {
     this.getServices();
     this.filterSelectObj = [
@@ -78,11 +80,19 @@ export class ServicesComponent implements OnInit, AfterViewInit {
     } );
   }
   add() {
-    this.router.navigateByUrl('/admin/create-service')
+    if(this.token.isUserAdmin) {
+      this.router.navigateByUrl('/admin/create-service')
+    } else {
+      this.router.navigateByUrl('/employee/create-service')
+    }
   }
 
   update(id: string) {
-    this.router.navigateByUrl('/admin/edit-service/'+id)
+    if(this.token.isUserAdmin) {
+      this.router.navigateByUrl('/admin/edit-service/'+id)
+    } else {
+      this.router.navigateByUrl('/employee/edit-service/'+id)
+    }
   }
 
   // Called on Filter change

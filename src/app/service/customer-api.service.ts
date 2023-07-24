@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import {environment} from 'environments/environment';
 
 export interface Customer {
+  id?: string;
   address: string;
   age: string;
   gender: string;
@@ -77,6 +78,13 @@ export class CustomerApiService {
     const url = `${this.baseUrl2}`;
     const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
     return data as Observable<{ data: Customer[], total: number }>;
+  }
+
+  getCustomerbyUserId(): Observable<{ data: Customer }> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/user`;
+    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ data: Customer }>;
   }
 
   disableCustomer(id: string): Observable<{ message: string, body?: any }> {

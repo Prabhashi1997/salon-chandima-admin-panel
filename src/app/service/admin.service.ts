@@ -51,7 +51,14 @@ export class AdminService {
       const data = this.http.post(url,postData,{headers: { Authorization: `Bearer ${token}` },});
       return data as Observable<{ message: string, body?: any }>;
     }
- 
+
+    delete(id) {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl}/${id}`;
+    const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ message: string, body?: any }>;
+  }
+
     edit(admin: any, id: any) {
       const token = localStorage.getItem('token');
       const url = `${this.baseUrl}/${id}`;
@@ -67,12 +74,18 @@ export class AdminService {
       return data as Observable<{ data: Admin }>;
     }
 
+    getAdminbyUserId(): Observable<{ data: Admin }> {
+      const token = localStorage.getItem('token');
+      const url = `${this.baseUrl}/user`;
+      const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ data: Admin }>;
+    }
 
-    getAdmins(): Observable<{ data: Admin[], total: number}> {
+    getAdmins(): Observable<{ admin: Admin[], total: number}> {
       const token = localStorage.getItem('token');
       const url = `${this.baseUrl}`;
       const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-      return data as Observable<{ data: Admin[], total: number }>;
+      return data as Observable<{ admin: Admin[], total: number }>;
     }
 
     disableAdmin(id: string): Observable<{ message: string, body?: any }> {
@@ -81,5 +94,5 @@ export class AdminService {
       const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
       return data as Observable<{ message: string, body?: any }>;
     }
-  
+
 }

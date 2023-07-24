@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Customer, CustomerApiService} from "../../../service/customer-api.service";
 import {Router} from "@angular/router";
+import { TokenService } from 'app/service/token.service';
 
 @Component({
   selector: 'app-customers',
@@ -41,7 +42,8 @@ export class CustomersComponent implements OnInit, AfterViewInit {
 
   constructor(
       private customerService: CustomerApiService,
-      private router: Router
+      private router: Router,
+      private token: TokenService,
   ) {
     this.getCustomers();
     this.filterSelectObj = [
@@ -86,11 +88,19 @@ export class CustomersComponent implements OnInit, AfterViewInit {
     } );
   }
   add() {
-    this.router.navigateByUrl('/admin/create-customer')
+    if(this.token.isUserAdmin()) {
+      this.router.navigateByUrl('/admin/create-customer')
+    } else {
+      this.router.navigateByUrl('/employee/create-customer')
+    }
   }
 
   update(id: string) {
-    this.router.navigateByUrl('/admin/edit-customer/'+id)
+    if(this.token.isUserAdmin()) {
+      this.router.navigateByUrl('/admin/edit-customer/'+id)
+    } else {
+      this.router.navigateByUrl('/employee/edit-customer/'+id)
+    }
   }
 
 

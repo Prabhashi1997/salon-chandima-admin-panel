@@ -7,6 +7,7 @@ import {BackendResponse} from "../../model/backendResponse";
 import {GetInTouch} from "../../model/getInTouch";
 import {environment} from "../../../environments/environment";
 import {TokenService} from "../../service/token.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
               private token: TokenService,
               private _fb: FormBuilder,
               private _http: HttpClient,
+              private router: Router,
               // private _toastr: ToastrService
   ) {
     const node = document.createElement('script');
@@ -125,6 +127,16 @@ export class HomeComponent implements OnInit {
 
   register(){
     return this.token.registeredIn();
+  }
+
+  toDashboard() {
+    if(this.token.isUserAdmin()) {
+      this.router.navigateByUrl('/admin/dashboard')
+    } else if(this.token.isUserCustomer()) {
+      this.router.navigateByUrl('/customer/dashboard')
+    } else {
+      this.router.navigateByUrl('/employee/dashboard')
+    }
   }
 
 }

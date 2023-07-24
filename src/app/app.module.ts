@@ -30,6 +30,8 @@ import {PaymentService} from "./service/payment.service";
 import {SharedService} from "./service/shared.service";
 import {ViewCalendarService} from "./service/viewcalendar.service";
 import { ServiceApiService } from './service/service-api.service';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { AppointmentApiService } from './service/appointment-api.service';
 
 @NgModule({
   imports: [
@@ -42,6 +44,7 @@ import { ServiceApiService } from './service/service-api.service';
       OwlModule,
       // ToastrModule.forRoot(), // ToastrModule added
       AppRoutingModule,
+      MatPaginatorModule,
   ],
   declarations: [
       AppComponent,
@@ -69,6 +72,7 @@ import { ServiceApiService } from './service/service-api.service';
       PaymentService,
       ViewCalendarService,
       CommonService,
+      AppointmentApiService,
   ],
   bootstrap: [AppComponent]
 })
