@@ -64,6 +64,13 @@ export interface Service {
         const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
         return data as Observable<{ services: Service[], total: number }>;
       }
+
+      getAllServices(): Observable<{ services: Service[], total: number}> {
+        const token = localStorage.getItem('token');
+        const url = `${this.baseUrl2}/all`;
+        const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+        return data as Observable<{ services: Service[], total: number }>;
+      }
     
       disableService(id: string): Observable<{ message: string, body?: any }> {
         const token = localStorage.getItem('token');

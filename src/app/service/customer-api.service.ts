@@ -80,6 +80,13 @@ export class CustomerApiService {
     return data as Observable<{ data: Customer[], total: number }>;
   }
 
+  getAllCustomers(): Observable<{ customers: Customer[], total: number}> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/all`;
+    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ customers: Customer[], total: number }>;
+  }
+
   getCustomerbyUserId(): Observable<{ data: Customer }> {
     const token = localStorage.getItem('token');
     const url = `${this.baseUrl2}/user`;

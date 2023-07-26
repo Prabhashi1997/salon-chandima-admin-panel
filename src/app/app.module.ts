@@ -32,6 +32,7 @@ import {ViewCalendarService} from "./service/viewcalendar.service";
 import { ServiceApiService } from './service/service-api.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AppointmentApiService } from './service/appointment-api.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { AppointmentApiService } from './service/appointment-api.service';
       // ToastrModule.forRoot(), // ToastrModule added
       AppRoutingModule,
       MatPaginatorModule,
+      NgSelectModule,
   ],
   declarations: [
       AppComponent,
