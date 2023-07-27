@@ -16,8 +16,8 @@ export class AppointmentEditComponent implements OnInit {
   isLoading = true;
 
   appointment = {
-    customerName: '',
-    serviceName: '',
+    customer: undefined,
+    service: '',
     date: '',
     time: '',
   }
@@ -25,38 +25,36 @@ export class AppointmentEditComponent implements OnInit {
     private customerService: CustomerApiService,
     private serviceService: ServiceApiService,
   ) { 
-    this.loadData()
   }
 
 
   ngOnInit(): void {
     this.appointmentForm = new FormGroup({
-      customerName: new FormControl(this.appointment.customerName, [Validators.required]),
-      serviceName: new FormControl(this.appointment.serviceName, [Validators.required]),
+      customer: new FormControl(this.appointment.customer, [Validators.required]),
+      service: new FormControl(this.appointment.service, [Validators.required]),
       date: new FormControl(this.appointment.date, [Validators.required]),
       time: new FormControl(this.appointment.time, [Validators.required]),
     });
+    this.loadData();
     this.isLoading = false;
   }
 
   loadData() {
     this.customerService.getAllCustomers().subscribe((e) => {
       this.customers = e.customers;
-      console.log(this.customers)
     });
 
     this.serviceService.getAllServices().subscribe((e) => {
       this.services = e.services;
-      console.log(this.services);
     });
   }
 
-  get customerName() {
-    return this.appointmentForm?.get('customerName')
+  get customer() {
+    return this.appointmentForm?.get('customer')
   }
 
-  get serviceName() {
-    return this.appointmentForm?.get('serviceName')
+  get service() {
+    return this.appointmentForm?.get('service')
   }
 
   get date() {
