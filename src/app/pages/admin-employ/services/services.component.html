@@ -62,6 +62,11 @@
                     <mat-cell  *matCellDef="let element"> {{element.price}} </mat-cell>
                   </ng-container>
 
+                  <ng-container matColumnDef="duration">
+                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
+                    <mat-cell  *matCellDef="let element"> {{element.duration}} </mat-cell>
+                  </ng-container>
+
                   <ng-container matColumnDef="disable">
                     <mat-header-cell  *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                     <mat-cell  *matCellDef="let element">

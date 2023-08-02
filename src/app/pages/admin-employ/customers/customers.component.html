@@ -31,7 +31,7 @@
               <button class="btn btn-sm btn-info" style="font-size: large" (click)="add()">Add</button>
             </div>
             <div class="table-responsive">
-              <table class="table align-items-center table-flush" *ngIf="customers; let item" mat-table matSort [dataSource]="dataSource" style="width: 99% !important;">
+              <table class="table align-items-center table-flush" *ngIf="customers" mat-table matSort [dataSource]="dataSource" style="width: 99% !important;">
                 <!-- Position Column -->
                 <ng-container matColumnDef="num">
                   <mat-header-cell  *matHeaderCellDef  style="max-width: 50px !important;"> # </mat-header-cell>

@@ -13,6 +13,8 @@ import { EmploysComponent } from 'app/pages/admin/employs/employs.component';
 import {ServicesComponent} from "../../pages/admin-employ/services/services.component";
 import {PaymentsComponent} from "../../pages/admin-employ/payments/payments.component";
 import { AppointmentEditComponent } from 'app/pages/admin-employ/appointment-edit/appointment-edit.component';
+import { CustomerMessageComponent } from 'app/pages/admin-employ/customer-message/customer-message.component';
+import { ReviewsDeleteComponent } from 'app/pages/admin/reviews-delete/reviews-delete.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -35,5 +37,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'create-appointment',  component: AppointmentEditComponent, canActivate: [AfterGuards], },
     { path: 'edit-appointment/:id', component: AppointmentEditComponent, canActivate: [AfterGuards],  },
     { path: 'appointments',  component: AppointmentEditComponent, canActivate: [AfterGuards], },
+    { path: 'messages',  component: CustomerMessageComponent, canActivate: [AfterGuards], },
+    { path: 'reviews-delete',  component: ReviewsDeleteComponent, canActivate: [AfterGuards], },
 
 ];

@@ -26,6 +26,7 @@ import { AdminsComponent } from 'app/pages/admin/admins/admins.component';
 import { EmploysComponent } from 'app/pages/admin/employs/employs.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { ReviewsDeleteComponent } from 'app/pages/admin/reviews-delete/reviews-delete.component';
 
 @NgModule({
     imports: [
@@ -59,6 +60,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
       AdminEditComponent,
       EmploysComponent,
       EmployEditComponent,
+      ReviewsDeleteComponent
   ]
 })
 

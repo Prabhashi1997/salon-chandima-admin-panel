@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { TokenService } from './token.service';
 import { Observable, throwError } from 'rxjs';
+import { CustomerMessage } from './customer-api.service';
 
 export interface Admin {
   id?: string;
@@ -15,6 +16,12 @@ export interface Admin {
   roles?: string[];
   nic?: string;
   contactNumber?: string;
+}
+
+export interface Review {
+  id?: string;
+  comment: string;
+  rate: number;
 }
 
 export interface AdminCreationParams {
@@ -93,6 +100,27 @@ export class AdminService {
       const url = `${this.baseUrl}/${id}/disable`;
       const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
       return data as Observable<{ message: string, body?: any }>;
+    }
+
+    getAllMessages() {
+      const token = localStorage.getItem('token');
+      const url = `${this.baseUrl}`;
+      const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ messages: CustomerMessage[], total: number }>;
+    }
+
+    deleteReview(id) {
+      const token = localStorage.getItem('token');
+      const url = `${environment.BASE_URL}review/${id}`;
+      const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ message: string, body?: any }>;
+    }
+
+    getReview(): Observable<{ reviews: Review[], total: number}> {
+      const token = localStorage.getItem('token');
+      const url = `${environment.BASE_URL}review`;
+      const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+      return data as Observable<{ reviews: Review[], total: number }>;
     }
 
 }

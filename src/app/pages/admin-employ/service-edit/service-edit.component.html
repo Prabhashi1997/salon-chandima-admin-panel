@@ -69,11 +69,11 @@
                                   <mat-label>Description</mat-label>
                                     <textarea matInput placeholder="" type="text" [(ngModel)]="service.description" id="description" formControlName="description"></textarea>
                                 </mat-form-field>
-                                <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="error-validation">
+                                <!-- <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="error-validation">
                                     <div *ngIf="description?.errors?.['required']">
                                         Description is required.
                                     </div>
-                                </div>
+                                </div> -->
                                 </div>
                             </div>
                             <div class="row">

@@ -28,7 +28,7 @@ export class ReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.reviewForm = new FormGroup({
-      customer: new FormControl(this.review.comment, [Validators.required]),
+      comment: new FormControl(this.review.comment, [Validators.required]),
       rate: new FormControl(this.review.rate, [Validators.required]),
     });
     this.isLoading = false;
@@ -45,9 +45,7 @@ export class ReviewComponent implements OnInit {
 
   submit(){
     this.reviewForm.markAllAsTouched();
-    console.log(this.review);
     if(!this.reviewForm.invalid) {
-      
         Swal.fire({
           title: 'Are you sure?',
           text: `Do You want add this review?`,
@@ -66,7 +64,7 @@ export class ReviewComponent implements OnInit {
               allowOutsideClick: () => !Swal.isLoading()
             }).then(() => {
             });
-            this.reviewService.add(this.review).subscribe(
+            this.reviewService.addReview(this.review).subscribe(
                 async data => {
                   await Swal.fire({
                     title: 'Success!',

@@ -25,6 +25,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {AppointmentEditComponent} from "../pages/admin-employ/appointment-edit/appointment-edit.component";
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CustomerMessageComponent } from 'app/pages/admin-employ/customer-message/customer-message.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
       CustomerEditComponent,
       PaymentsComponent,
       AppointmentEditComponent,
+      CustomerMessageComponent,
   ],
   exports: [
       ServicesComponent,
@@ -42,6 +44,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
       CustomerEditComponent,
       PaymentsComponent,
       AppointmentEditComponent,
+      CustomerMessageComponent,
   ],
     imports: [
         CommonModule,

@@ -33,7 +33,6 @@ import { ServiceApiService } from './service/service-api.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AppointmentApiService } from './service/appointment-api.service';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ReviewComponent } from './pages/customer/review/review.component';
 
 @NgModule({
   imports: [
@@ -57,7 +56,7 @@ import { ReviewComponent } from './pages/customer/review/review.component';
       LoginComponent,
       RegisterComponent,
       HomeComponent,
-      
+
   ],
   providers: [
       // provideAnimations(), // required animations providers

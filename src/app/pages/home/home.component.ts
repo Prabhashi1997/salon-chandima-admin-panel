@@ -8,6 +8,7 @@ import {GetInTouch} from "../../model/getInTouch";
 import {environment} from "../../../environments/environment";
 import {TokenService} from "../../service/token.service";
 import { Router } from '@angular/router';
+import { CustomerApiService } from 'app/service/customer-api.service';
 
 @Component({
   selector: 'app-home',
@@ -21,12 +22,7 @@ export class HomeComponent implements OnInit {
   SlideOptions = {items: 1, dots: true, nav: true};
   CarouselOptions = {items: 3, dots: true, nav: true};
 
-  reviews: { name: string; comment: number; review: string; }[] = [{ name: 'aaaa', comment: 4, review: ' hhhhhhh ' }, 
-  {
-    name: 'tharindu', comment: 4,
-     review: `The idea was to give A LITTLE MORE OF WHAT I HAD , TO SOMEONE WITH A LITTLE LESS of it. I’ve
-  been growing my hair for two years for this purpose.I’m very happy to have this opportunity on my
-  birthday and hope that my hair reach where they’re supposed` }];
+  reviews: { name: string; comment: number; rate: number; }[] = [];
   
   getInTouch: FormGroup;
 
@@ -37,6 +33,7 @@ export class HomeComponent implements OnInit {
               private _fb: FormBuilder,
               private _http: HttpClient,
               private router: Router,
+              private reviewService: CustomerApiService
               // private _toastr: ToastrService
   ) {
     const node = document.createElement('script');
@@ -59,6 +56,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllReview();
     // const owl = $('.owl-carousel');
     // // @ts-ignore
     // owl.owlCarousel({
@@ -97,22 +95,12 @@ export class HomeComponent implements OnInit {
       const data = this.getInTouch.value as GetInTouch;
       console.log(data)
 
-      const response = await this._http
-        .post(`${this.BASE_URL}/getInTouch/sendEmail`, data)
-        .toPromise() as BackendResponse;
+      
 
-      console.log(response)
-
-      if (response.success) {
-        this.getInTouch.reset()
+      this.getInTouch.reset()
         this.getInTouch.clearValidators()
         this.getInTouch.clearAsyncValidators()
         setTimeout(() => this.formGroupDirective.resetForm(), 0);
-        // this._toastr.success('successfully send message');
-      } else {
-        // this._toastr.error('fail to send message');
-
-      }
 
     } catch (error) {
       // this._toastr.error('fail to send message');
@@ -147,6 +135,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
+  getAllReview() {
+    this.reviewService.getAllReviews().subscribe((e) => {
+      this.reviews = e.reviews;
+    });
+  }
+
+  
 
 
 }

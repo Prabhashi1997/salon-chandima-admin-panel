@@ -32,7 +32,7 @@ export class ServicesComponent implements OnInit, AfterViewInit {
     select: boolean,
     modelValue?: any,
   }[] = [];
-  displayedColumns: string[] = ['num', 'name','price','disable' ];
+  displayedColumns: string[] = ['num', 'name','price','duration','disable' ];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

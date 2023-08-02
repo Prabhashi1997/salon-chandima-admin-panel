@@ -16,6 +16,14 @@ export interface Customer {
   nic: string;
 }
 
+export interface CustomerMessage {
+  id?: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 export interface CustomerCreationParams {
   name: string;
   image?: string;
@@ -103,9 +111,16 @@ export class CustomerApiService {
 
   addReview(postData: any): Observable<{ message: string, body?: any }> {
     const token = localStorage.getItem('token');
-    const url = `${this.baseUrl2}/reviw`;
+    const url = `${environment.BASE_URL}review`;
     const data = this.http.post(url,postData,{headers: { Authorization: `Bearer ${token}` },});
     return data as Observable<{ message: string, body?: any }>;
+  }
+
+  getAllReviews(): Observable<{ reviews: { name: string; comment: number; rate: number; }[], total: number}> {
+    const token = localStorage.getItem('token');
+    const url = `${environment.BASE_URL}review/all`;
+    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ reviews: { name: string; comment: number; rate: number; }[], total: number }>;
   }
 
 }

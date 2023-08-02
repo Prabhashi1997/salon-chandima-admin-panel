@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import {environment} from 'environments/environment';
+import { CustomerMessage } from './customer-api.service';
 
 export interface User {
   id?: string;
@@ -94,6 +95,13 @@ export class EmployApiService {
     const url = `${this.baseUrl2}/${id}/disable`;
     const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
     return data as Observable<{ message: string, body?: any }>;
+  }
+
+  getAllMessages() {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}`;
+    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ messages: CustomerMessage[], total: number }>;
   }
 
 }
