@@ -23,6 +23,7 @@ import {UserProfileComponent} from "../../pages/customer/user-profile/user-profi
 import {ManageAppointmentComponent} from "../../pages/customer/manage-appointment/manage-appointment.component";
 import {PaymentComponent} from "../../pages/customer/payment/payment.component";
 import {FullCalendarModule} from "@fullcalendar/angular";
+import { ReviewComponent } from 'app/pages/customer/review/review.component';
 
 @NgModule({
     imports: [
@@ -53,6 +54,7 @@ import {FullCalendarModule} from "@fullcalendar/angular";
       UserProfileComponent,
       ManageAppointmentComponent,
       PaymentComponent,
+      ReviewComponent,
   ]
 })
 

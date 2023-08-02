@@ -1,0 +1,48 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Review</h4>
+                    </div>
+                    <div class="card-body">
+                        <form (ngSubmit)="submit()" [formGroup]="reviewForm" *ngIf="!isLoading">
+                          <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-8">
+                                <mat-form-field class="example-full-width">
+                                    <!-- <mat-label>Comment</mat-label> -->
+                                      <textarea matInput placeholder="Comment" type="text" [(ngModel)]="review.comment" id="comment" formControlName="comment"></textarea>
+                                </mat-form-field>
+                              <div *ngIf="comment?.invalid && (comment?.dirty || comment?.touched)" class="error-validation">
+                                <div *ngIf="comment?.errors?.['required']">
+                                    Comment is required.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-4">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Rate" type="number" [(ngModel)]="review.rate" id="rate" formControlName="rate">
+                              </mat-form-field>
+                              <div *ngIf="rate?.invalid && (rate?.dirty || rate?.touched)" class="error-validation">
+                                <div *ngIf="rate?.errors?.['required']">
+                                    Rate is required.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bottom">
+                            <button mat-raised-button type="submit" class="submit">Submit</button>
+                            <button mat-raised-button type="reset" class="reset">Reset</button>
+                            <div class="clearfix"></div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+

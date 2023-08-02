@@ -92,7 +92,7 @@ export class EmployApiService {
   disableEmploy(id: string): Observable<{ message: string, body?: any }> {
     const token = localStorage.getItem('token');
     const url = `${this.baseUrl2}/${id}/disable`;
-    const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
+    const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
     return data as Observable<{ message: string, body?: any }>;
   }
 

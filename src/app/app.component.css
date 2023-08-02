@@ -3,3 +3,8 @@
     font-size: smaller;
     margin-top: -15px;
 }
+
+::ng-deep .ng-select .ng-select-container {
+    min-height: unset;
+    margin-top: 10px;
+}

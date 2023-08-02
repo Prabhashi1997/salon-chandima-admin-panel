@@ -24,7 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {AppointmentEditComponent} from "../pages/admin-employ/appointment-edit/appointment-edit.component";
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,8 @@ import {AppointmentEditComponent} from "../pages/admin-employ/appointment-edit/a
         MatInputModule,
         MatSlideToggleModule,
         MatRadioModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        NgSelectModule,
     ]
 })
 export class AdminEmployModule { }

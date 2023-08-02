@@ -9,14 +9,14 @@ import { Service, ServiceApiService } from 'app/service/service-api.service';
   styleUrls: ['./appointment-edit.component.scss']
 })
 export class AppointmentEditComponent implements OnInit {
-  customers: Customer[] = [];
-  services: Service[] = [];
+  customers: {  id: number, name: string }[] = [];
+  services: {  id: number, name: string }[] = [];
   
   appointmentForm;
   isLoading = true;
 
   appointment = {
-    customer: undefined,
+    customer: '',
     service: '',
     date: '',
     time: '',

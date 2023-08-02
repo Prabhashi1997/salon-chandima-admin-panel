@@ -20,6 +20,14 @@ export class HomeComponent implements OnInit {
 
   SlideOptions = {items: 1, dots: true, nav: true};
   CarouselOptions = {items: 3, dots: true, nav: true};
+
+  reviews: { name: string; comment: number; review: string; }[] = [{ name: 'aaaa', comment: 4, review: ' hhhhhhh ' }, 
+  {
+    name: 'tharindu', comment: 4,
+     review: `The idea was to give A LITTLE MORE OF WHAT I HAD , TO SOMEONE WITH A LITTLE LESS of it. I’ve
+  been growing my hair for two years for this purpose.I’m very happy to have this opportunity on my
+  birthday and hope that my hair reach where they’re supposed` }];
+  
   getInTouch: FormGroup;
 
   BASE_URL = environment.BASE_URL;
@@ -138,5 +146,7 @@ export class HomeComponent implements OnInit {
       this.router.navigateByUrl('/employee/dashboard')
     }
   }
+
+
 
 }

@@ -80,11 +80,11 @@ export class CustomerApiService {
     return data as Observable<{ data: Customer[], total: number }>;
   }
 
-  getAllCustomers(): Observable<{ customers: Customer[], total: number}> {
+  getAllCustomers(): Observable<{ customers: {  id: number, name: string }[], total: number}> {
     const token = localStorage.getItem('token');
     const url = `${this.baseUrl2}/all`;
     const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-    return data as Observable<{ customers: Customer[], total: number }>;
+    return data as Observable<{ customers: {  id: number, name: string }[], total: number }>;
   }
 
   getCustomerbyUserId(): Observable<{ data: Customer }> {
@@ -101,5 +101,11 @@ export class CustomerApiService {
     return data as Observable<{ message: string, body?: any }>;
   }
 
+  addReview(postData: any): Observable<{ message: string, body?: any }> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl2}/reviw`;
+    const data = this.http.post(url,postData,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ message: string, body?: any }>;
+  }
 
 }

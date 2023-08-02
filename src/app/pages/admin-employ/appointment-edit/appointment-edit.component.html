@@ -8,67 +8,80 @@
                     </div>
                     <div class="card-body">
                         <form (ngSubmit)="submit()" [formGroup]="appointmentForm" *ngIf="!isLoading">
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <!-- <mat-form-field class="example-full-width">  -->
-                                     <ng-select 
-                                      [items]="customers" 
-                                      bindLabel="name" 
-                                      bindValue="id" 
-                                      [(ngModel)]="appointment.customer"
-                                      id="customer"
-                                      >
-                                    </ng-select>
-                                    <!-- <input matInput placeholder="Customer Name" type="text" [(ngModel)]="appointment.customerName" id="customerName" formControlName="customerName"> -->
-                                  <!-- </mat-form-field> -->
-                                  <div *ngIf="customer?.invalid && (customer?.dirty || customer?.touched)" class="error-validation">
-                                    <div *ngIf="customer?.errors?.['required']">
-                                        Customer is required.
-                                    </div>
-                                  </div>
+                          <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-8">
+<!--                                   <mat-form-field class="example-full-width">-->
+                              <ng-select
+                                placeholder="Customer Name"
+                                [items]="customers"
+                                bindLabel="name"
+                                bindValue="id"
+                                [(ngModel)]="appointment.customer"
+                                id="customer"
+                                formControlName="customer"
+                                >
+                              </ng-select>
+                                <!-- <input matInput placeholder="Customer Name" type="text" [(ngModel)]="appointment.customerName" id="customerName" formControlName="customerName"> -->
+<!--                                   </mat-form-field>-->
+                              <div *ngIf="customer?.invalid && (customer?.dirty || customer?.touched)" class="error-validation">
+                                <div *ngIf="customer?.errors?.['required']">
+                                    Customer Name is required.
                                 </div>
+                              </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Service Name" type="text" [(ngModel)]="appointment.service" id="service" formControlName="service">
-                                  </mat-form-field>
-                                  <div *ngIf="service?.invalid && (service?.dirty || service?.touched)" class="error-validation">
-                                    <div *ngIf="service?.errors?.['required']">
-                                        Service is required.
-                                    </div>
-                                  </div>
+                          </div>
+                          <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-8">
+  <!--                                  <mat-form-field class="example-full-width">-->
+                              <ng-select
+                                placeholder="Service Name"
+                                [items]="services"
+                                bindLabel="name"
+                                bindValue="id"
+                                [(ngModel)]="appointment.service"
+                                id="service"
+                                formControlName="service"
+                                [multiple]="true"
+                                >
+                              </ng-select>
+  <!--                                    <input matInput placeholder="Service Name" type="text" [(ngModel)]="appointment.service" id="service" formControlName="service">-->
+  <!--                                  </mat-form-field>-->
+                              <div *ngIf="service?.invalid && (service?.dirty || service?.touched)" class="error-validation">
+                                <div *ngIf="service?.errors?.['required']">
+                                  Service Name is required.
                                 </div>
+                              </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Date" type="date" [(ngModel)]="appointment.date" id="date" formControlName="date">
-                                  </mat-form-field>
-                                  <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="error-validation">
-                                    <div *ngIf="date?.errors?.['required']">
-                                        Date is required.
-                                    </div>
-                                  </div>
+                          </div>
+                          <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-4">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Date" type="date" [(ngModel)]="appointment.date" id="date" formControlName="date">
+                              </mat-form-field>
+                              <div *ngIf="date?.invalid && (date?.dirty || date?.touched)" class="error-validation">
+                                <div *ngIf="date?.errors?.['required']">
+                                  Date is required.
                                 </div>
+                              </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                  <mat-form-field class="example-full-width">
-                                    <input matInput placeholder="Time" type="time" [(ngModel)]="appointment.time" id="time" formControlName="time">
-                                  </mat-form-field>
-                                  <div *ngIf="time?.invalid && (time?.dirty || time?.touched)" class="error-validation">
-                                    <div *ngIf="time?.errors?.['required']">
-                                        Time is required.
-                                    </div>
-                                  </div>
+                          </div>
+                          <div class="row" style="margin-top: 20px;">
+                            <div class="col-md-4">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Time" type="time" [(ngModel)]="appointment.time" id="time" formControlName="time">
+                              </mat-form-field>
+                              <div *ngIf="time?.invalid && (time?.dirty || time?.touched)" class="error-validation">
+                                <div *ngIf="time?.errors?.['required']">
+                                  Time is required.
                                 </div>
+                              </div>
                             </div>
-                            <div class="bottom">
-                              <button mat-raised-button type="submit" class="submit">Submit</button>
-                              <button mat-raised-button type="reset" class="reset">Reset</button>
-                              <div class="clearfix"></div>
-                            </div>
+                          </div>
+                          <div class="bottom">
+                            <button mat-raised-button type="submit" class="submit">Submit</button>
+                            <button mat-raised-button type="reset" class="reset">Reset</button>
+                            <div class="clearfix"></div>
+                          </div>
                         </form>
                     </div>
                 </div>

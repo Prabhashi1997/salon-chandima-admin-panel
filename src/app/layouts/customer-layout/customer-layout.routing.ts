@@ -7,6 +7,7 @@ import {ManageAppointmentComponent} from "../../pages/customer/manage-appointmen
 import {PaymentComponent} from "../../pages/customer/payment/payment.component";
 import {AfterGuards} from "../../service/guards/after.guards";
 import {UserProfileComponent} from "../../pages/customer/user-profile/user-profile.component";
+import { ReviewComponent } from 'app/pages/customer/review/review.component';
 
 export const CustomerLayoutRoutes: Routes = [
     { path: '', redirectTo: 'dashboard' },
@@ -15,5 +16,6 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'appointment-details', component: AppointmentDetailsComponent, canActivate: [AfterGuards],},
     { path: 'manage-appointment', component: ManageAppointmentComponent, canActivate: [AfterGuards],},
     { path: 'payment', component: PaymentComponent, canActivate: [AfterGuards],},
+    { path: 'review', component: ReviewComponent, canActivate: [AfterGuards],},
     { path: 'profile', component: UserProfileComponent, canActivate: [AfterGuards],},
 ];

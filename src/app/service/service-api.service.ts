@@ -65,11 +65,11 @@ export interface Service {
         return data as Observable<{ services: Service[], total: number }>;
       }
 
-      getAllServices(): Observable<{ services: Service[], total: number}> {
+      getAllServices(): Observable<{ services: {  id: number, name: string }[], total: number}> {
         const token = localStorage.getItem('token');
         const url = `${this.baseUrl2}/all`;
         const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-        return data as Observable<{ services: Service[], total: number }>;
+        return data as Observable<{ services: {  id: number, name: string }[], total: number }>;
       }
     
       disableService(id: string): Observable<{ message: string, body?: any }> {
@@ -82,7 +82,7 @@ export interface Service {
       delete(id){
         const token = localStorage.getItem('token');
         const url = `${this.baseUrl2}/${id}`;
-        const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
+        const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
         return data as Observable<{ message: string, body?: any }>;
       }
 
