@@ -100,12 +100,12 @@ export class UserProfileComponent implements OnInit {
     return this.profileForm?.get('gender')
   }
 
-  submit() {
+  async submit() {
     this.profileForm.markAllAsTouched();
     if(!this.profileForm.invalid){
       Swal.fire({
         title: 'Are you sure?',
-        text: `Do You want edit this customer?`,
+        text: `Do You want edit your profile`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#4250ce',
@@ -119,12 +119,9 @@ export class UserProfileComponent implements OnInit {
               Swal.showLoading();
             },
             allowOutsideClick: () => !Swal.isLoading()
-          }).then(() =>{
           });
-          // @ts-ignore
-          delete this.customer.doj
           this.customerApiService.edit(this.profile, this.id)
-          .subscribe(
+            .subscribe(
               async data => {
                 await Swal.fire({
                   title: 'Success!',
@@ -132,7 +129,6 @@ export class UserProfileComponent implements OnInit {
                   icon: 'success',
                   confirmButtonText: 'Ok'
                 });
-                this.router.navigateByUrl('/customer/dashboard');
 
               }, async error => {
                 await Swal.fire(
@@ -145,7 +141,6 @@ export class UserProfileComponent implements OnInit {
           )
         }
       })
-      this.router.navigateByUrl('/customer/dashboard');
       } 
       console.log("Form submitted", !this.profileForm.invalid)
     }   

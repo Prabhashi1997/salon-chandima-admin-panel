@@ -104,7 +104,7 @@ export class AdminService {
 
     getAllMessages() {
       const token = localStorage.getItem('token');
-      const url = `${this.baseUrl}`;
+      const url = `${this.baseUrl}/message`;
       const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
       return data as Observable<{ messages: CustomerMessage[], total: number }>;
     }

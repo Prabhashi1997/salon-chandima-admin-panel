@@ -58,12 +58,12 @@
                   
   
                   <ng-container matColumnDef="price">
-                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Amount </mat-header-cell>
+                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Amount (Rs.)</mat-header-cell>
                     <mat-cell  *matCellDef="let element"> {{element.price}} </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="duration">
-                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Duration </mat-header-cell>
+                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Duration (minutes)</mat-header-cell>
                     <mat-cell  *matCellDef="let element"> {{element.duration}} </mat-cell>
                   </ng-container>
 

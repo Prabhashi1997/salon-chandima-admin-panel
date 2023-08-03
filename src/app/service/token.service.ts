@@ -34,7 +34,6 @@ export class TokenService {
   isValid() {
     const token = this.gettoken();
     if (token) {
-      console.log(token)
       const payload = this.payload(token);
 
       if (payload) {

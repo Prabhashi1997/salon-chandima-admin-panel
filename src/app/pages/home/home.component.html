@@ -834,12 +834,14 @@
               </div>
             </div>
           </div>
+          
           <div class="col-md-7">
-            <form [formGroup]="getInTouch" class="contact_form mt-md-4">
+            <form class="contact_form mt-md-4" (ngSubmit)="submit()" [formGroup]="getInTouch" *ngIf="!isLoading">
               <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <input class="form-control border-0"
+                          [(ngModel)]="contact.name"
                            formControlName="name"
                            id="name"
                            name="name"
@@ -856,6 +858,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <input class="form-control border-0"
+                          [(ngModel)]="contact.email"
                            formControlName="email"
                            id="email"
                            name="email"
@@ -873,7 +876,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="form-group">
-                    <input class="form-control border-0" formControlName="subject" id="subject" name="subject"
+                    <input class="form-control border-0" [(ngModel)]="contact.subject" formControlName="subject" id="subject" name="subject"
                            placeholder="Subject"
                            type="text">
                     <div
@@ -888,14 +891,16 @@
                 <div class="col-lg-12">
                   <div class="form-group">
                                         <textarea class="form-control border-0"
-                                                  formControlName="message" id="comments"
-                                                  name="comments"
+                                                  [(ngModel)]="contact.message"
+                                                  formControlName="message" 
+                                                  id="message"
+                                                  name="message"
                                                   placeholder="Message"
                                                   rows="6"></textarea>
                     <div
-                      *ngIf="getInTouch.controls['message'].invalid && (getInTouch.controls['message'].dirty || getInTouch.controls['message'].touched)"
+                      *ngIf="getInTouch.invalid && (getInTouch.dirty || getInTouch.touched)"
                       class="alert">
-                      <div *ngIf="getInTouch.controls['message'].errors.required">message is required</div>
+                      <div *ngIf="getInTouch.errors.required">message is required</div>
                     </div>
                   </div>
                 </div>

@@ -9,6 +9,8 @@ import {environment} from "../../../environments/environment";
 import {TokenService} from "../../service/token.service";
 import { Router } from '@angular/router';
 import { CustomerApiService } from 'app/service/customer-api.service';
+import Swal from 'sweetalert2';
+import { CommonService } from 'app/service/common.service';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,15 @@ import { CustomerApiService } from 'app/service/customer-api.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  isLoading = true;
+
+  contact = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  }
+
 
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
 
@@ -24,7 +35,7 @@ export class HomeComponent implements OnInit {
 
   reviews: { name: string; comment: number; rate: number; }[] = [];
   
-  getInTouch: FormGroup;
+  getInTouch;
 
   BASE_URL = environment.BASE_URL;
 
@@ -33,30 +44,37 @@ export class HomeComponent implements OnInit {
               private _fb: FormBuilder,
               private _http: HttpClient,
               private router: Router,
-              private reviewService: CustomerApiService
-              // private _toastr: ToastrService
+              private reviewService: CustomerApiService,
+              private customerService: CommonService
   ) {
     const node = document.createElement('script');
     node.src = '../../assets/js/main.js';
     node.type = 'text/javascript';
     node.async = false;
     document.getElementsByTagName('head')[0].appendChild(node);
-
-    this.buildForm();
   }
 
 
-  buildForm() {
-    this.getInTouch = this._fb.group({
-      name: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      subject: new FormControl('', Validators.required),
-      message: new FormControl('', Validators.required),
-    })
-  }
+  // buildForm() {
+  //   this.getInTouch = this._fb.group({
+  //     name: new FormControl('', Validators.required),
+  //     email: new FormControl('', [Validators.required, Validators.email]),
+  //     subject: new FormControl('', Validators.required),
+  //     message: new FormControl('', Validators.required),
+  //   })
+  // }
 
   ngOnInit(): void {
     this.getAllReview();
+
+    this.getInTouch = new FormGroup({
+      name: new FormControl(this.contact.name, [Validators.required]),
+      email: new FormControl(this.contact.email, [Validators.required, Validators.email]),
+      subject: new FormControl(this.contact.subject, [Validators.required]),
+      message: new FormControl(this.contact.message, [Validators.required]),
+    });
+    this.isLoading = false;
+    
     // const owl = $('.owl-carousel');
     // // @ts-ignore
     // owl.owlCarousel({
@@ -90,24 +108,68 @@ export class HomeComponent implements OnInit {
     }, 100);
   }
 
-  async submit() {
-    try {
-      const data = this.getInTouch.value as GetInTouch;
-      console.log(data)
-
-      
-
-      this.getInTouch.reset()
-        this.getInTouch.clearValidators()
-        this.getInTouch.clearAsyncValidators()
-        setTimeout(() => this.formGroupDirective.resetForm(), 0);
-
-    } catch (error) {
-      // this._toastr.error('fail to send message');
-    }
-
-
+  get name() {
+    return this.getInTouch?.get('name')
   }
+
+  get email() {
+    return this.getInTouch?.get('email')
+  }
+
+  get subject() {
+    return this.getInTouch?.get('subject')
+  }
+
+  get message() {
+    return this.getInTouch?.get('message')
+  }
+
+  submit(){
+    this.getInTouch.markAllAsTouched();
+    if(!this.getInTouch.invalid) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `Do You want to send this message?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#4250ce',
+          cancelButtonColor: '#dc3545',
+          confirmButtonText: `Yes, send it`,
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: 'Processing!',
+              didOpen: () => {
+                Swal.showLoading();
+              },
+              allowOutsideClick: () => !Swal.isLoading()
+            }).then(() => {
+            });
+            console.log(this.contact);
+            this.customerService.addMessage(this.contact).subscribe(
+                async data => {
+                  await Swal.fire({
+                    title: 'Success!',
+                    text: `You have successfully sent.`,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  });
+                  this.router.navigateByUrl('/');
+
+                }, async error => {
+                  console.log(error)
+                  await Swal.fire(
+                      'Error!',
+                      'Your process has been cancelled.',
+                      'error'
+                  );
+
+                }
+            )
+          }
+        });
+      }
+    }
 
   ismobile() {
     if (window.innerWidth < 764) {
@@ -141,8 +203,5 @@ export class HomeComponent implements OnInit {
       this.reviews = e.reviews;
     });
   }
-
-  
-
 
 }

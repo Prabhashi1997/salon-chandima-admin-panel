@@ -7,7 +7,7 @@
                       <h4 class="card-title">My Profile</h4>
                   </div>
                   <div class="card-body">
-                      <form>
+                      <form (ngSubmit)="submit()" [formGroup]="profileForm" *ngIf="!isLoading">
                         <div class="row">
                           <div class="col-md-12">
                             <mat-form-field class="example-full-width">

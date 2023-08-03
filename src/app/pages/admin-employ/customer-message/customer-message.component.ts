@@ -22,17 +22,20 @@ export class CustomerMessageComponent implements OnInit {
   messages: CustomerMessage[] = [];
   dataSource = new MatTableDataSource();
 
-  displayedColumns: string[] = ['num', 'name','email','message'];
+  displayedColumns: string[] = ['num', 'name','email','subject','message'];
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private customerService: AdminService,
-  ) {}
+  ) {
+    this.getAllMessages();
+    console.log(this.getAllMessages);
+  }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator;   
   }
 
   getAllMessages() {

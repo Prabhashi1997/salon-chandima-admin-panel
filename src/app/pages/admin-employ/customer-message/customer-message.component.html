@@ -35,6 +35,11 @@
                             <mat-header-cell  *matHeaderCellDef mat-sort-header>  Email </mat-header-cell>
                             <mat-cell  *matCellDef="let element"> {{element.email}} </mat-cell>
                           </ng-container>
+
+                          <ng-container matColumnDef="subject">
+                            <mat-header-cell  *matHeaderCellDef mat-sort-header>  Subject </mat-header-cell>
+                            <mat-cell  *matCellDef="let element"> {{element.subject}} </mat-cell>
+                          </ng-container>
           
                           <ng-container matColumnDef="message">
                             <mat-header-cell  *matHeaderCellDef mat-sort-header> Message </mat-header-cell>

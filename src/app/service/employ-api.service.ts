@@ -97,11 +97,11 @@ export class EmployApiService {
     return data as Observable<{ message: string, body?: any }>;
   }
 
-  getAllMessages() {
-    const token = localStorage.getItem('token');
-    const url = `${this.baseUrl2}`;
-    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
-    return data as Observable<{ messages: CustomerMessage[], total: number }>;
-  }
+  // getAllMessages() {
+  //   const token = localStorage.getItem('token');
+  //   const url = `${this.baseUrl2}`;
+  //   const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+  //   return data as Observable<{ messages: CustomerMessage[], total: number }>;
+  // }
 
 }
