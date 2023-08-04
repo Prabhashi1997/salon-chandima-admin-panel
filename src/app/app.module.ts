@@ -33,6 +33,7 @@ import { ServiceApiService } from './service/service-api.service';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { AppointmentApiService } from './service/appointment-api.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import {NgxMaterialRatingModule} from "ngx-material-rating";
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
       // ToastrModule.forRoot(), // ToastrModule added
       AppRoutingModule,
       MatPaginatorModule,
+      NgxMaterialRatingModule,
       NgSelectModule,
   ],
   declarations: [

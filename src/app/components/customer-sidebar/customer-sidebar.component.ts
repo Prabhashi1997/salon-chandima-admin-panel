@@ -8,9 +8,9 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/customer', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/customer/appointment-details', title: 'Appointment',  icon:'calendar_month', class: '' },
-    { path: '/customer/payment', title: 'Payment',  icon:'payments', class: '' },
+    // { path: '/customer/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/customer/appointments', title: 'Appointment',  icon:'calendar_month', class: '' },
+    { path: '/customer/manage-appointment', title: 'Booked Appointments',  icon:'payments', class: '' },
     { path: '/customer/review', title: 'Reviews',  icon:'reviews', class: '' },
     { path: '/customer/profile', title: 'User Profile',  icon:'person', class: '' },
 
@@ -19,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
 @Component({
   selector: 'app-customer-sidebar',
   templateUrl: './customer-sidebar.component.html',
-  styleUrls: ['./customer-sidebar.component.css']
+  styleUrls: ['./customer-sidebar.component.scss']
 })
 export class CustomerSidebarComponent implements OnInit {
   menuItems: any[];

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
 
@@ -141,7 +141,7 @@ export class UserProfileComponent implements OnInit {
           )
         }
       })
-      } 
+      }
       console.log("Form submitted", !this.profileForm.invalid)
-    }   
+    }
 }

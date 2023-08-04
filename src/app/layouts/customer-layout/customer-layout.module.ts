@@ -17,13 +17,15 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {DashboardComponent} from "../../pages/customer/dashboard/dashboard.component";
-import {BookAppointmentComponent} from "../../pages/customer/book-appointment/book-appointment.component";
 import {AppointmentDetailsComponent} from "../../pages/customer/appointment-details/appointment-details.component";
 import {UserProfileComponent} from "../../pages/customer/user-profile/user-profile.component";
 import {ManageAppointmentComponent} from "../../pages/customer/manage-appointment/manage-appointment.component";
-import {PaymentComponent} from "../../pages/customer/payment/payment.component";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { ReviewComponent } from 'app/pages/customer/review/review.component';
+import {NgSelectModule} from "@ng-select/ng-select";
+import {NgxMaterialRatingModule} from "ngx-material-rating";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
     imports: [
@@ -45,15 +47,17 @@ import { ReviewComponent } from 'app/pages/customer/review/review.component';
         MatNativeDateModule,
         MatCheckboxModule,
         FullCalendarModule,
+        NgSelectModule,
+        NgxMaterialRatingModule,
+        MatPaginatorModule,
+        MatTableModule,
     ],
 
   declarations: [
       DashboardComponent,
-      BookAppointmentComponent,
       AppointmentDetailsComponent,
       UserProfileComponent,
       ManageAppointmentComponent,
-      PaymentComponent,
       ReviewComponent,
   ]
 })

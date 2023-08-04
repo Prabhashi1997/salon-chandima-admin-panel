@@ -17,7 +17,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {DashboardComponent} from "../../pages/employ/dashboard/dashboard.component";
-import {UserProfileComponent} from "../../pages/employ/user-profile/user-profile.component";
+import {EmployeeUserProfileComponent} from "../../pages/employ/user-profile/employee-user-profile.component";
 import { AdminEmployModule } from '../admin-employ.module';
 
 @NgModule({
@@ -43,8 +43,8 @@ import { AdminEmployModule } from '../admin-employ.module';
     ],
 
   declarations: [
-    DashboardComponent,
-    UserProfileComponent,
+      DashboardComponent,
+      EmployeeUserProfileComponent,
   ]
 })
 

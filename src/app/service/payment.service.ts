@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {SharedService} from "./shared.service";
+import {environment} from "../../environments/environment";
 
 export interface Payment{
   id: number;
@@ -11,7 +12,7 @@ export interface Payment{
   price: number;
   card_expiry?: string;
   card_holder_name?: string;
-  card_no?: string; 
+  card_no?: string;
   merchant_id?: string;
   method?: string;
   order_id?: string;
@@ -33,35 +34,32 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class PaymentService {
-  baseUrl = 'http://127.0.0.1:3000/payment';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
+  baseUrl = `${environment.BASE_URL}payment`;
+
 
   constructor(private _http: HttpClient,
               private _sharedService: SharedService) {
   }
 
-  // Error handling
-  errorMgmt(error: HttpErrorResponse) {
-    let errorMessage: string;
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  }
 
-  createPayment(data): Observable<any> {
-    return this._http.put(`${this.baseUrl}/createPayment`, data)
-      .pipe(catchError(this._sharedService.httpErrorManagement))
+  createPayment(x): Observable<any> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl}`;
+    const data = this._http.post(url, x,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<any>;
   }
 
   getPayments(): Observable<{ payments: Payment[], total: number}> {
     const token = localStorage.getItem('token');
     const url = `${this.baseUrl}`;
+    const data = this._http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ payments: Payment[], total: number }>;
+  }
+
+  getUserPayments(): Observable<{ payments: Payment[], total: number}> {
+    const token = localStorage.getItem('token');
+    const url = `${this.baseUrl}/user`;
     const data = this._http.get(url,{headers: { Authorization: `Bearer ${token}` },});
     return data as Observable<{ payments: Payment[], total: number }>;
   }

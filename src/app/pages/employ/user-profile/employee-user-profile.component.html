@@ -1,0 +1,109 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">My Profile</h4>
+                    </div>
+                    <div class="card-body">
+                        <form (ngSubmit)="submit()" [formGroup]="profileForm" *ngIf="!isLoading">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput  placeholder="First Name" type="text" [(ngModel)]="profile.firstName" id="firstName" formControlName="firstName">
+                                    </mat-form-field>
+                                    <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="error-validation">
+                                        <div *ngIf="firstName?.errors?.['required']">
+                                            First name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Last Name" type="text" [(ngModel)]="profile.lastName" id="lastName" formControlName="lastName">
+                                    </mat-form-field>
+                                    <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="error-validation">
+                                        <div *ngIf="lastName?.errors?.['required']">
+                                            Last name is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="NIC Number" type="text" [(ngModel)]="profile.nic" id="nic" formControlName="nic">
+                                    </mat-form-field>
+                                    <div *ngIf="nicNumber?.invalid && (nicNumber?.dirty || nicNumber?.touched)" class="error-validation">
+                                        <div *ngIf="nicNumber?.errors?.['required']">
+                                            NIC number is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput #message maxlength="10" placeholder="Contact Number" type="tel" [(ngModel)]="profile.contactNumber" id="contactNumber" formControlName="contactNumber">
+                                        <mat-hint align="end">{{message.value.length}} / 10</mat-hint>
+                                    </mat-form-field>
+                                    <div *ngIf="contactNumber?.invalid && (contactNumber?.dirty || contactNumber?.touched)" class="error-validation">
+                                        <div *ngIf="contactNumber?.errors?.['required']">
+                                            Contact Number is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Email Address" type="email" [(ngModel)]="profile.email" id="emailAddress" formControlName="email">
+                                    </mat-form-field>
+                                    <div *ngIf="emailAddress?.invalid && (emailAddress?.dirty || emailAddress?.touched)" class="error-validation">
+                                        <div *ngIf="emailAddress?.errors?.['required']">
+                                            Email Address is required.
+                                        </div>
+                                        <div *ngIf="emailAddress?.errors?.['email']">
+                                            Email Address is not valid.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div style="display: flex;flex-direction: column;">
+                                        <mat-label>Gender</mat-label>
+                                        <mat-radio-group [(ngModel)]="profile.gender" aria-label="Gender" formControlName="gender">
+                                            <mat-radio-button value="male" style="padding-right: 10px">male</mat-radio-button>
+                                            <mat-radio-button value="female">female</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)" class="error-validation">
+                                        <div *ngIf="gender?.errors?.['required']">
+                                            Gender is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput  placeholder="Designation" type="text" [(ngModel)]="profile.designation" id="designation" formControlName="designation">
+                                    </mat-form-field>
+                                    <div *ngIf="designation?.invalid && (designation?.dirty || designation?.touched)" class="error-validation">
+                                        <div *ngIf="designation?.errors?.['required']">
+                                            Designation is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom">
+                                <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+                                <div class="clearfix"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

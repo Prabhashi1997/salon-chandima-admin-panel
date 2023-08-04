@@ -51,7 +51,6 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
   calendarWeekends = true;
   calendarEvents: EventInput[] = [];
   todayDate = moment().startOf('day');
-  TODAY = this.todayDate.format('YYYY-MM-DD')
   arg;
 
   payment;
@@ -87,6 +86,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
     this.getall();
     this.options = {
       calendarWeekends: true,
+      editable: true,
       disableResizing: true,
       eventDurationEditable: false,
       headerToolbar: {
@@ -118,11 +118,8 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
       weekends: this.calendarWeekends,
       dateClick: this.handleDateClick.bind(this),
       dayRender: this.dayRender.bind(this),
-      startEditable: false,
-      endEditable: false,
-      editable: false,
-      // eventDragStop: this.updateAppointment.bind(this),
-      // eventDrop: this.updateAppointment.bind(this),
+      eventDragStop: this.updateAppointment.bind(this),
+      eventDrop: this.updateAppointment.bind(this),
       eventReceive: this.createAppointment.bind(this),
       eventRender: this.eventDo.bind(this),
     }
@@ -131,38 +128,6 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
     });
 
     this.loadData();
-    // payment
-    payhere.onCompleted = async function onCompleted(orderId) {
-      console.log('Payment completed. OrderID:' + orderId );
-      const token = localStorage.getItem('token');
-      const url = 'http://localhost:3001/api/v1/payment';
-      await axios.post(url,{ orderId },{headers: { Authorization: `Bearer ${token}` },});
-      await Swal.fire(
-          'Success',
-          'Appointment was submitted',
-          'success'
-      )
-      window.location.reload();
-    };
-
-    payhere.onDismissed = async function onDismissed() {
-      await Swal.fire(
-          'Cancelled',
-          'Appointment was not submitted',
-          'error'
-      )
-      window.location.reload();
-    };
-
-
-    payhere.onError = async function onError(error) {
-      await Swal.fire(
-          'Error!',
-          'Error!',
-          'error'
-      )
-      window.location.reload();
-    };
 
   }
 
@@ -192,7 +157,6 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
         + arg.dateStr.split('+')[0].substring(13, 19))) {
 
         this.appointment.start = arg.dateStr;
-        this.appointment.date = (arg.dateStr as string).split('T')[0];
 
 
         Swal.fire({
@@ -203,10 +167,6 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
         }).then(async (result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            const startDate = new Date(this.appointment.start);
-            const currentDate = new Date(new Date().setDate(4));
-            const endDate = new Date(this.appointment.end);
-            console.log(startDate < currentDate && endDate > currentDate);
             if (new Date(this.appointment.end).getHours() < 18 &&
                 !this.calendarEvents.find((e) => {
                   const startDate = new Date(this.appointment.start);
@@ -217,28 +177,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
                 })
             ) {
               this.appointmentService.addAppointment(this.appointment).subscribe((data) => {
-                this.payment = {
-                  sandbox: true,
-                  merchant_id: '1223636',
-                  return_url: 'http://localhost:4200/customer/appointments',
-                  cancel_url: 'http://localhost:4200/customer/appointments',
-                  notify_url: 'http://sample.com/noti',
-                  order_id: data.id,
-                  items: 'payment from' + this.tokenService.getFirstName() + ' ' + this.tokenService.getLastName(),
-                  amount: `${data.payPrice}.00`,
-                  currency: 'LKR',
-                  hash: data.hash,
-                  first_name: this.tokenService.getFirstName(),
-                  last_name: this.tokenService.getLastName(),
-                  email: this.tokenService.getEmail(),
-                  phone: this.tokenService.getPhone(),
-                  address: 'no 1335, bogahawatta road',
-                  city: 'pannipitiya',
-                  country: 'Sri Lanka',
-                  custom_1: '',
-                  custom_2: ''
-                };
-                payhere.startPayment(this.payment);
+                this.getall();
               })
               this.calendarEvents = [ ...this.calendarEvents, {
                 title: this.tokenService.getFirstName(),
@@ -311,7 +250,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
   }
 
   getall(){
-    this.appointmentService.getCalenderAll().subscribe(
+    this.appointmentService.getCalender().subscribe(
       data => {
         this.calendarEvents = data.appointments;
       }

@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   CarouselOptions = {items: 3, dots: true, nav: true};
 
   reviews: { name: string; comment: number; rate: number; }[] = [];
-  
+
   getInTouch;
 
   BASE_URL = environment.BASE_URL;
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
       message: new FormControl(this.contact.message, [Validators.required]),
     });
     this.isLoading = false;
-    
+
     // const owl = $('.owl-carousel');
     // // @ts-ignore
     // owl.owlCarousel({
@@ -189,11 +189,11 @@ export class HomeComponent implements OnInit {
 
   toDashboard() {
     if(this.token.isUserAdmin()) {
-      this.router.navigateByUrl('/admin/dashboard')
+      this.router.navigateByUrl('/admin')
     } else if(this.token.isUserCustomer()) {
-      this.router.navigateByUrl('/customer/dashboard')
+      this.router.navigateByUrl('/customer')
     } else {
-      this.router.navigateByUrl('/employee/dashboard')
+      this.router.navigateByUrl('/employee')
     }
   }
 

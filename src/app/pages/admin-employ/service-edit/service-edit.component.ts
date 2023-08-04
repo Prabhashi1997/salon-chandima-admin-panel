@@ -16,7 +16,6 @@ import Swal from "sweetalert2";
 })
 export class ServiceEditComponent implements OnInit {
 
-  // hide = true;
 
   serviceForm;
   isLoading = true;
@@ -25,22 +24,10 @@ export class ServiceEditComponent implements OnInit {
 
   service: any = {
     name: '',
-    // category: '',
     price: '',
     duration: '',
     description: '',
-    employeeName: '',
   }
-
-  // services: Service[] = [
-  //   {id: '0', value: 'Hair Chemical Services'},
-  //   {id: '1', value: 'Hair Cuts'},
-  //   {id: '2', value: 'Skin Care'},
-  //   {id: '3', value: 'Waxing'},
-  //   {id: '4', value: 'Bridal Dressing'},
-  //   {id: '5', value: 'Normal Dressing'},
-  //   {id: '6', value: 'Other'},
-  // ];
 
   constructor(
     private route: ActivatedRoute,
@@ -67,12 +54,9 @@ export class ServiceEditComponent implements OnInit {
               this.service = data.data;
               this.serviceForm = new FormGroup({
                 name: new FormControl('', [Validators.required]),
-                // category: new FormControl(null, [Validators.required]),
                 price: new FormControl('', [Validators.required]),
                 duration: new FormControl('', [Validators.required]),
                 description: new FormControl('',[]),
-                employeeName: new FormControl('',[]),
-                // name: new FormControl({value: null, disabled: true}),
               });
               this.isLoading = false;
               Swal.close();
@@ -87,12 +71,9 @@ export class ServiceEditComponent implements OnInit {
           } else {
             this.serviceForm = new FormGroup({
               name: new FormControl('', [Validators.required]),
-              // category: new FormControl(null, [Validators.required]),
               price: new FormControl('', [Validators.required]),
               duration: new FormControl('', [Validators.required]),
               description: new FormControl('',[]),
-              employeeName: new FormControl('',[]),
-              // name: new FormControl({value: null, disabled: true}),
             });
             this.isLoading = false;
             Swal.close();
@@ -120,10 +101,6 @@ export class ServiceEditComponent implements OnInit {
     return this.serviceForm?.get('name')
   }
 
-  get category() {
-    return this.serviceForm?.get('category')
-  }
-
   get price() {
     return this.serviceForm?.get('price')
   }
@@ -134,10 +111,6 @@ export class ServiceEditComponent implements OnInit {
 
   get description() {
     return this.serviceForm?.get('description')
-  }
-
-  get employeeName() {
-    return this.serviceForm?.get('employeeName')
   }
 
   submit(){

@@ -116,6 +116,13 @@ export class CustomerApiService {
     return data as Observable<{ message: string, body?: any }>;
   }
 
+  getCustomerReview(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const url = `${environment.BASE_URL}review/user`;
+    const data = this.http.get(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<any>;
+  }
+
   getAllReviews(): Observable<{ reviews: { name: string; comment: number; rate: number; }[], total: number}> {
     const token = localStorage.getItem('token');
     const url = `${environment.BASE_URL}review/all`;

@@ -33,7 +33,7 @@ export class ManageAppointmentComponent implements OnInit {
     select: boolean,
     modelValue?: any,
   }[] = [];
-  displayedColumns: string[] = ['num', 'date','time','duration','advance','status', 'services' ];
+  displayedColumns: string[] = ['num', 'name', 'date','time','duration','advance','status', 'services', 'action' ];
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -70,7 +70,7 @@ export class ManageAppointmentComponent implements OnInit {
   }
 
   getAppointments() {
-    this.appointmentService.getAll().subscribe((e) => {
+    this.appointmentService.get().subscribe((e) => {
       this.appointments = e.appointments;
       this.dataSource.data = this.appointments;
       Swal.close();
