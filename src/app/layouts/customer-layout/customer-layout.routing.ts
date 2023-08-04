@@ -14,4 +14,8 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'manage-appointment', component: ManageAppointmentComponent, canActivate: [AfterGuards],},
     { path: 'review', component: ReviewComponent, canActivate: [AfterGuards],},
     { path: 'profile', component: UserProfileComponent, canActivate: [AfterGuards],},
+    {
+        path: '**',
+        redirectTo: 'appoitments',
+      },
 ];

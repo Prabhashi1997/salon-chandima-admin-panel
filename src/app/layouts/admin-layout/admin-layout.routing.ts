@@ -39,5 +39,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'manage-appointment', component: ManageAppointmentComponent, canActivate: [AfterGuards],},
     { path: 'messages',  component: CustomerMessageComponent, canActivate: [AfterGuards], },
     { path: 'reviews-delete',  component: ReviewsDeleteComponent, canActivate: [AfterGuards], },
+    {
+        path: '**',
+        redirectTo: 'appoitments',
+      },
 
 ];

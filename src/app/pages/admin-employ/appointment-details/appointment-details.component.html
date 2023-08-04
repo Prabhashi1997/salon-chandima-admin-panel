@@ -1,7 +1,6 @@
 <div class="card card-custom">
     <div class="card-header">
     </div>
-    {{salon}}
     <div class="card-body">
       <div>
           <full-calendar #calendar
@@ -35,35 +34,13 @@
                     </ng-select>
                     <!--                                    <input matInput placeholder="Service Name" type="text" [(ngModel)]="appointment.service" id="service" formControlName="service">-->
                     <!--                                  </mat-form-field>-->
-                    <div *ngIf="service?.invalid && (service?.dirty || service?.touched)" class="error-validation">
-                        <div *ngIf="service?.errors?.['required']">
-                            Service Name is required.
-                        </div>
-                    </div>
-                </div>
-            </div>
-<!--            <div class="row" style="margin-top: 20px;position: relative">-->
-<!--                <div class="col-md-11" style="position: relative">-->
-<!--                    &lt;!&ndash;                                   <mat-form-field class="example-full-width">&ndash;&gt;-->
-<!--                    <ng-select-->
-<!--                            placeholder="Customer Name"-->
-<!--                            [items]="customers"-->
-<!--                            bindLabel="name"-->
-<!--                            bindValue="id"-->
-<!--                            [(ngModel)]="appointment.customer"-->
-<!--                            id="customer"-->
-<!--                            formControlName="customer"-->
-<!--                    >-->
-<!--                    </ng-select>-->
-<!--                    &lt;!&ndash; <input matInput placeholder="Customer Name" type="text" [(ngModel)]="appointment.customerName" id="customerName" formControlName="customerName"> &ndash;&gt;-->
-<!--                    &lt;!&ndash;                                   </mat-form-field>&ndash;&gt;-->
-<!--                    <div *ngIf="customer?.invalid && (customer?.dirty || customer?.touched)" class="error-validation">-->
-<!--                        <div *ngIf="customer?.errors?.['required']">-->
-<!--                            Customer Name is required.-->
+<!--                    <div *ngIf="service?.invalid && (service?.dirty || service?.touched)" class="error-validation">-->
+<!--                        <div *ngIf="service?.errors?.['required']">-->
+<!--                            Service Name is required.-->
 <!--                        </div>-->
 <!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+                </div>
+            </div>
         </form>
     </div>
 </div>

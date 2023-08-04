@@ -11,6 +11,7 @@ import { PaymentsComponent } from 'app/pages/admin-employ/payments/payments.comp
 import { AppointmentEditComponent } from 'app/pages/admin-employ/appointment-edit/appointment-edit.component';
 import {AppointmentDetailsComponent} from "../../pages/admin-employ/appointment-details/appointment-details.component";
 import {ManageAppointmentComponent} from "../../pages/admin-employ/manage-appointment/manage-appointment.component";
+import { CustomerMessageComponent } from 'app/pages/admin-employ/customer-message/customer-message.component';
 
 export const EmployLayoutRoutes: Routes = [
     { path: '', redirectTo: 'appoitments' },
@@ -25,4 +26,10 @@ export const EmployLayoutRoutes: Routes = [
     { path: 'profile',   component: EmployeeUserProfileComponent, canActivate: [AfterGuards], },
     { path: 'appointments',  component: AppointmentDetailsComponent, canActivate: [AfterGuards], },
     { path: 'manage-appointment', component: ManageAppointmentComponent, canActivate: [AfterGuards],},
+    { path: 'messages',  component: CustomerMessageComponent, canActivate: [AfterGuards], },
+
+    {
+        path: '**',
+        redirectTo: 'appoitments',
+      },
 ];

@@ -154,7 +154,15 @@ export class HomeComponent implements OnInit {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                   });
-                  this.router.navigateByUrl('/');
+                  this.contact = {
+                    name: '',
+                    email: '',
+                    subject: '',
+                    message: '',
+                  }
+                  this.getInTouch.markAsPristine();
+                  this.getInTouch.markAsUntouched();
+                  this.getInTouch.updateValueAndValidity();
 
                 }, async error => {
                   console.log(error)
@@ -193,7 +201,7 @@ export class HomeComponent implements OnInit {
     } else if(this.token.isUserCustomer()) {
       this.router.navigateByUrl('/customer')
     } else {
-      this.router.navigateByUrl('/employee')
+      this.router.navigateByUrl('/employee/appointments')
     }
   }
 

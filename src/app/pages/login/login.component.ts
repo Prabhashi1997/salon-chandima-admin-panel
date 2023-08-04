@@ -91,11 +91,11 @@ export class LoginComponent implements OnInit {
     console.log(name);
     this.service.changeData({ image: image, name: name })
     if (this.tokenService.isUserAdmin()) {
-      this.router.navigate(['/admin/dashboard']);
+      this.router.navigate(['/admin']);
     } else if (this.tokenService.isUserEmploy()) {
-      this.router.navigate(['/employ/dashboard']);
+      this.router.navigate(['/employ']);
     } else if (this.tokenService.isUserCustomer()) {
-      this.router.navigate(['/customer/dashboard']);
+      this.router.navigate(['/customer']);
     } else {
       this.router.navigate(['/login']);
     }

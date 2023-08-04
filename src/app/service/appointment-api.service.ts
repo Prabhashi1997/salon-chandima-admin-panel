@@ -26,7 +26,7 @@ export class AppointmentApiService {
         return data as Observable<any>;
     }
 
-    editAppointment(postData: any, id: string): Observable<{ message: string, body?: any }> {
+    editAppointment(postData: any, id: number): Observable<{ message: string, body?: any }> {
         const token = localStorage.getItem('token');
         const url = `${this.baseUrl2}/${id}`;
         const data = this.http.patch(url,postData,{headers: { Authorization: `Bearer ${token}` },});
