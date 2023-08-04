@@ -47,6 +47,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
     end: '',
     duration: 0,
     price: 0,
+    customer: 0,
   }
 
   uAppointment = {
@@ -110,6 +111,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
     }
     this.appointmentForm = new FormGroup({
       service: new FormControl(this.appointment.service, [Validators.required]),
+      customer: new FormControl(this.appointment.customer, [Validators.required]),
     });
 
     this.loadData();
@@ -119,6 +121,11 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
   get service() {
     return this.appointmentForm?.get('service')
   }
+
+  get customer() {
+    return this.appointmentForm?.get('customer')
+  }
+
   loadData() {
     this.customerService.getAllCustomers().subscribe((e) => {
       this.customers = e.customers;
@@ -128,48 +135,46 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
       this.services = e.services;
     });
   }
-  handleDateClick(arg) {
+  async handleDateClick(arg) {
     console.log(arg)
     let pdate = new Date();
     pdate.setHours(0)
     pdate.setDate(2 + pdate.getDate());
-    if (new Date(arg.dateStr.split('+')[0]) > new Date(pdate.toISOString()) ) {
+    if (new Date(arg.dateStr.split('+')[0]) > new Date(pdate.toISOString())) {
       // tslint:disable-next-line: max-line-length
       if (!this.isAnOverlapEvent(arg.dateStr.split('+')[0], arg.dateStr.split('+')[0].substring(0, 11)
-        + this.increese(arg.dateStr.split('+')[0].substring(11, 13))
-        + arg.dateStr.split('+')[0].substring(13, 19))) {
+          + this.increese(arg.dateStr.split('+')[0].substring(11, 13))
+          + arg.dateStr.split('+')[0].substring(13, 19))) {
         this.appointment.start = arg.dateStr;
-        Swal.fire({
-          title: 'Book Appointment',
+        this.appointment.date = (arg.dateStr as string).split('T')[0];
+        await Swal.fire({
+          titleText: 'Book Appointment',
           showCancelButton: true,
           confirmButtonText: 'Save',
           html: this.modal?.nativeElement,
-        }).then(async (result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            if (new Date(this.appointment.end).getHours() < 18 &&
-                !this.calendarEvents.find((e) => {
-                  const startDate = new Date(this.appointment.start);
-                  const c1 = new Date(e.start as string);
-                  const c2 = new Date(e.end as string);
-                  const endDate = new Date(this.appointment.end);
-                  return  (startDate < c1 && endDate > c1) || (startDate < c2 && endDate > c2)
-                })
-            ) {
-              this.appointmentService.addAppointment(this.appointment).subscribe((data) => {
-                this.getall();
-              })
-              this.calendarEvents = [ ...this.calendarEvents, {
-                title: this.tokenService.getFirstName(),
-                start: this.appointment.start,
-                end: this.appointment.end,
-                color: '#ad1457'
-              },];
-
+          showLoaderOnConfirm: true,
+          preConfirm: async () => {
+            if (+this.appointment.customer === 0 || this.appointment.service.length === 0) {
+              Swal.showValidationMessage('Form is not completed');
             } else {
-              const s = Math.ceil(this.appointment.duration / 60);
-              await Swal.fire('Info', `If you want set this appointment select ${s} hour free slot`, 'info')
-              this.getall();
+              if (new Date(this.appointment.end).getHours() < 18 &&
+                  !this.calendarEvents.find((e) => {
+                    const startDate = new Date(this.appointment.start);
+                    const c1 = new Date(e.start as string);
+                    const c2 = new Date(e.end as string);
+                    const endDate = new Date(this.appointment.end);
+                    return (startDate < c1 && endDate > c1) || (startDate < c2 && endDate > c2)
+                  })
+              ) {
+                this.appointmentService.addEAppointment(this.appointment).subscribe((data) => {
+                  this.getall();
+                })
+
+              } else {
+                const s = Math.ceil(this.appointment.duration / 60);
+                await Swal.fire('Info', `If you want set this appointment select ${s} hour free slot`, 'info')
+                this.getall();
+              }
             }
           }
         })
@@ -179,9 +184,9 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
     } else {
       pdate.setDate(1 + pdate.getDate());
       Swal.fire(
-        'Error!',
-        'You can get Appointment after ' + pdate.toISOString().substring(0,10)+' 00:00',
-        'error'
+          'Error!',
+          'You can get Appointment after ' + pdate.toISOString().substring(0, 10) + ' 00:00',
+          'error'
       )
     }
 

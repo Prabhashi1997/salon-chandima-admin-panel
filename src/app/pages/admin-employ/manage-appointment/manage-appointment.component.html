@@ -76,11 +76,22 @@
                                     <mat-cell  *matCellDef="let element"> {{element.services}}</mat-cell>
                                 </ng-container>
 
+                                <ng-container matColumnDef="price">
+                                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
+                                    <mat-cell  *matCellDef="let element"> {{element.price}}</mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="totalPrice">
+                                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Total Price </mat-header-cell>
+                                    <mat-cell  *matCellDef="let element"> {{element.totalPrice}}</mat-cell>
+                                </ng-container>
+
+
                                 <ng-container matColumnDef="action">
                                     <mat-header-cell  *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                                     <mat-cell  *matCellDef="let element">
                                         <button mat-raised-button class="btn btn-primary mr-2"  >Done</button>
-                                        <button mat-raised-button class="btn btn-danger mr-2"  >Delete</button>
+                                        <!-- <button mat-raised-button class="btn btn-danger mr-2" (click)="addDiscount(element.id)"  >Discount</button> -->
                                     </mat-cell>
                                 </ng-container>
 

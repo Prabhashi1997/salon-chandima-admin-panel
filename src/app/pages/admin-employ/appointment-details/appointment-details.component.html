@@ -34,11 +34,33 @@
                     </ng-select>
                     <!--                                    <input matInput placeholder="Service Name" type="text" [(ngModel)]="appointment.service" id="service" formControlName="service">-->
                     <!--                                  </mat-form-field>-->
-<!--                    <div *ngIf="service?.invalid && (service?.dirty || service?.touched)" class="error-validation">-->
-<!--                        <div *ngIf="service?.errors?.['required']">-->
-<!--                            Service Name is required.-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div *ngIf="service?.invalid && (service?.dirty || service?.touched)" class="error-validation">
+                        <div *ngIf="service?.errors?.['required']">
+                            Service Name is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px;position: relative">
+                <div class="col-md-11" style="position: relative">
+                    <!--                                   <mat-form-field class="example-full-width">-->
+                    <ng-select
+                            placeholder="Customer Name"
+                            [items]="customers"
+                            bindLabel="name"
+                            bindValue="id"
+                            [(ngModel)]="appointment.customer"
+                            id="customer"
+                            formControlName="customer"
+                    >
+                    </ng-select>
+                    <!-- <input matInput placeholder="Customer Name" type="text" [(ngModel)]="appointment.customerName" id="customerName" formControlName="customerName"> -->
+                    <!--                                   </mat-form-field>-->
+                    <div *ngIf="customer?.invalid && (customer?.dirty || customer?.touched)" class="error-validation">
+                        <div *ngIf="customer?.errors?.['required']">
+                            Customer Name is required.
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

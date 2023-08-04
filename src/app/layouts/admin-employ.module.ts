@@ -12,7 +12,6 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatRadioModule} from "@angular/material/radio";
 import {CustomerEditComponent} from "../pages/admin-employ/customer-edit/customer-edit.component";
 import {ServicesComponent} from "../pages/admin-employ/services/services.component";
-import {PaymentsComponent} from "../pages/admin-employ/payments/payments.component";
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -22,7 +21,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {AppointmentEditComponent} from "../pages/admin-employ/appointment-edit/appointment-edit.component";
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CustomerMessageComponent } from 'app/pages/admin-employ/customer-message/customer-message.component';
 import {AppointmentDetailsComponent} from "../pages/admin-employ/appointment-details/appointment-details.component";
@@ -35,8 +33,6 @@ import {ManageAppointmentComponent} from "../pages/admin-employ/manage-appointme
       ServicesComponent,
       CustomersComponent,
       CustomerEditComponent,
-      PaymentsComponent,
-      AppointmentEditComponent,
       CustomerMessageComponent,
       AppointmentDetailsComponent,
       ManageAppointmentComponent,
@@ -46,8 +42,6 @@ import {ManageAppointmentComponent} from "../pages/admin-employ/manage-appointme
       ServiceEditComponent,
       CustomersComponent,
       CustomerEditComponent,
-      PaymentsComponent,
-      AppointmentEditComponent,
       CustomerMessageComponent,
       AppointmentDetailsComponent,
       ManageAppointmentComponent,

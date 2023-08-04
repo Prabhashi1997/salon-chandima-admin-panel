@@ -33,7 +33,7 @@ export class ManageAppointmentComponent implements OnInit {
     select: boolean,
     modelValue?: any,
   }[] = [];
-  displayedColumns: string[] = ['num', 'name', 'date','time','duration','advance','status', 'services', 'action' ];
+  displayedColumns: string[] = ['name', 'date','time','advance','price','status', 'services', 'action' ];
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -142,4 +142,9 @@ export class ManageAppointmentComponent implements OnInit {
     this.dataSource.filter = "";
   }
 
+  addDiscount(id: number) {
+    this.appointmentService.addDiscount({ id: id, discount: 5 }).subscribe(() => {
+      this.getAppointments();
+    })
+  }
 }
