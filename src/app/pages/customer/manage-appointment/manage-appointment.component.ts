@@ -33,7 +33,7 @@ export class ManageAppointmentComponent implements OnInit {
     select: boolean,
     modelValue?: any,
   }[] = [];
-  displayedColumns: string[] = ['num', 'date','time','duration','advance','status', 'services' ];
+  displayedColumns: string[] = ['num', 'date','time','duration','advance','price','status', 'services' ];
 
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;

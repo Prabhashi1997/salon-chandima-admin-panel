@@ -80,21 +80,6 @@ export class ServiceEditComponent implements OnInit {
           }
         });
 
-        // this.serviceForm = new FormGroup({
-        //   category: new FormControl(null),
-        //   service: new FormControl({value: null, disabled: true})
-        // });
-
-        // this.serviceForm.get('category')?.valueChanges.subscribe((res: number) => {
-        //   console.log(res);
-        //   this.serviceForm.get('name')?.setValue(null);
-        //   if(res) {
-        //     this.selectedNamesList = this.list.filter((obj: any) => obj.id === res)[0].names;
-        //     this.serviceForm.get('name')?.enable();
-        //   } else {
-        //     this.serviceForm.get('name')?.disable();
-        //   }
-        // })
   }
 
   get serviceName() {
@@ -149,7 +134,6 @@ export class ServiceEditComponent implements OnInit {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                   });
-                  this.router.navigateByUrl('/admin/services');
 
                 }, async error => {
                   console.log(error)
@@ -190,7 +174,6 @@ export class ServiceEditComponent implements OnInit {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                   });
-                  this.router.navigateByUrl('/admin/services');
 
                 }, async error => {
                   console.log(error)

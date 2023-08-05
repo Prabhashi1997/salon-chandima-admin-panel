@@ -90,7 +90,7 @@
                                 <ng-container matColumnDef="action">
                                     <mat-header-cell  *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
                                     <mat-cell  *matCellDef="let element">
-                                        <button mat-raised-button class="btn btn-primary mr-2"  >Done</button>
+                                        <button *ngIf="element.status !== 'Done'" mat-raised-button class="btn btn-primary mr-2" (click)="doneAppointment(element.id)" >Done</button>
                                         <!-- <button mat-raised-button class="btn btn-danger mr-2" (click)="addDiscount(element.id)"  >Discount</button> -->
                                     </mat-cell>
                                 </ng-container>

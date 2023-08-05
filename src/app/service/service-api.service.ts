@@ -86,4 +86,11 @@ export interface Service {
         return data as Observable<{ message: string, body?: any }>;
       }
 
+      addDiscount(postData: any): Observable<{ message: string, body?: any }> {
+        const token = localStorage.getItem('token');
+        const url = `${this.baseUrl2}/discount`;
+        const data = this.http.post(url,postData,{headers: { Authorization: `Bearer ${token}` },});
+        return data as Observable<{ message: string, body?: any }>;
+      }
+
   }

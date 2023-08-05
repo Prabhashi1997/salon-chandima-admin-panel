@@ -14,9 +14,25 @@
 
 <div style="display: none;">
     <div #modal style="position: relative">
-        <form [formGroup]="appointmentForm" style="width: 100%;height: 200px;">
+        <form  style="width: 100%;height: 200px;">
+            <div class="row" style="margin-top: 20px;position: relative">
+                <div class="col-md-11" style="position: relative">
+                    <!--                                   <mat-form-field class="example-full-width">-->
+                    <ng-select
+                            placeholder="Customer Name"
+                            [items]="customers"
+                            bindLabel="name"
+                            bindValue="id"
+                            [(ngModel)]="appointment.customer"
+                            id="customer"
+                    >
+                    </ng-select>
+                    <!-- <input matInput placeholder="Customer Name" type="text" [(ngModel)]="appointment.customerName" id="customerName" formControlName="customerName"> -->
+                    <!--                                   </mat-form-field>-->
+                </div>
+            </div>
             <div class="row" style="margin-top: 20px;">
-                <div class="col-md-11" style="margin-left: 10px;">
+                <div class="col-md-11">
                     <!--                                  <mat-form-field class="example-full-width">-->
                     <ng-select
                             placeholder="Service Name"
@@ -28,39 +44,37 @@
                             [(ngModel)]="appointment.service"
                             id="service"
                             (change)="onServiceChange($event)"
-                            formControlName="service"
                             [multiple]="true"
                     >
                     </ng-select>
                     <!--                                    <input matInput placeholder="Service Name" type="text" [(ngModel)]="appointment.service" id="service" formControlName="service">-->
                     <!--                                  </mat-form-field>-->
-                    <div *ngIf="service?.invalid && (service?.dirty || service?.touched)" class="error-validation">
-                        <div *ngIf="service?.errors?.['required']">
-                            Service Name is required.
-                        </div>
-                    </div>
+
                 </div>
             </div>
-            <div class="row" style="margin-top: 20px;position: relative">
-                <div class="col-md-11" style="position: relative">
-                    <!--                                   <mat-form-field class="example-full-width">-->
+        </form>
+    </div>
+</div>
+
+
+<div style="display: none;">
+    <div #modal1 style="position: relative">
+        <form style="width: 100%;height: 200px;">
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-11" style="margin-left: 10px;">
                     <ng-select
-                            placeholder="Customer Name"
-                            [items]="customers"
+                            placeholder="Service Name"
+                            [items]="services"
                             bindLabel="name"
                             bindValue="id"
-                            [(ngModel)]="appointment.customer"
-                            id="customer"
-                            formControlName="customer"
+                            clearSearchOnAdd="true"
+                            [closeOnSelect]="false"
+                            [(ngModel)]="appointment1.service"
+                            id="service1"
+                            (change)="onServiceChange1($event)"
+                            [multiple]="true"
                     >
                     </ng-select>
-                    <!-- <input matInput placeholder="Customer Name" type="text" [(ngModel)]="appointment.customerName" id="customerName" formControlName="customerName"> -->
-                    <!--                                   </mat-form-field>-->
-                    <div *ngIf="customer?.invalid && (customer?.dirty || customer?.touched)" class="error-validation">
-                        <div *ngIf="customer?.errors?.['required']">
-                            Customer Name is required.
-                        </div>
-                    </div>
                 </div>
             </div>
         </form>

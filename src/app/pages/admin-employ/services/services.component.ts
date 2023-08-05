@@ -80,7 +80,7 @@ export class ServicesComponent implements OnInit, AfterViewInit {
     } );
   }
   add() {
-    if(this.token.isUserAdmin) {
+    if(this.token.isUserAdmin()) {
       this.router.navigateByUrl('/admin/create-service')
     } else {
       this.router.navigateByUrl('/employee/create-service')
@@ -88,7 +88,7 @@ export class ServicesComponent implements OnInit, AfterViewInit {
   }
 
   update(id: string) {
-    if(this.token.isUserAdmin) {
+    if(this.token.isUserAdmin()) {
       this.router.navigateByUrl('/admin/edit-service/'+id)
     } else {
       this.router.navigateByUrl('/employee/edit-service/'+id)
@@ -206,4 +206,5 @@ export class ServicesComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
 }

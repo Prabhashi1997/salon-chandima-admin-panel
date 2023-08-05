@@ -12,7 +12,7 @@ import {ManageAppointmentComponent} from "../../pages/admin-employ/manage-appoin
 import { CustomerMessageComponent } from 'app/pages/admin-employ/customer-message/customer-message.component';
 
 export const EmployLayoutRoutes: Routes = [
-    { path: '', redirectTo: 'appoitments' },
+    { path: '', redirectTo: 'appointments' },
     // { path: 'dashboard',      component: DashboardComponent, canActivate: [AfterGuards], },
     { path: 'customers',  component: CustomersComponent, canActivate: [AfterGuards], },
     { path: 'create-customer', component: CustomerEditComponent, canActivate: [AfterGuards],  },
@@ -26,6 +26,6 @@ export const EmployLayoutRoutes: Routes = [
     { path: 'messages',  component: CustomerMessageComponent, canActivate: [AfterGuards], },
     {
         path: '**',
-        redirectTo: 'appoitments',
+        redirectTo: 'appointments',
       },
 ];

@@ -39,7 +39,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'reviews-delete',  component: ReviewsDeleteComponent, canActivate: [AfterGuards], },
     {
         path: '**',
-        redirectTo: 'appoitments',
+        redirectTo: 'appointments',
       },
 
 ];

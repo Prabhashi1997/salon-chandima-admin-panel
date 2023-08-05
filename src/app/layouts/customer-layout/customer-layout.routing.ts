@@ -16,6 +16,6 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'profile', component: UserProfileComponent, canActivate: [AfterGuards],},
     {
         path: '**',
-        redirectTo: 'appoitments',
+        redirectTo: 'appointments',
       },
 ];

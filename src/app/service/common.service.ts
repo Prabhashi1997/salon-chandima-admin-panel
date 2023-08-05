@@ -30,4 +30,12 @@ export class CommonService {
     const data = this.http.post(url,postData,{headers: { Authorization: `Bearer ${token}` },});
     return data as Observable<{ message: string, body?: any }>;
   }
+
+  deleteMessage(id: number): Observable<{ message: string, body?: any }> {
+    const token = localStorage.getItem('token');
+    const url = `${environment.BASE_URL}admin/messages/${id}`;
+    const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
+    return data as Observable<{ message: string, body?: any }>;
+  }
+  
 }

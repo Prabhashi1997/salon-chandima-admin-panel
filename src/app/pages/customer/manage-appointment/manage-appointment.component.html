@@ -67,6 +67,11 @@
                                     <mat-cell  *matCellDef="let element"> {{element['advance']}} Rs</mat-cell>
                                 </ng-container>
 
+                                <ng-container matColumnDef="price">
+                                    <mat-header-cell  *matHeaderCellDef mat-sort-header> Price </mat-header-cell>
+                                    <mat-cell  *matCellDef="let element"> {{element.price}} Rs</mat-cell>
+                                </ng-container>
+
                                 <ng-container matColumnDef="services">
                                     <mat-header-cell  *matHeaderCellDef mat-sort-header> Services </mat-header-cell>
                                     <mat-cell  *matCellDef="let element"> {{element.services}}</mat-cell>

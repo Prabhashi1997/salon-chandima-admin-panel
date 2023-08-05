@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from 'app/service/admin.service';
+import { CommonService } from 'app/service/common.service';
 import { CustomerMessage } from 'app/service/customer-api.service';
 import Swal from 'sweetalert2';
 
@@ -22,13 +23,14 @@ export class CustomerMessageComponent implements OnInit {
   messages: CustomerMessage[] = [];
   dataSource = new MatTableDataSource();
 
-  displayedColumns: string[] = ['num', 'name','email','subject','message'];
+  displayedColumns: string[] = ['num', 'name','email','subject','message', 'disable'];
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private customerService: AdminService,
+    private adminService: CommonService,
   ) {
     this.getAllMessages();
     console.log(this.getAllMessages);
@@ -50,6 +52,49 @@ export class CustomerMessageComponent implements OnInit {
         'error'
       );
     })
+  }
+
+  delete(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do You want delete this message?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#4250ce',
+      confirmButtonText: `Yes, delete it`,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Processing!',
+          didOpen: () => {
+            Swal.showLoading();
+          },
+          allowOutsideClick: () => !Swal.isLoading()
+        }).then(() => {
+        });
+        this.adminService.deleteMessage(id).subscribe(
+            async data => {
+              await Swal.fire({
+                title: 'Success!',
+                text: `You have successfully deleted.`,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              });
+              await this.getAllMessages()
+
+            }, async error => {
+              console.log(error)
+              await Swal.fire(
+                  'Error!',
+                  'Your process has been cancelled.',
+                  'error'
+              );
+
+            }
+        )
+      }
+    });
   }
 }
 

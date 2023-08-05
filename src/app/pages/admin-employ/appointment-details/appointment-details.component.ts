@@ -33,6 +33,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
   @ViewChild('calendar', {static: false}) calendar: FullCalendarComponent;
 
   @ViewChild('modal') modal: ElementRef | undefined;
+  @ViewChild('modal1') modal1: ElementRef | undefined;
 
   calendarWeekends = true;
   calendarEvents: EventInput[] = [];
@@ -40,6 +41,17 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
   services: {  id: number, name: string }[] = [];
 
   appointment = {
+    service: [],
+    date: '',
+    time: '',
+    start: '',
+    end: '',
+    duration: 0,
+    price: 0,
+    customer: 0,
+  }
+
+  appointment1 = {
     service: [],
     date: '',
     time: '',
@@ -104,9 +116,9 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
       weekends: this.calendarWeekends,
       dateClick: this.handleDateClick.bind(this),
       dayRender: this.dayRender.bind(this),
+      eventClick: this.updateAppointmentData.bind(this),
       eventDragStop: this.updateAppointment.bind(this),
       eventDrop: this.updateAppointment.bind(this),
-      eventReceive: this.createAppointment.bind(this),
       eventRender: this.eventDo.bind(this),
     }
     this.appointmentForm = new FormGroup({
@@ -136,7 +148,16 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
     });
   }
   async handleDateClick(arg) {
-    console.log(arg)
+    this.appointment = {
+      service: [],
+      date: '',
+      time: '',
+      start: '',
+      end: '',
+      duration: 0,
+      price: 0,
+      customer: 0,
+    };
     let pdate = new Date();
     pdate.setHours(0)
     pdate.setDate(2 + pdate.getDate());
@@ -154,6 +175,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
           html: this.modal?.nativeElement,
           showLoaderOnConfirm: true,
           preConfirm: async () => {
+            console.log(+this.appointment.customer, this.appointment.service.length)
             if (+this.appointment.customer === 0 || this.appointment.service.length === 0) {
               Swal.showValidationMessage('Form is not completed');
             } else {
@@ -238,7 +260,7 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
 
 
           if (new Date(this.uAppointment.end).getHours() < 18 &&
-              !this.calendarEvents.find((e) => {
+              !this.calendarEvents.filter((e) => +e.id as number !==  this.uAppointment.id).find((e) => {
                 const startDate = new Date(this.uAppointment.start);
                 const c1 = new Date(e.start as string);
                 const c2 = new Date(e.end as string);
@@ -302,6 +324,122 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
 
   }
 
+  async updateAppointmentData(event) {
+    this.appointment1 = {
+      service: [],
+      date: '',
+      time: '',
+      start: '',
+      end: '',
+      duration: 0,
+      price: 0,
+      customer: 0,
+    }
+    if (+event.event._def.publicId !== undefined) {
+      const d = this.calendarEvents.find((e) => +e.id === +event.event._def.publicId);
+      this.appointment1.service = d.services;
+      this.appointment1.start = d.start as string;
+      this.appointment1.date = d.date as string;
+      this.appointment1.end = d.end as string;
+      this.appointment1.duration = +d.duration as number;
+      this.appointment1.price = +d.price as number;
+
+      await Swal.fire({
+        titleText: 'Edit Appointment Data',
+        showCancelButton: true,
+        confirmButtonText: 'Edit',
+        html: this.modal1?.nativeElement,
+        showLoaderOnConfirm: true,
+        showDenyButton: true,
+        denyButtonText: `Delete`,
+        preConfirm: async (r) => {
+          if (this.appointment1.service.length === 0) {
+            Swal.showValidationMessage('Form is not completed');
+          } else {
+            if (new Date(this.appointment1.end).getHours() < 18 &&
+                !this.calendarEvents.filter((e) => e.id !== d.id).find((e) => {
+                  const startDate = new Date(this.appointment1.start);
+                  const c1 = new Date(e.start as string);
+                  const c2 = new Date(e.end as string);
+                  const endDate = new Date(this.appointment1.end);
+                  return (startDate < c1 && endDate > c1) || (startDate < c2 && endDate > c2)
+                })
+            ) {
+              Swal.fire({
+                title: 'Are you sure?',
+                text: `Appointment will be Updated`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, Updated it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true,
+                preConfirm: (login) => {
+                  this.appointmentService.editAppointmentData(this.appointment1, +d.id as number).subscribe((data) => {
+                    this.getall();
+                  })
+
+                },
+              }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.cancel) {
+                  Swal.fire(
+                      'Cancelled',
+                      'Appointment was not deleted',
+                      'error'
+                  )
+                } else {
+                  Swal.fire(
+                      'Updated!',
+                      'Appointment has been Updated.',
+                      'success'
+                  )
+                }
+              });
+
+            } else {
+              const s = Math.ceil(this.appointment.duration / 60);
+              await Swal.fire('Info', `If you want set this appointment select ${s} hour free slot`, 'info')
+              this.getall();
+            }
+          }
+        },
+        preDeny: async (r) => {
+          Swal.fire({
+            title: 'Are you sure?',
+            text: `Appointment will be deleted permanently`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true,
+            preConfirm: (login) => {
+              this.appointmentService.deleteAppointment(+event.event._def.publicId).subscribe((data) => {
+                    console.log(data);
+                    this.getall();
+                  }
+              )
+
+            },
+          }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.cancel) {
+              Swal.fire(
+                  'Cancelled',
+                  'Appointment was not deleted',
+                  'error'
+              )
+            } else {
+              Swal.fire(
+                  'Deleted!',
+                  'Appointment has been deleted.',
+                  'success'
+              )
+            }
+          });
+
+        },
+      })
+    }
+  }
+
   isAnOverlapEvent(eventStartDay, eventEndDay) {
     // Events
       var events = this.calendarEvents;
@@ -343,6 +481,21 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
 
   }
 
+  onServiceChange1(x) {
+    this.appointment1.duration = x.reduce( (sum, tax)  => {
+      return sum + tax.duration;
+    }, 0);
+    this.appointment1.price = x.reduce( (sum, tax)  => {
+      return sum + tax.price;
+    }, 0);
+    const s = new Date(this.appointment1.start);
+    const l = s.setMinutes(s.getMinutes() + this.appointment1.duration);
+    const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    const localISOTime = (new Date(l - tzoffset)).toISOString().slice(0, -5);
+    this.appointment1.end = localISOTime + '+05:30'
+
+  }
+
   getall(){
     this.appointmentService.getCalender().subscribe(
       data => {
@@ -372,23 +525,6 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
 
   }
 
-  createAppointment(event) {
-    // console.dir(this.calendar.element.nativeElement.querySelector(".fc-event"))
-    let date = event.event.start;
-    date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    // const string = event.event.name;
-
-     this._ViewCalendarService.createAppointment(date).subscribe(
-      data => {
-       if (data.success) {
-          event.event.setProp('id', data.task.id);
-       }
-       }
-     )
-
-  }
-
-
   eventDo(event) {
     const icon = this.renderer.createElement('mat-icon');
     const close = this.renderer.createText('close');
@@ -399,54 +535,6 @@ export class AppointmentDetailsComponent implements OnInit, OnDestroy{
   }
 
 
-
-
-  //  Delete the appointment
-  deleteAppointment(event) {
-   console.log(event);
-   if (event.event.title === this.tokenService.getEmail()){
-     console.log(event.event);
-     Swal.fire({
-       title: 'Are you sure?',
-       text: `Appointment will be deleted permanently`,
-       icon: 'warning',
-       showCancelButton: true,
-       confirmButtonText: 'Yes, delete it!',
-       cancelButtonText: 'No, cancel!',
-       reverseButtons: true,
-       preConfirm: (login) => {
-         this._ViewCalendarService.deleteAppointment(event.event.id).subscribe((data) => {
-           console.log(data);
-           if(data.success === true){
-            this.getall();
-           }
-           if (!data.msg)
-             Swal.showValidationMessage(
-               `Request failed`
-             )
-         }
-         )
-
-       },
-     }).then((result) => {
-        if (result.dismiss === Swal.DismissReason.cancel) {
-         Swal.fire(
-           'Cancelled',
-           'Appointment was not deleted',
-           'error'
-         )
-       } else {
-         Swal.fire(
-             'Deleted!',
-             'Appointment has been deleted.',
-             'success'
-         )
-       }
-     });
-
-
-   }
-  }
 
   dayRender(ev) {
     ev.el.addEventListener('dblclick', () => {

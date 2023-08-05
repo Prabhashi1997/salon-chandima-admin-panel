@@ -154,7 +154,7 @@ export class CustomerEditComponent implements OnInit {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                   });
-                  this.router.navigateByUrl('/admin/customers');
+                
 
                 }, async error => {
                   console.log(error)
@@ -195,8 +195,7 @@ export class CustomerEditComponent implements OnInit {
                     icon: 'success',
                     confirmButtonText: 'Ok'
                   });
-                  // this.router.navigateByUrl('/customers');
-                  this.router.navigateByUrl('/admin/customers');
+                
 
                 }, async error => {
                   console.log(error)

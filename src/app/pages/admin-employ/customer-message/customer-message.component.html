@@ -45,6 +45,13 @@
                             <mat-header-cell  *matHeaderCellDef mat-sort-header> Message </mat-header-cell>
                             <mat-cell  *matCellDef="let element"> {{element.message}} </mat-cell>
                           </ng-container>
+
+                          <ng-container matColumnDef="disable">
+                            <mat-header-cell  *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                            <mat-cell  *matCellDef="let element">
+                              <button mat-raised-button class="btn btn-danger mr-2"  (click)="delete(element.id)">Delete</button>
+                            </mat-cell>
+                          </ng-container>
           
                           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                           <mat-row *matRowDef="let row; columns: displayedColumns;" matRipple class="element-row" style="cursor: pointer"

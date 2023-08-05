@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
             console.log(error);
             Swal.fire(
                 'Login Error!',
-                error.error.msg,
+                'Password can be invalid',
                 'error'
             );
             this.handleError(error)

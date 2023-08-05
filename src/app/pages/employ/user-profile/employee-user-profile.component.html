@@ -5,6 +5,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">My Profile</h4>
+                        <button mat-raised-button (click)="updatePassword()" class="btn btn-danger pull-left">Change Password</button>
                     </div>
                     <div class="card-body">
                         <form (ngSubmit)="submit()" [formGroup]="profileForm" *ngIf="!isLoading">
@@ -105,5 +106,27 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div style="display: none;">
+    <div #modal style="position: relative">
+        <form  style="width: 100%;height: 200px;">
+            <div class="row" style="margin-top: 20px;position: relative">
+                <div class="col-md-11" style="position: relative">
+                     <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Password" type="text" [(ngModel)]="password.password" id="password">
+                     </mat-form-field>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-11">
+                    <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Re-Password" type="text" [(ngModel)]="password.rePassword" id="rePassword">
+                    </mat-form-field>
+
+                </div>
+            </div>
+        </form>
     </div>
 </div>

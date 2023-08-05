@@ -142,9 +142,43 @@ export class ManageAppointmentComponent implements OnInit {
     this.dataSource.filter = "";
   }
 
-  addDiscount(id: number) {
-    this.appointmentService.addDiscount({ id: id, discount: 5 }).subscribe(() => {
-      this.getAppointments();
-    })
+  doneAppointment(id: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Appointment will be  Done`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Done it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true,
+      preConfirm: (login) => {
+        this.appointmentService.doneAppointment(id).subscribe((data) => {
+              this.getAppointments();
+
+            }
+        )
+
+      },
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+            'Cancelled',
+            'Appointment was not deleted',
+            'error'
+        )
+      } else {
+        Swal.fire(
+            'Success!',
+            'Appointment has been Done.',
+            'success'
+        )
+      }
+    });
   }
+
+  // addDiscount(id: number) {
+  //   this.appointmentService.addDiscount({ id: id, discount: 5 }).subscribe(() => {
+  //     this.getAppointments();
+  //   })
+  // }
 }

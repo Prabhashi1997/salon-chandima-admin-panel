@@ -40,6 +40,13 @@ export class AppointmentApiService {
         return data as Observable<{ message: string, body?: any }>;
     }
 
+    editAppointmentData(postData: any, id: number): Observable<{ message: string, body?: any }> {
+        const token = localStorage.getItem('token');
+        const url = `${this.baseUrl2}/${id}/data`;
+        const data = this.http.patch(url,postData,{headers: { Authorization: `Bearer ${token}` },});
+        return data as Observable<{ message: string, body?: any }>;
+    }
+
     getAppointment(id: string): Observable<{ data: Appointment }> {
         const token = localStorage.getItem('token');
         const url = `${this.baseUrl2}/${id}`;
@@ -80,6 +87,13 @@ export class AppointmentApiService {
     deleteAppointment(id) {
         const token = localStorage.getItem('token');
         const url = `${this.baseUrl2}/${id}`;
+        const data = this.http.delete(url,{headers: { Authorization: `Bearer ${token}` },});
+        return data as Observable<{ message: string, body?: any }>;
+    }
+
+    doneAppointment(id) {
+        const token = localStorage.getItem('token');
+        const url = `${this.baseUrl2}/${id}/done`;
         const data = this.http.patch(url,{},{headers: { Authorization: `Bearer ${token}` },});
         return data as Observable<{ message: string, body?: any }>;
     }
@@ -97,4 +111,6 @@ export class AppointmentApiService {
         const data = this.http.post(url,postData,{headers: { Authorization: `Bearer ${token}` },});
         return data as Observable<{ message: string, body?: any }>;
     }
+
+
   }

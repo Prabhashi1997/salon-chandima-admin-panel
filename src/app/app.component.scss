@@ -8,3 +8,12 @@
     min-height: unset;
     margin-top: 10px;
 }
+
+::ng-deep .ng-select.ng-select-multiple .ng-select-container.ng-has-value {
+    align-items: center;
+    padding-top: 10px;
+}
+
+::ng-deep .ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    position: unset;
+}

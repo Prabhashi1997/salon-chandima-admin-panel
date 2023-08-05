@@ -5,22 +5,90 @@
         <header>Register Here</header>
       </div>
       <form (ngSubmit)="submit()" [formGroup]="registerForm" *ngIf="isLoading">
-        <div class="input-field">
-          <input placeholder="Username" type="text" class="input" [(ngModel)]="register.username" id="username" formControlName="username">
-          <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="error-validation">
-            <div *ngIf="username?.errors?.['required']">
-              Username is required.
-            </div>                           
+
+        <div class="row">
+          <div class="col-md-12 input-field">
+            <input class="input"  placeholder="First Name" type="text" [(ngModel)]="register.firstName" id="firstName" formControlName="firstName">
+            <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="error-validation">
+              <div *ngIf="firstName?.errors?.['required']">
+                First name is required.
+              </div>
+            </div>
           </div>
         </div>
-        <div class="input-field">
-          <input placeholder="Email Address" type="email" class="input" [(ngModel)]="register.emailAddress" id="emailAddress" formControlName="emailAddress">
-          <div *ngIf="emailAddress?.invalid && (emailAddress?.dirty || emailAddress?.touched)" class="error-validation">
-            <div *ngIf="emailAddress?.errors?.['required']">
-              Email Address is required.
+        <div class="row">
+          <div class="col-md-12 input-field">
+            <input class="input" placeholder="Last Name" type="text" [(ngModel)]="register.lastName" id="lastName" formControlName="lastName">
+            <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="error-validation">
+              <div *ngIf="lastName?.errors?.['required']">
+                Last name is required.
+              </div>
             </div>
-            <div *ngIf="emailAddress?.errors?.['email']">
-              Email Address is not valid.
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 input-field">
+            <input class="input" placeholder="NIC Number" type="text"  [(ngModel)]="register.nic" id="nic" formControlName="nic">
+            <div *ngIf="nicNumber?.invalid && (nicNumber?.dirty || nicNumber?.touched)" class="error-validation">
+              <div *ngIf="nicNumber?.errors?.['required']">
+                NIC number is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div style="display: flex;flex-direction: column;">
+              <mat-label>Gender</mat-label>
+              <mat-radio-group [(ngModel)]="register.gender" aria-label="Gender" formControlName="gender">
+                <mat-radio-button value="male" style="padding-right: 10px">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div *ngIf="gender?.invalid && (gender?.dirty || gender?.touched)" class="error-validation">
+              <div *ngIf="gender?.errors?.['required']">
+                Gender is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <input class="input" placeholder="Age" type="number" [(ngModel)]="register.age" id="age" formControlName="age">
+            <div *ngIf="age?.invalid && (age?.dirty || age?.touched)" class="error-validation">
+              <div *ngIf="age?.errors?.['required']">
+                Age is required.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <input class="input" #message maxlength="10" placeholder="Contact Number" type="tel" [(ngModel)]="register.contactNumber" id="contactNumber" formControlName="contactNumber">
+            <!-- <mat-hint align="end">{{message.value.length}} / 10</mat-hint> -->
+            <div *ngIf="contactNumber?.invalid && (contactNumber?.dirty || contactNumber?.touched)" class="error-validation">
+              <div *ngIf="contactNumber?.errors?.['required']">
+                Contact Number is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <input class="input" placeholder="Adress" type="text" [(ngModel)]="register.address" id="address" formControlName="address">
+            <div *ngIf="address?.invalid && (address?.dirty || address?.touched)" class="error-validation">
+              <div *ngIf="address?.errors?.['required']">
+                Address is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <input matInput class="input" placeholder="Email Address" type="email" [(ngModel)]="register.email" id="email" formControlName="email">
+            <div *ngIf="emailAddress?.invalid && (emailAddress?.dirty || emailAddress?.touched)" class="error-validation">
+              <div *ngIf="emailAddress?.errors?.['required']">
+                Email Address is required.
+              </div>
+              <div *ngIf="emailAddress?.errors?.['email']">
+                Email Address is not valid.
+              </div>
             </div>
           </div>
         </div>
@@ -29,7 +97,7 @@
           <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error-validation">
             <div *ngIf="password?.errors?.['required']">
               Password is required.
-            </div>                           
+            </div>
           </div>
         </div>
         <div class="input-field">
@@ -37,12 +105,12 @@
           <div *ngIf="passwordAgain?.invalid && (passwordAgain?.dirty || passwordAgain?.touched)" class="error-validation">
             <div *ngIf="passwordAgain?.errors?.['required']">
               Password doesn't match.
-            </div>                           
+            </div>
           </div>
         </div>
         <div class="input-field">
           <input type="submit" class="submit" value="Register">
-        </div>       
+        </div>
         <div class="input-field">
           <input type="reset" class="reset" value="Reset">
         </div>
@@ -50,10 +118,9 @@
           <div class="left">
             <input type="checkbox"  id="check" class="checkbox">
             <label for="check"> Remember me</label>
-          </div>  
+          </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-

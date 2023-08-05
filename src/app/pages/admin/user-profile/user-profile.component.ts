@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AdminService } from 'app/service/admin.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { dA } from '@fullcalendar/core/internal-common';
+import { UserService } from 'app/service/user.service';
 
 
 @Component({
@@ -12,6 +13,7 @@ import { dA } from '@fullcalendar/core/internal-common';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+  @ViewChild('modal') modal: ElementRef | undefined;
 
   profileForm;
   isLoading = true;
@@ -26,8 +28,14 @@ export class UserProfileComponent implements OnInit {
     email:'',
   }
 
+  password= {
+    password: '',
+    rePassword: ''
+  }
+
   constructor(
     private adminService: AdminService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -128,4 +136,51 @@ export class UserProfileComponent implements OnInit {
       }
       console.log("Form submitted", !this.profileForm.invalid)
     }
-}
+
+    async updatePassword() {
+      await Swal.fire({
+        titleText: 'Edit Password',
+        showCancelButton: true,
+        confirmButtonText: 'Save',
+        html: this.modal?.nativeElement,
+        showLoaderOnConfirm: true,
+        preConfirm: async (r) => {
+          if (this.password.password === '' ||  this.password.rePassword === '') {
+            Swal.showValidationMessage('Form is not completed');
+          } else if(this.password.password === '' ||  this.password.rePassword === '') {
+            Swal.showValidationMessage('Password not matched');
+          } else {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: `Password will be Updated`,
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, Updated it!',
+              cancelButtonText: 'No, cancel!',
+              reverseButtons: true,
+              preConfirm: (login) => {
+                delete this.password.rePassword;
+                this.userService.passwordChange(this.password).subscribe((data) => {
+                })
+
+              },
+            }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.cancel) {
+                Swal.fire(
+                    'Cancelled',
+                    'Password was not Updated',
+                    'error'
+                )
+              } else {
+                Swal.fire(
+                    'Updated!',
+                    'Password has been Updated.',
+                    'success'
+                )
+              }
+            });
+          }
+        },
+      })
+    }
+  }

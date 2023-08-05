@@ -34,6 +34,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AppointmentApiService } from './service/appointment-api.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {NgxMaterialRatingModule} from "ngx-material-rating";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   imports: [
@@ -49,6 +52,9 @@ import {NgxMaterialRatingModule} from "ngx-material-rating";
       MatPaginatorModule,
       NgxMaterialRatingModule,
       NgSelectModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatRadioModule,
   ],
   declarations: [
       AppComponent,
